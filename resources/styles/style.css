@@ -1,0 +1,115 @@
+body, HTML{
+padding:0;
+margin:0;
+background:#24292E;
+font-family: Arial, Helvetica, sans-serif;
+}
+a{
+    color:#8241f9
+}
+a:visited{
+    color:#4e277b
+}
+.bodyWrapper{
+    max-width:1000px;
+    margin:0 auto;
+    background:#171a1c;
+    color:#B3B4AE;
+    padding-top:40px;
+    padding-bottom:5px;
+}
+.menuBar{
+    width:100%;
+    max-width:1000px;
+    margin:0 auto;
+    position:fixed;
+    top:0;
+    height:50px;
+    background: url('../images/bannerGlow.png'), #8241f9; /* Old browsers */
+    background: url('../images/bannerGlow.png'), -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
+    background: url('../images/bannerGlow.png'), -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: url('../images/bannerGlow.png'), linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8241f9', endColorstr='#4e277b',GradientType=0 ); /* IE6-9 */
+    color:#FFF6EF;
+    transition: all 0.2s ease-in-out;
+}
+.smallMenuBar{
+    width:100%;
+    max-width:1000px;
+    margin:0 auto;
+    position:fixed;
+    top:0;
+    height:30px;
+    /*background: url('../images/bannerGlow.png'),linear-gradient(to bottom, #8241f9, #4e277b);*/
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8241f9+0,8845d3+50,6733b8+50,4e277b+100 */
+    background: url('../images/bannerGlow.png'), #8241f9; /* Old browsers */
+    background: url('../images/bannerGlow.png'), -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
+    background: url('../images/bannerGlow.png'), -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: url('../images/bannerGlow.png'), linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8241f9', endColorstr='#4e277b',GradientType=0 ); /* IE6-9 */
+    color:#FFF6EF;
+    transition: all 0.5s ease-in-out;
+}
+.smallMenuBar .logo{
+    color:#FFF6EF;
+    font-size: 20px;
+    font-weight: 100;
+    padding:5px;
+    float:left;
+    transition: all 0.5s ease-in-out;
+}
+.menuBar .logo{
+    color:#FFF6EF;
+    font-size: 30px;
+    font-weight: 100;
+    padding:8px;
+    float:left;
+    transition: all 0.2s ease-in-out;
+}
+.smallMenuBar .menuButton{
+    float:right;
+    padding:5px;
+    padding-left:0;
+    transition: all 0.5s ease-in-out;
+}
+.menuBar .menuButton{
+    float:right;
+    padding:10px;
+    padding-left:0;
+    transition: all 0.2s ease-in-out;
+}
+.smallMenuBar .menuButton img{
+    width:20px;
+    height:20px;
+    transition: all 0.5s ease-in-out;
+}
+.menuBar .menuButton img{
+    width:30px;
+    height:30px;
+    transition: all 0.2s ease-in-out;
+}
+.smallMenuBar .menuLink{
+    float:right;
+    padding-top:5px;
+    transition: all 0.5s ease-in-out;
+}
+.menuBar .menuLink{
+    float:right;
+    padding-top:15px;
+    transition: all 0.2s ease-in-out;
+}
+.menuLink a{
+    display:inline-block;
+    margin-right:10px;
+    color:#FFF6EF;
+    font-size:14px;
+    text-decoration: none;
+}
+.menuLink a:hover{
+    text-decoration: underline;
+    color:#fff;
+}
+.contentDiv{
+    padding:20px;
+}
