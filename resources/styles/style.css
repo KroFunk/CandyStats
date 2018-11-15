@@ -4,6 +4,10 @@ margin:0;
 background:#24292E;
 font-family: Arial, Helvetica, sans-serif;
 }
+hr{
+    border:0;
+    border-top: 1px solid #24292E;
+}
 a{
     color:#8241f9
 }
@@ -18,6 +22,28 @@ a:visited{
     padding-top:40px;
     padding-bottom:5px;
 }
+.glossyButton{
+    display:inline-block;
+    border:1px solid #4e277b;
+    border-radius:4px;
+    color:#FFF6EF;
+    padding:10px;
+    font-size:18px;
+    background: url('../images/UI/bannerGlow.png'), #8241f9; /* Old browsers */
+    background: url('../images/UI/bannerGlow.png'), -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
+    background: url('../images/UI/bannerGlow.png'), -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: url('../images/UI/bannerGlow.png'), linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8241f9', endColorstr='#4e277b',GradientType=0 ); /* IE6-9 */
+    outline:0 none;
+}
+.glossyButton:hover{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#9d6cf7+0,9b6cd1+50,805db7+50,593e7a+100 */
+background: url('../images/UI/bannerGlow.png'), #9d6cf7; /* Old browsers */
+background: url('../images/UI/bannerGlow.png'), -moz-linear-gradient(top, #9d6cf7 0%, #9b6cd1 50%, #805db7 50%, #593e7a 100%); /* FF3.6-15 */
+background: url('../images/UI/bannerGlow.png'), -webkit-linear-gradient(top, #9d6cf7 0%,#9b6cd1 50%,#805db7 50%,#593e7a 100%); /* Chrome10-25,Safari5.1-6 */
+background: url('../images/UI/bannerGlow.png'), linear-gradient(to bottom, #9d6cf7 0%,#9b6cd1 50%,#805db7 50%,#593e7a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9d6cf7', endColorstr='#593e7a',GradientType=0 ); /* IE6-9 */
+}
 .menuBar{
     width:100%;
     max-width:1000px;
@@ -25,10 +51,10 @@ a:visited{
     position:fixed;
     top:0;
     height:50px;
-    background: url('../images/bannerGlow.png'), #8241f9; /* Old browsers */
-    background: url('../images/bannerGlow.png'), -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
-    background: url('../images/bannerGlow.png'), -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
-    background: url('../images/bannerGlow.png'), linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: url('../images/UI/bannerGlow.png'), #8241f9; /* Old browsers */
+    background: url('../images/UI/bannerGlow.png'), -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
+    background: url('../images/UI/bannerGlow.png'), -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: url('../images/UI/bannerGlow.png'), linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8241f9', endColorstr='#4e277b',GradientType=0 ); /* IE6-9 */
     color:#FFF6EF;
     transition: all 0.2s ease-in-out;
@@ -40,13 +66,13 @@ a:visited{
     position:fixed;
     top:0;
     height:30px;
-    /*background: url('../images/bannerGlow.png'),linear-gradient(to bottom, #8241f9, #4e277b);*/
+    /*background: url('../images/UI/bannerGlow.png'),linear-gradient(to bottom, #8241f9, #4e277b);*/
     
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8241f9+0,8845d3+50,6733b8+50,4e277b+100 */
-    background: url('../images/bannerGlow.png'), #8241f9; /* Old browsers */
-    background: url('../images/bannerGlow.png'), -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
-    background: url('../images/bannerGlow.png'), -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
-    background: url('../images/bannerGlow.png'), linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: url('../images/UI/bannerGlow.png'), #8241f9; /* Old browsers */
+    background: url('../images/UI/bannerGlow.png'), -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
+    background: url('../images/UI/bannerGlow.png'), -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: url('../images/UI/bannerGlow.png'), linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8241f9', endColorstr='#4e277b',GradientType=0 ); /* IE6-9 */
     color:#FFF6EF;
     transition: all 0.5s ease-in-out;
@@ -112,4 +138,27 @@ a:visited{
 }
 .contentDiv{
     padding:20px;
+}
+#drop_file_zone {
+    border: #B3B4AE 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin:0 auto;
+    margin-top:20px;
+}
+#drag_upload_file {
+    width:50%;
+    margin:0 auto;
+    margin-top:35px;
+}
+#drag_upload_file img {
+    width:50px;
+}
+#drag_upload_file p {
+    text-align: center;
+}
+#drag_upload_file #selectfile {
+    display: none;
 }
