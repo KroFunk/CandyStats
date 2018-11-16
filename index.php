@@ -28,7 +28,7 @@
     <h1>Global Stats</h1>
     <p class='h1Subheading'>Below are general stats from all sessions</p>
   </center>
-  <table style='width:100%;'>
+  <table style='width:100%;' cellspacing='0'>
     <tr>
       <td style='width:50%;'>
         <center><h2>Leaderboard</h2></center>
@@ -38,7 +38,7 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style='border-right: 1px solid #24292E;'>
         1.
       </td>
       <td>
@@ -46,7 +46,7 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style='border-right: 1px solid #24292E;'>
         2.
       </td>
       <td>
@@ -54,7 +54,7 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style='border-right: 1px solid #24292E;'>
         3.
       </td>
       <td>
@@ -62,7 +62,7 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style='border-right: 1px solid #24292E;'>
         4.
       </td>
       <td>
@@ -70,8 +70,16 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td style='border-right: 1px solid #24292E;'>
         5.
+      </td>
+      <td>
+        
+      </td>
+    </tr>
+    <tr>
+      <td style='border-right: 1px solid #24292E;'>
+        
       </td>
       <td>
         
