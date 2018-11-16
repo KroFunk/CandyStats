@@ -8,12 +8,12 @@ h1{
     font-weight:300;
     font-size: 48px;
     color:#FFF6EF;
-}
-h1{
-    font-weight:300!important;
-    color:#FFF6EF;
     margin-bottom:0;
     padding-bottom:0;
+}
+h2{
+    font-weight:300!important;
+    color:#FFF6EF;
 }
 .h1Subheading{
     padding-top:0;
@@ -110,7 +110,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
     color:#FFF6EF;
     font-size: 20px;
     font-weight: 300;
-    padding:2px;
+    padding-top:0px;
+    padding-left:10px;
     float:left;
     transition: all 0.5s ease-in-out;
 }
@@ -147,7 +148,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 }
 .smallMenuBar .menuLink{
     float:right;
-    padding-top:5px;
+    padding-top:2px;
     transition: all 0.5s ease-in-out;
 }
 .menuBar .menuLink{
@@ -191,4 +192,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 }
 #drag_upload_file #selectfile {
     display: none;
+}
+.SelectionDiv{
+    border:1px solid #24292E;
+    transition:0.5s ease-in-out;
+}
+.SelectionDiv:hover{
+    border:1px solid #B3B4AE;
+}
+.SelectionButton{
+    text-align: center;
+    padding:5px;
+    margin:3px 0 3px 0;
 }

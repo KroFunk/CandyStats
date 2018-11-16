@@ -85,24 +85,50 @@
   </center>
   <table style='width:100%;'>
     <tr>
-      <td style='width:45%;'>
+      <td style='width:48%;padding-left:10px;'>
         <center><h2>Available</h2></center>
       </td>
       <td>
       </td>
-      <td style='width:45%;'>
+      <td style='width:48%;padding-right:10px;'>
         <center><h2>Selected</h2></center>
       </td>
     </tr>
     <tr>
-      <td>
-        
+      <td style='padding-left:10px;'>
+        <div class='SelectionDiv'>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div> 
       </td>
       <td>
-        
+        <div class='SelectionDiv SelectionButton'>>|</div>
+        <div class='SelectionDiv SelectionButton'>></div>
+        <div class='SelectionDiv SelectionButton'><</div>
+        <div class='SelectionDiv SelectionButton'>|<</div>
+
+      </td>
+      <td style='padding-right:10px;'>
+        <div class='SelectionDiv'>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        </div>
       </td>
     </tr>
     <tr>
+  </table>
 
 <hr>
 <center><small>Made Possible by Robin Wright @KroFunk and Ian Arnold @Naiboss. Copyright &copy; 2018-<?php echo date('Y') ?>, Licensed under GNU GPL V3.</small></center>
