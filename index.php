@@ -83,6 +83,26 @@
     <h1>Sessions</h1>
     <p class='h1Subheading'>Below are are all the sessions uploaded to CandyStats.</p>
   </center>
+  <table style='width:100%;'>
+    <tr>
+      <td style='width:45%;'>
+        <center><h2>Available</h2></center>
+      </td>
+      <td>
+      </td>
+      <td style='width:45%;'>
+        <center><h2>Selected</h2></center>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        
+      </td>
+      <td>
+        
+      </td>
+    </tr>
+    <tr>
 
 <hr>
 <center><small>Made Possible by Robin Wright @KroFunk and Ian Arnold @Naiboss. Copyright &copy; 2018-<?php echo date('Y') ?>, Licensed under GNU GPL V3.</small></center>
