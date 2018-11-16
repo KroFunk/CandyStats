@@ -25,7 +25,7 @@
   </div>
 
   <div class='contentDiv'>
-
+  <a href='../'>Click here to go back to Game Overview</a>
     
       <div id="drop_file_zone" ondrop="upload_file(event)" ondragover="return false">
         <div id="drag_upload_file">

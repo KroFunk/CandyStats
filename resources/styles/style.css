@@ -2,17 +2,37 @@ body, HTML{
 padding:0;
 margin:0;
 background:#24292E;
-font-family: Arial, Helvetica, sans-serif;
+font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+h1{
+    font-weight:300;
+    font-size: 48px;
+    color:#FFF6EF;
+}
+h1{
+    font-weight:300!important;
+    color:#FFF6EF;
+    margin-bottom:0;
+    padding-bottom:0;
+}
+.h1Subheading{
+    padding-top:0;
+    margin-top:0;
 }
 hr{
     border:0;
     border-top: 1px solid #24292E;
 }
 a{
-    color:#8241f9
+    color:#8e7bd5;
+    text-decoration:none;
+}
+a:hover{
+    color:#8e7bd5;
+    text-decoration: underline;
 }
 a:visited{
-    color:#4e277b
+    color:#8e7bd5;
 }
 .bodyWrapper{
     max-width:1000px;
@@ -20,7 +40,7 @@ a:visited{
     background:#171a1c;
     color:#B3B4AE;
     padding-top:40px;
-    padding-bottom:5px;
+    padding-bottom:10px;
 }
 .glossyButton{
     display:inline-block;
@@ -89,16 +109,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 .smallMenuBar .logo{
     color:#FFF6EF;
     font-size: 20px;
-    font-weight: 100;
-    padding:5px;
+    font-weight: 300;
+    padding:2px;
     float:left;
     transition: all 0.5s ease-in-out;
 }
 .menuBar .logo{
     color:#FFF6EF;
     font-size: 30px;
-    font-weight: 100;
-    padding:8px;
+    font-weight: 300;
+    padding-top:2px;
+    padding-left:10px;
     float:left;
     transition: all 0.2s ease-in-out;
 }
@@ -131,7 +152,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 }
 .menuBar .menuLink{
     float:right;
-    padding-top:15px;
+    padding-top:12px;
     transition: all 0.2s ease-in-out;
 }
 .menuLink a{

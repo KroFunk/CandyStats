@@ -1,8 +1,8 @@
 <?php
-$arr_file_types = ['log'];
+$arr_file_types = ['application/octet-stream'];
  
 if (!(in_array($_FILES['file']['type'], $arr_file_types))) {
-    echo "false";
+    echo "Error: Only .log files are supported 'application/octet-stream'.\n\nFile provided: " . $_FILES['file']['type'];
     return;
 }
  
