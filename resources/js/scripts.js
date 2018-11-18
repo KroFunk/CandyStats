@@ -17,6 +17,8 @@ var fileobj;
 function upload_file(e) {
     e.preventDefault();
     fileobj = e.dataTransfer.files[0];
+    document.getElementById('drop_file_zone').style.display = 'none';
+    document.getElementById('PleaseWait').style.display = 'block';
     ajax_file_upload(fileobj);
 }
 
@@ -34,12 +36,16 @@ function ajax_file_upload(file_obj) {
         form_data.append('file', file_obj);
         $.ajax({
             type: 'POST',
-            url: 'ajax_upload.php',
+            url: 'ajax_upload.php?debug=1',
+            //url: 'ajax_upload.php',
             contentType: false,
             processData: false,
             data: form_data,
             success:function(response) {
-                alert(response);
+                document.getElementById('drop_file_zone').style.display = 'block';
+                document.getElementById('PleaseWait').style.display = 'none';
+                //alert(response);
+                document.getElementById('debugOutput').innerHTML = response;
                 $('#selectfile').val('');
             }
         });

@@ -203,3 +203,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
     padding:5px;
     margin:3px 0 3px 0;
 }
+#PleaseWait{
+    text-align:center;
+    font-size:18px;
+}
+#PleaseWait img{
+    border-radius:5px;
+    height:200px;
+}

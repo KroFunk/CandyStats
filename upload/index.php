@@ -27,7 +27,12 @@
   <div class='contentDiv'>
   <a href='../'>Click here to go back to Game Overview</a>
     
-      <div id="drop_file_zone" ondrop="upload_file(event)" ondragover="return false">
+      <div id='PleaseWait' style='display:none;'>
+        <p>Please wait while the magic happens...</p>
+        <img src='../resources/images/UI/please_wait.gif' />
+      </div>
+      
+      <div id="drop_file_zone" ondrop="upload_file(event)" ondragover="return false"  style='display:block;'>
         <div id="drag_upload_file">
             <!--img src="../resources/images/UI/log.png" /-->
             <p>Drop log file here</p>
@@ -36,6 +41,7 @@
             <input type="file" id="selectfile">
         </div>
       </div>
+      <div id='debugOutput'></div>
     
 
     
