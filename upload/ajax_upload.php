@@ -3,6 +3,9 @@ require "../resources/config.php";
 
 $EventTypeArray = array("triggered","connected","disconnected","purchased","threw","Killed","assisted","blinded");
 
+$NameEventsArray = array("Round_Start","Round_End","Game_Commencing","Match_Start","CT","TERRORIST","sv_cheats");
+$NameEventsArrayCash = array("cash_player_killed_teammate","cash_player_respawn_amount","cash_team_winner_bonus_consecutive_rounds","cash_team_rescued_hostage","cash_team_win_by_defusing_bomb","cash_player_interact_with_hostage","cash_team_elimination_bomb_map","cash_player_get_killed","cash_team_loser_bonus","cash_player_rescued_hostage","cash_player_killed_enemy_default","mp_hostagepenalty","cash_team_hostage_interaction","cash_team_win_by_time_running_out_bomb","cash_player_killed_enemy_factor","cash_team_survive_guardian_wave","cash_team_terrorist_win_bomb","cash_team_elimination_hostage_map_t","cash_team_win_by_time_running_out_hostage","cash_player_bomb_planted","cash_player_bomb_defused","cash_team_planted_bomb_but_defused","cash_player_killed_hostage","cash_team_elimination_hostage_map_ct","cash_team_win_by_hostage_rescue","cash_team_loser_bonus_consecutive_rounds","cash_player_damage_hostage","cash_team_hostage_alive");
+
 // Variable Creation
 $SessionID      = "";
 $TIMESTAMP      = "";
@@ -66,68 +69,47 @@ if($debug==true){
         $TAG3           = "";
 
         echo "[CandyStats] Extracting Name..." . PHP_EOL;
-        //echo @$exploded[1] . PHP_EOL;
-        /*
-        This is not the proper way of doing this. it should be:
-        
-        if (strpos($exploded[1], '<') !== false) {
-        $isPLayer = True;
-        }
-        
-        but it wasn't working for some reason. See output below...
-        
-        #############################################################################################
-        Reading line:L 11/17/2018 - 12:27:17: server_cvar: "cash_team_win_by_defusing_bomb" "3500"
-        Parsing Data...
-        SessionID:l188_039_040_013_27015_201811171227_000.log
-        Extracting Timestamp...
-        TIMESTAMP:1542457637
-        Extracting Name...
-        cash_team_win_by_defusing_bomb
-        bool(false)
-        Do I think this a player?  False
-
-        ^ strpos is false, so false is expected. 
-
-        Reading line:L 11/17/2018 - 12:32:05: "KroFunk<20><>" STEAM USERID validated
-        Parsing Data...
-        SessionID:l188_039_040_013_27015_201811171227_000.log
-        Extracting Timestamp...
-        TIMESTAMP:1542457925
-        Extracting Name...
-        KroFunk<20><>
-        int(7)
-        Do I think this a player? 7 False.
-
-        ^ strpos is an int, false not expected but it's what I got!
-        #############################################################################################
-        */
+        $explodedName   = $exploded[1];
+        $Name           = @explode('<',$explodedName)[0];
         if (@!empty(stripos($exploded[1],'<'))) {
             $isPlayer = true;
-            $Name           = $exploded[1];
-            $Name           = explode('<',$Name)[0];
         } else {
             $isPlayer = false;
         }
         echo "[CandyStats] Is this a player: ";
         echo $isPlayer ? "True" : "False";
-        /*echo "var_dump stripos: ";
-        var_dump(stripos($exploded[1],'<'));
-        echo PHP_EOL . "var_dump isPlayer ";
-        var_dump($isPlayer);*/
+        echo PHP_EOL;
         if($isPlayer == false){
-            echo PHP_EOL . "[CandyStats] Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!";
+            echo '[CandyStats] Checking if "' . $Name . '" is in the NameEventsArray...' . PHP_EOL;
+            if(in_array($Name,$NameEventsArray)){
+                //Store World Event
+                echo '[CandyStats] "' . $Name . '" is an important NameEvent more processing will happen...' . PHP_EOL;
+            } else if(in_array($Name,$NameEventsArrayCash)){
+                echo '[CandyStats] Checking if "' . $Name . '" is in the NameEventsArrayCash...' . PHP_EOL;
+                //Store Cash Event
+                echo '[CandyStats] "' . $Name . '" is a Cash NameEvent more processing will happen...' . PHP_EOL;
+            } else {
+                echo '[CandyStats] "' . $Name . '" is not present in the Arrays...' . PHP_EOL;
+                //Query Ian to see if event is worth storing
+                echo "[CandyStats] Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!" . PHP_EOL;
+            }
         } else {
-            echo PHP_EOL . "Name:" . $Name . PHP_EOL;
+            //This line of the log is in regards to a player, continue process.
+            echo "Name:" . $Name . PHP_EOL;
+            
+            echo "[CandyStats] Extracting SteamID..." . PHP_EOL;
+            $SteamID        = str_replace('>','',explode('<',$explodedName)[2]);
+            echo "SteamID:" . $SteamID . PHP_EOL;
+
+            $Team           = "";
+
+            $EventType      = "";
+
+            $Misc           = "";
+
+            $XYZ            = "";
         }
 
-        
-
-        $SteamID        = "";
-        $Team           = "";
-        $EventType      = "";
-        $Misc           = "";
-        $XYZ            = "";
     }; 
 
     echo "Process end time: " . date('d/m/y H:i:s') . PHP_EOL;
