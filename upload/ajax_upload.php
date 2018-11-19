@@ -101,11 +101,11 @@ if($debug==true){
             echo "<span style='color:#7accd3'>Name:</span><span style='color:#7ad380'>" . $Name . "</span>" . PHP_EOL;
             
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting SteamID..." . PHP_EOL;
-            $SteamID        = str_replace('>','',explode('<',$explodedName)[2]);
+            $SteamID        = str_replace('>','',@explode('<',$explodedName)[2]);
             echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
             
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
-            $Team           = str_replace('>','',explode('<',$explodedName)[3]);
+            $Team           = str_replace('>','',@explode('<',$explodedName)[3]);
             echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
             
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
