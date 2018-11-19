@@ -67,7 +67,7 @@ if($debug==true){
         $TAG3           = "";
 
         echo "Extracting Name..." . PHP_EOL;
-        echo $exploded[1] . PHP_EOL;
+        @echo $exploded[1] . PHP_EOL;
         /*
         This is not the proper way of doing this. it should be:
         
