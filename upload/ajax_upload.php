@@ -146,7 +146,7 @@ if($debug==true){
         }
 
         // Variable Reset!
-        $SessionID      = "";
+        //$SessionID      = "";
         $TIMESTAMP      = "";
         $TAG1           = "";
         $TAG2           = "";
