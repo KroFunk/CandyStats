@@ -50,7 +50,8 @@ if($debug==true){
 
         echo PHP_EOL . PHP_EOL . "Reading line:" . $string;
         echo "Parsing Data..." . PHP_EOL;
-        
+/* TEMPORARY!
+
         $SessionID      = $_FILES["file"]["name"];
         echo "SessionID:" . $SessionID . PHP_EOL;
 
@@ -59,7 +60,7 @@ if($debug==true){
         $TIMESTAMP      = str_replace(" -","",$TIMESTAMP);
         $TIMESTAMP      = strtotime($TIMESTAMP);
         echo "TIMESTAMP:" . $TIMESTAMP . PHP_EOL;
-
+*/
 
         $TAG1           = "";
         $TAG2           = "";
@@ -102,14 +103,21 @@ if($debug==true){
         ^ strpos is an int, false not expected but it's what I got!
         #############################################################################################
         */
-        
-        if (strpos($exploded[1],'<') === false) {
-            $isPLayer = false;
-        } else {
+        if (!empty(stripos($exploded[1],'<'))) {
             $isPlayer = true;
+        } else {
+            $isPlayer = false;
         }
-        echo "Do I think this a player? " ;
-        var_dump($isPLayer);
+        echo "Is this a player: ";
+        echo $isPlayer ? "True" : "False";
+        /*echo "var_dump stripos: ";
+        var_dump(stripos($exploded[1],'<'));
+        echo PHP_EOL . "var_dump isPlayer ";
+        var_dump($isPlayer);*/
+        if($isPlayer == false){
+            echo PHP_EOL . "Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!";
+        }
+
         
 
 
