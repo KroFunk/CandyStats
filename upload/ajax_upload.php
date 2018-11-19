@@ -103,7 +103,7 @@ if($debug==true){
         ^ strpos is an int, false not expected but it's what I got!
         #############################################################################################
         */
-        if (!empty(stripos($exploded[1],'<'))) {
+        if (@!empty(stripos($exploded[1],'<'))) {
             $isPlayer = true;
         } else {
             $isPlayer = false;
