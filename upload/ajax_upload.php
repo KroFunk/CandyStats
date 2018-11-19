@@ -38,12 +38,12 @@ if (!(in_array($_FILES['file']['type'], $arr_file_types))) {
 
 if($debug==true){
     echo '<pre>';
-    echo "[CandyStats] Log Processing debug Active!" . PHP_EOL . PHP_EOL;
-    echo "[CandyStats] Process start time: " . date('Y.m.d H:i:s') . PHP_EOL . PHP_EOL;
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Log Processing debug Active!" . PHP_EOL . PHP_EOL;
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Process start time: " . date('Y.m.d H:i:s') . PHP_EOL . PHP_EOL;
     $file = $_FILES["file"]["tmp_name"]; 
-    echo "[CandyStats] File Variable set." . PHP_EOL;
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span> File Variable set." . PHP_EOL;
     $handle = @fopen($file,"r"); 
-    echo "[CandyStats] Handle set; File opened." . PHP_EOL;
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Handle set; File opened." . PHP_EOL;
 
     //loop through the log file and insert into database 
     while ($data = fgets($handle,4096)) { 
@@ -51,24 +51,24 @@ if($debug==true){
         $string         = htmlentities($data);
         $exploded       = explode('"',$data);
 
-        echo PHP_EOL . PHP_EOL . "Reading line:" . $string;
-        echo "[CandyStats] Parsing Data..." . PHP_EOL;
+        echo PHP_EOL . PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span> Reading line:" . $string;
+        echo "<span style='color:#8e7bd5'>[CandyStats]</span> Parsing Data..." . PHP_EOL;
 
 
         $SessionID      = $_FILES["file"]["name"];
-        echo "SessionID:" . $SessionID . PHP_EOL;
+        echo "<span style='color:#7accd3'>SessionID:</span><span style='color:#7ad380'>" . $SessionID . "</span>" . PHP_EOL;
 
-        echo "[CandyStats] Extracting Timestamp..." . PHP_EOL;
+        echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Timestamp..." . PHP_EOL;
         $TIMESTAMP      = substr($string,2,21);
         $TIMESTAMP      = str_replace(" -","",$TIMESTAMP);
         $TIMESTAMP      = strtotime($TIMESTAMP);
-        echo "TIMESTAMP:" . $TIMESTAMP . PHP_EOL;
+        echo "<span style='color:#7accd3'>TIMESTAMP:</span><span style='color:#7ad380'>" . $TIMESTAMP . "</span>" . PHP_EOL;
 
         $TAG1           = "";
         $TAG2           = "";
         $TAG3           = "";
 
-        echo "[CandyStats] Extracting Name..." . PHP_EOL;
+        echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Name..." . PHP_EOL;
         $explodedName   = $exploded[1];
         $Name           = @explode('<',$explodedName)[0];
         if (@!empty(stripos($exploded[1],'<'))) {
@@ -76,32 +76,34 @@ if($debug==true){
         } else {
             $isPlayer = false;
         }
-        echo "[CandyStats] Is this a player: ";
+        echo "<span style='color:#8e7bd5'>[CandyStats]</span> Is this a player: ";
         echo $isPlayer ? "True" : "False";
         echo PHP_EOL;
         if($isPlayer == false){
-            echo '[CandyStats] Checking if "' . $Name . '" is in the NameEventsArray...' . PHP_EOL;
+            echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArray...' . PHP_EOL;
             if(in_array($Name,$NameEventsArray)){
                 //Store World Event
-                echo '[CandyStats] "' . $Name . '" is an important NameEvent more processing will happen...' . PHP_EOL;
+                echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is an important NameEvent more processing will happen...' . PHP_EOL;
             } else if(in_array($Name,$NameEventsArrayCash)){
-                echo '[CandyStats] Checking if "' . $Name . '" is in the NameEventsArrayCash...' . PHP_EOL;
+                echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArrayCash...' . PHP_EOL;
                 //Store Cash Event
-                echo '[CandyStats] "' . $Name . '" is a Cash NameEvent more processing will happen...' . PHP_EOL;
+                echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is a Cash NameEvent more processing will happen...' . PHP_EOL;
             } else {
-                echo '[CandyStats] "' . $Name . '" is not present in the Arrays...' . PHP_EOL;
+                echo '<span style="color:#8e7bd5">[CandyStats]</span> <span style="color:#d37a7a;">"' . $Name . '" is not present in the Arrays...' . "</span>" . PHP_EOL;
                 //Query Ian to see if event is worth storing
-                echo "[CandyStats] Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!" . PHP_EOL;
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!</span>" . PHP_EOL;
             }
         } else {
             //This line of the log is in regards to a player, continue process.
-            echo "Name:" . $Name . PHP_EOL;
+            echo "<span style='color:#7accd3'>Name:</span><span style='color:#7ad380'>" . $Name . "</span>" . PHP_EOL;
             
-            echo "[CandyStats] Extracting SteamID..." . PHP_EOL;
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting SteamID..." . PHP_EOL;
             $SteamID        = str_replace('>','',explode('<',$explodedName)[2]);
-            echo "SteamID:" . $SteamID . PHP_EOL;
-
-            $Team           = "";
+            echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
+            
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
+            $Team           = str_replace('>','',explode('<',$explodedName)[3]);
+            echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
 
             $EventType      = "";
 
