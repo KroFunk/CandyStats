@@ -111,22 +111,59 @@ if($debug==true){
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
             $EventType      = htmlentities($exploded[2]);
             if($EventType[1] == '[') {
-                $EventType = substr($EventType,15);
+                $EventType = str_replace(' ','',substr($EventType,(strpos($EventType,']')+2)));
+            }
+            if(strpos($EventType,'threw')){
+                //I got lazy, I figure if the line contains threw, then the player threw an Event Var!
+                $EventType = 'threw';
             }
             echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
 
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventVariable..." . PHP_EOL;
-            $EventVariable  = htmlentities($exploded[3]);
+            
+            if($EventType == 'threw'){
+                $EventVariable = explode(' ',htmlentities($exploded[2]))[2];
+            } else {
+                $EventVariable  = htmlentities($exploded[3]);
+            }
             echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
 
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
             $Misc           = htmlentities($exploded[5]);
             echo "<span style='color:#7accd3'>Misc:</span><span style='color:#7ad380'>" . $Misc . "</span>" . PHP_EOL;
+            
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting XYZ..." . PHP_EOL;
+            if($EventType == "killed"){
+                $XYZ_1 = substr(htmlentities($exploded[2]),2,(strpos(htmlentities($exploded[2]),']'))-2);
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_1:" . $XYZ_1 . PHP_EOL;
+                $XYZ_2 = substr(htmlentities($exploded[4]),2,(strpos(htmlentities($exploded[4]),']'))-2);
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_2:" . $XYZ_2 . PHP_EOL;
+                $XYZ            = $XYZ_1 . "/" . $XYZ_2;
+            }
+            echo "<span style='color:#7accd3'>XYZ:</span><span style='color:#7ad380'>" . $XYZ . "</span>" . PHP_EOL;
+            //Enter Player Row into MySQL!
 
-            $XYZ            = "";
         }
 
-    }; 
+        // Variable Reset!
+        $SessionID      = "";
+        $TIMESTAMP      = "";
+        $TAG1           = "";
+        $TAG2           = "";
+        $TAG3           = "";
+        $Name           = "";
+        $SteamID        = "";
+        $Team           = "";
+        $EventType      = "";
+        $EventVariable  = "";
+        $Misc           = "";
+        $XYZ            = "";
+
+        $isPlayer       = True;
+        $lessThanPosition = "0";
+
+        $rowAccept      = True;
+    }
 
     echo "Process end time: " . date('d/m/y H:i:s') . PHP_EOL;
     echo '</pre>';
