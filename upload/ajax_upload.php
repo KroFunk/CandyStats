@@ -16,6 +16,7 @@ $Name           = "";
 $SteamID        = "";
 $Team           = "";
 $EventType      = "";
+$EventVariable  = "";
 $Misc           = "";
 $XYZ            = "";
 
@@ -107,9 +108,18 @@ if($debug==true){
             
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
             $EventType      = htmlentities($exploded[2]);
+            if($EventType[1] == '[') {
+                $EventType = substr($EventType,15);
+            }
             echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
 
-            $Misc           = "";
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventVariable..." . PHP_EOL;
+            $EventVariable  = htmlentities($exploded[3]);
+            echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+            $Misc           = htmlentities($exploded[5]);
+            echo "<span style='color:#7accd3'>Misc:</span><span style='color:#7ad380'>" . $Misc . "</span>" . PHP_EOL;
 
             $XYZ            = "";
         }
