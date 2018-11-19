@@ -140,6 +140,10 @@ if($debug==true){
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_2:" . $XYZ_2 . PHP_EOL;
                 $XYZ            = $XYZ_1 . "/" . $XYZ_2;
             }
+            if($EventType == "threw"){
+                $subString_1    = substr(htmlentities($exploded[2]),(strpos(htmlentities($exploded[2]),'[') + 1));
+                $XYZ            = substr($subString_1,0,(strpos($subString_1,']')));
+            }
             echo "<span style='color:#7accd3'>XYZ:</span><span style='color:#7ad380'>" . $XYZ . "</span>" . PHP_EOL;
             //Enter Player Row into MySQL!
 
