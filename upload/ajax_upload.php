@@ -35,39 +35,38 @@ if (!(in_array($_FILES['file']['type'], $arr_file_types))) {
 
 if($debug==true){
     echo '<pre>';
-    echo "Log Processing debug Active!" . PHP_EOL . PHP_EOL;
-    echo "Process start time: " . date('Y.m.d H:i:s') . PHP_EOL . PHP_EOL;
+    echo "[CandyStats] Log Processing debug Active!" . PHP_EOL . PHP_EOL;
+    echo "[CandyStats] Process start time: " . date('Y.m.d H:i:s') . PHP_EOL . PHP_EOL;
     $file = $_FILES["file"]["tmp_name"]; 
-    echo "File Variable set.";
-    $handle = fopen($file,"r"); 
-    echo "Handle set; File opened.";
+    echo "[CandyStats] File Variable set." . PHP_EOL;
+    $handle = @fopen($file,"r"); 
+    echo "[CandyStats] Handle set; File opened." . PHP_EOL;
 
-    //loop through the csv file and insert into database 
+    //loop through the log file and insert into database 
     while ($data = fgets($handle,4096)) { 
         
-        $string         = $data;
+        $string         = htmlentities($data);
         $exploded       = explode('"',$data);
 
         echo PHP_EOL . PHP_EOL . "Reading line:" . $string;
-        echo "Parsing Data..." . PHP_EOL;
-/* TEMPORARY!
+        echo "[CandyStats] Parsing Data..." . PHP_EOL;
+
 
         $SessionID      = $_FILES["file"]["name"];
         echo "SessionID:" . $SessionID . PHP_EOL;
 
-        echo "Extracting Timestamp..." . PHP_EOL;
+        echo "[CandyStats] Extracting Timestamp..." . PHP_EOL;
         $TIMESTAMP      = substr($string,2,21);
         $TIMESTAMP      = str_replace(" -","",$TIMESTAMP);
         $TIMESTAMP      = strtotime($TIMESTAMP);
         echo "TIMESTAMP:" . $TIMESTAMP . PHP_EOL;
-*/
 
         $TAG1           = "";
         $TAG2           = "";
         $TAG3           = "";
 
-        echo "Extracting Name..." . PHP_EOL;
-        echo @$exploded[1] . PHP_EOL;
+        echo "[CandyStats] Extracting Name..." . PHP_EOL;
+        //echo @$exploded[1] . PHP_EOL;
         /*
         This is not the proper way of doing this. it should be:
         
@@ -105,23 +104,25 @@ if($debug==true){
         */
         if (@!empty(stripos($exploded[1],'<'))) {
             $isPlayer = true;
+            $Name           = $exploded[1];
+            $Name           = explode('<',$Name)[0];
         } else {
             $isPlayer = false;
         }
-        echo "Is this a player: ";
+        echo "[CandyStats] Is this a player: ";
         echo $isPlayer ? "True" : "False";
         /*echo "var_dump stripos: ";
         var_dump(stripos($exploded[1],'<'));
         echo PHP_EOL . "var_dump isPlayer ";
         var_dump($isPlayer);*/
         if($isPlayer == false){
-            echo PHP_EOL . "Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!";
+            echo PHP_EOL . "[CandyStats] Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!";
+        } else {
+            echo PHP_EOL . "Name:" . $Name . PHP_EOL;
         }
 
         
 
-
-        $Name           = "";
         $SteamID        = "";
         $Team           = "";
         $EventType      = "";
