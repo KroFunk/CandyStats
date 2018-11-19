@@ -47,16 +47,18 @@ if($debug==true){
     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Handle set; File opened." . PHP_EOL;
 
     //loop through the log file and insert into database 
+    
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Parsing Data..." . PHP_EOL;
+    //SessionID is constant and does not need to be re-read.
+    $SessionID      = $_FILES["file"]["name"];
+
     while ($data = fgets($handle,4096)) { 
         
         $string         = htmlentities($data);
-        $exploded       = explode('"',$data);
+        $exploded       = @explode('"',$data);
 
         echo PHP_EOL . PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span> Reading line:" . $string;
-        echo "<span style='color:#8e7bd5'>[CandyStats]</span> Parsing Data..." . PHP_EOL;
 
-
-        $SessionID      = $_FILES["file"]["name"];
         echo "<span style='color:#7accd3'>SessionID:</span><span style='color:#7ad380'>" . $SessionID . "</span>" . PHP_EOL;
 
         echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Timestamp..." . PHP_EOL;
