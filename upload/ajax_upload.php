@@ -104,8 +104,10 @@ if($debug==true){
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
             $Team           = str_replace('>','',explode('<',$explodedName)[3]);
             echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
-
-            $EventType      = "";
+            
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
+            $EventType      = htmlentities($exploded[2]);
+            echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
 
             $Misc           = "";
 
