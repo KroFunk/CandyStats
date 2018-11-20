@@ -64,7 +64,7 @@ if($debug==true){
         echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Timestamp..." . PHP_EOL;
         $TIMESTAMP      = substr($string,2,21);
         $TIMESTAMP      = str_replace(" -","",$TIMESTAMP);
-        $TIMESTAMP      = strtotime($TIMESTAMP);
+        $TIMESTAMP      = date('Y-m-d H:i:s', strtotime($TIMESTAMP));
         echo "<span style='color:#7accd3'>TIMESTAMP:</span><span style='color:#7ad380'>" . $TIMESTAMP . "</span>" . PHP_EOL;
 
         $TAG1           = "";
@@ -94,7 +94,7 @@ if($debug==true){
             } else {
                 echo '<span style="color:#8e7bd5">[CandyStats]</span> <span style="color:#d37a7a;">"' . $Name . '" is not present in the Arrays...' . "</span>" . PHP_EOL;
                 //Query Ian to see if event is worth storing
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Ian, is this important? Please enter the value that was detected and the parsed line onto the datamodel document!</span>" . PHP_EOL;
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line ignored!</span>" . PHP_EOL;
             }
         } else {
             //This line of the log is in regards to a player, continue process.
@@ -109,8 +109,8 @@ if($debug==true){
             echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
             
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
-            $EventType      = htmlentities($exploded[2]);
-            if($EventType[1] == '[') {
+            $EventType      = substr(htmlentities($exploded[2]),1);
+            if($EventType[0] == '[') {
                 $EventType = str_replace(' ','',substr($EventType,(strpos($EventType,']')+2)));
             }
             if(strpos($EventType,'threw')){
@@ -146,7 +146,10 @@ if($debug==true){
             }
             echo "<span style='color:#7accd3'>XYZ:</span><span style='color:#7ad380'>" . $XYZ . "</span>" . PHP_EOL;
             //Enter Player Row into MySQL!
-
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
+            $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc`, `XYZ`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', '" . htmlentities($Team, ENT_QUOTES) . "', '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', '" . htmlentities($Misc, ENT_QUOTES) . "', '" . htmlentities($XYZ, ENT_QUOTES) . "');";
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Executing: " . $queryString . PHP_EOL;
+            mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
         }
 
         // Variable Reset!
@@ -169,7 +172,7 @@ if($debug==true){
         $rowAccept      = True;
     }
 
-    echo "Process end time: " . date('d/m/y H:i:s') . PHP_EOL;
+    echo PHP_EOL . PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span> Process end time: " . date('d/m/y H:i:s') . PHP_EOL;
     echo '</pre>';
 }
 

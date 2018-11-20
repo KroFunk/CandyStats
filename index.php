@@ -9,7 +9,7 @@
   <meta name="description" content="PHP Script for storing and reporting on CSGO server logs">
   <meta name="author" content="KroFunk and Naiboss">
 
-  <link rel="stylesheet" href="resources/styles/style.css">
+  <link rel="stylesheet" href="resources/styles/style.css.php">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="resources/js/scripts.js"></script>
 </head>

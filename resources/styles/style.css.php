@@ -1,3 +1,7 @@
+<?php
+header("Content-type: text/css");
+header("X-Content-Type-Options: nosniff");
+?>
 body, HTML{
 padding:0;
 margin:0;
