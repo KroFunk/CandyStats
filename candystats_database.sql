@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2018 at 11:38 AM
+-- Generation Time: Nov 20, 2018 at 04:37 PM
 -- Server version: 5.7.24-log
 -- PHP Version: 5.6.38
 
@@ -38,7 +38,7 @@ CREATE TABLE `logdata` (
   `TAG2` text NOT NULL COMMENT 'User defined tag',
   `TAG3` text NOT NULL COMMENT 'User defined tag',
   `Name` text NOT NULL COMMENT 'Name of Player',
-  `SteamID` text NOT NULL COMMENT 'SteamID of player',
+  `SteamID` text COMMENT 'SteamID of player',
   `Team` text COMMENT 'Team of Player',
   `EventType` text NOT NULL COMMENT 'Type of Event',
   `EventVariable` text NOT NULL COMMENT 'Event Variable',

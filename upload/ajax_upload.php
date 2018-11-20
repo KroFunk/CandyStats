@@ -71,87 +71,105 @@ if($debug==true){
         $TAG2           = "";
         $TAG3           = "";
 
-        echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Name..." . PHP_EOL;
+        
         $explodedName   = $exploded[1];
-        $Name           = @explode('<',$explodedName)[0];
-        if (@!empty(stripos($exploded[1],'<'))) {
-            $isPlayer = true;
-        } else {
-            $isPlayer = false;
-        }
-        echo "<span style='color:#8e7bd5'>[CandyStats]</span> Is this a player: ";
-        echo $isPlayer ? "True" : "False";
-        echo PHP_EOL;
-        if($isPlayer == false){
-            echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArray...' . PHP_EOL;
-            if(in_array($Name,$NameEventsArray)){
-                //Store World Event
-                echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is an important NameEvent more processing will happen...' . PHP_EOL;
-            } else if(in_array($Name,$NameEventsArrayCash)){
-                echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArrayCash...' . PHP_EOL;
-                //Store Cash Event
-                echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is a Cash NameEvent more processing will happen...' . PHP_EOL;
-            } else {
-                echo '<span style="color:#8e7bd5">[CandyStats]</span> <span style="color:#d37a7a;">"' . $Name . '" is not present in the Arrays...' . "</span>" . PHP_EOL;
-                //Query Ian to see if event is worth storing
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line ignored!</span>" . PHP_EOL;
-            }
-        } else {
-            //This line of the log is in regards to a player, continue process.
+
+        if(stripos($string,'Loading map') !== false){
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Special Line; Loading Map..." . PHP_EOL;
+            $Name           = "World";
+            $EventType      = "Loading Map";
+            $EventVariable  = @explode('<',$explodedName)[0];
             echo "<span style='color:#7accd3'>Name:</span><span style='color:#7ad380'>" . $Name . "</span>" . PHP_EOL;
-            
-            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting SteamID..." . PHP_EOL;
-            $SteamID        = str_replace('>','',@explode('<',$explodedName)[2]);
-            echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
-            
-            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
-            $Team           = str_replace('>','',@explode('<',$explodedName)[3]);
-            echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
-            
-            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
-            $EventType      = substr(htmlentities($exploded[2]),1);
-            if($EventType[0] == '[') {
-                $EventType = str_replace(' ','',substr($EventType,(strpos($EventType,']')+2)));
-            }
-            if(strpos($EventType,'threw')){
-                //I got lazy, I figure if the line contains threw, then the player threw an Event Var!
-                $EventType = 'threw';
-            }
             echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
-
-            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventVariable..." . PHP_EOL;
-            
-            if($EventType == 'threw'){
-                $EventVariable = explode(' ',htmlentities($exploded[2]))[2];
-            } else {
-                $EventVariable  = htmlentities($exploded[3]);
-            }
             echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
-
-            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
-            $Misc           = htmlentities($exploded[5]);
-            echo "<span style='color:#7accd3'>Misc:</span><span style='color:#7ad380'>" . $Misc . "</span>" . PHP_EOL;
-            
-            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting XYZ..." . PHP_EOL;
-            if($EventType == "killed"){
-                $XYZ_1 = substr(htmlentities($exploded[2]),2,(strpos(htmlentities($exploded[2]),']'))-2);
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_1:" . $XYZ_1 . PHP_EOL;
-                $XYZ_2 = substr(htmlentities($exploded[4]),2,(strpos(htmlentities($exploded[4]),']'))-2);
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_2:" . $XYZ_2 . PHP_EOL;
-                $XYZ            = $XYZ_1 . "/" . $XYZ_2;
-            }
-            if($EventType == "threw"){
-                $subString_1    = substr(htmlentities($exploded[2]),(strpos(htmlentities($exploded[2]),'[') + 1));
-                $XYZ            = substr($subString_1,0,(strpos($subString_1,']')));
-            }
-            echo "<span style='color:#7accd3'>XYZ:</span><span style='color:#7ad380'>" . $XYZ . "</span>" . PHP_EOL;
             //Enter Player Row into MySQL!
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-            $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc`, `XYZ`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', '" . htmlentities($Team, ENT_QUOTES) . "', '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', '" . htmlentities($Misc, ENT_QUOTES) . "', '" . htmlentities($XYZ, ENT_QUOTES) . "');";
-            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Executing: " . $queryString . PHP_EOL;
+            $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc`, `XYZ`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', NULL, NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, NULL);";
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
             mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
-        }
+        
+        } else { //end of special considerations!
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Name..." . PHP_EOL;
+            $Name          = @explode('<',$explodedName)[0];
 
+            if (@!empty(stripos($exploded[1],'<'))) {
+                $isPlayer = true;
+            } else {
+                $isPlayer = false;
+            }
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Is this a player: ";
+            echo $isPlayer ? "True" : "False";
+            echo PHP_EOL;
+            if($isPlayer == false){
+                echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArray...' . PHP_EOL;
+                if(in_array($Name,$NameEventsArray)){
+                    //Store World Event
+                    echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is an important NameEvent more processing will happen...' . PHP_EOL;
+                } else if(in_array($Name,$NameEventsArrayCash)){
+                    echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArrayCash...' . PHP_EOL;
+                    //Store Cash Event
+                    echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is a Cash NameEvent more processing will happen...' . PHP_EOL;
+                } else {
+                    echo '<span style="color:#8e7bd5">[CandyStats]</span> <span style="color:#d37a7a;">"' . $Name . '" is not present in the Arrays...' . "</span>" . PHP_EOL;
+                    //Query Ian to see if event is worth storing
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line ignored!</span>" . PHP_EOL;
+                }
+            } else {
+                //This line of the log is in regards to a player, continue process.
+                echo "<span style='color:#7accd3'>Name:</span><span style='color:#7ad380'>" . $Name . "</span>" . PHP_EOL;
+                
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting SteamID..." . PHP_EOL;
+                $SteamID        = str_replace('>','',@explode('<',$explodedName)[2]);
+                echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
+                
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
+                $Team           = str_replace('>','',@explode('<',$explodedName)[3]);
+                echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
+                
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
+                $EventType      = substr(htmlentities($exploded[2]),1);
+                if($EventType[0] == '[') {
+                    $EventType = str_replace(' ','',substr($EventType,(strpos($EventType,']')+2)));
+                }
+                if(strpos($EventType,'threw')){
+                    //I got lazy, I figure if the line contains threw, then the player threw an Event Var!
+                    $EventType = 'threw';
+                }
+                echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
+
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventVariable..." . PHP_EOL;
+                
+                if($EventType == 'threw'){
+                    $EventVariable = explode(' ',htmlentities($exploded[2]))[2];
+                } else {
+                    $EventVariable  = htmlentities($exploded[3]);
+                }
+                echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+                $Misc           = htmlentities($exploded[5]);
+                echo "<span style='color:#7accd3'>Misc:</span><span style='color:#7ad380'>" . $Misc . "</span>" . PHP_EOL;
+                
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting XYZ..." . PHP_EOL;
+                if($EventType == "killed"){
+                    $XYZ_1 = substr(htmlentities($exploded[2]),2,(strpos(htmlentities($exploded[2]),']'))-2);
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_1:" . $XYZ_1 . PHP_EOL;
+                    $XYZ_2 = substr(htmlentities($exploded[4]),2,(strpos(htmlentities($exploded[4]),']'))-2);
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_2:" . $XYZ_2 . PHP_EOL;
+                    $XYZ            = $XYZ_1 . "/" . $XYZ_2;
+                }
+                if($EventType == "threw"){
+                    $subString_1    = substr(htmlentities($exploded[2]),(strpos(htmlentities($exploded[2]),'[') + 1));
+                    $XYZ            = substr($subString_1,0,(strpos($subString_1,']')));
+                }
+                echo "<span style='color:#7accd3'>XYZ:</span><span style='color:#7ad380'>" . $XYZ . "</span>" . PHP_EOL;
+                //Enter Player Row into MySQL!
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
+                $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc`, `XYZ`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', '" . htmlentities($Team, ENT_QUOTES) . "', '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', '" . htmlentities($Misc, ENT_QUOTES) . "', '" . htmlentities($XYZ, ENT_QUOTES) . "');";
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
+                mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
+            }
+        }
         // Variable Reset!
         //$SessionID      = "";
         $TIMESTAMP      = "";
