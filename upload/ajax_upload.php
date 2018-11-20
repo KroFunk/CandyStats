@@ -82,13 +82,13 @@ if($debug==true){
             echo "<span style='color:#7accd3'>Name:</span><span style='color:#7ad380'>" . $Name . "</span>" . PHP_EOL;
             echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
             echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
-            //Enter Player Row into MySQL!
+            //Enter World Row into MySQL!
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
             $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc`, `XYZ`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', NULL, NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, NULL);";
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
             mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
         
-        } else { //end of special considerations!
+        } else {//end of special considerations!
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Name..." . PHP_EOL;
             $Name          = @explode('<',$explodedName)[0];
 
@@ -104,7 +104,20 @@ if($debug==true){
                 echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArray...' . PHP_EOL;
                 if(in_array($Name,$NameEventsArray)){
                     //Store World Event
-                    echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is an important NameEvent more processing will happen...' . PHP_EOL;
+                    echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is an important NameEvent...' . PHP_EOL;
+                    $Name           = "World";
+                    $EventType      = "Triggered";
+                    $EventVariable  = @explode('<',$explodedName)[0];
+
+                    echo "<span style='color:#7accd3'>Name:</span><span style='color:#7ad380'>" . $Name . "</span>" . PHP_EOL;
+                    echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
+                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+                    //Enter World Row into MySQL!
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
+                    $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc`, `XYZ`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', NULL, NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, NULL);";
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
+                    mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
+
                 } else if(in_array($Name,$NameEventsArrayCash)){
                     echo '<span style="color:#8e7bd5">[CandyStats]</span> Checking if "' . $Name . '" is in the NameEventsArrayCash...' . PHP_EOL;
                     //Store Cash Event
