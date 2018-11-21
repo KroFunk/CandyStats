@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 20, 2018 at 04:37 PM
+-- Generation Time: Nov 21, 2018 at 02:55 PM
 -- Server version: 5.7.24-log
 -- PHP Version: 5.6.38
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `candystats`
 --
-CREATE DATABASE IF NOT EXISTS `candystats` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `candystats`;
 
 -- --------------------------------------------------------
 
@@ -42,8 +40,10 @@ CREATE TABLE `logdata` (
   `Team` text COMMENT 'Team of Player',
   `EventType` text NOT NULL COMMENT 'Type of Event',
   `EventVariable` text NOT NULL COMMENT 'Event Variable',
-  `Misc` text COMMENT 'Misc info relating to event',
-  `XYZ` text COMMENT 'coordinates of event'
+  `Misc_1` text COMMENT 'Misc info relating to event',
+  `Misc_2` text,
+  `XYZ_1` text COMMENT 'coordinates of event',
+  `XYZ_2` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

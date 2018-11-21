@@ -1,3 +1,7 @@
+<?php
+  require "resources/config.php";
+?>
+
 <!doctype html>
 
 <html lang="en">
@@ -38,52 +42,66 @@
       </td>
     </tr>
     <tr>
-      <td style='border-right: 1px solid #24292E;'>
-        1.
-      </td>
-      <td>
-        
-      </td>
-    </tr>
     <tr>
-      <td style='border-right: 1px solid #24292E;'>
-        2.
-      </td>
-      <td>
+    <td>
+        <?php
+          $killsArray = array();
+          $deathsArray = array();
+
+          $killsQueryString = "SELECT `Name`,`SteamID`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`, `Name` ORDER BY `count(``EventType``)` DESC";
+          $killsQuery = mysqli_query($con,$killsQueryString);
+          while($killsResult = mysqli_fetch_array($killsQuery)){
+            //echo '<pre>' . var_export($killsResult, true) . '</pre>'; //data finding mission.
+            $identifier = $killsResult['SteamID'];
+            if($killsResult['SteamID'] == 'BOT') {
+              $identifier = $killsResult['Name'];
+              $playerBot = 'BOT';
+            } else {
+              $playerBot = 'Human';
+            }
+            $killsArray[$identifier] = array($killsResult['Name'],$killsResult['count(`EventType`)'],$playerBot);
+          }
+          echo 'killsArray';
+          echo '<pre>' . var_export($killsArray, true) . '</pre>'; //array check
+
+          $deathsQueryString = "SELECT `EventVariable`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventVariable` ORDER BY `count(``EventType``)` DESC";
+          $deathsQuery = mysqli_query($con,$deathsQueryString);
+          while($deathsResult = mysqli_fetch_array($deathsQuery)){
+            // echo '<pre>' . var_export($deathsResult, true) . '</pre>'; //data finding mission.
+
+            //'EventVariable' 'count(`EventType`)'
+
+            echo html_entity_decode('EventVariable');
+
+
+
+            /*$identifier = $deathsResult['SteamID'];
+            if($deathsResult['SteamID'] == 'BOT') {
+              $identifier = $deathsResult['Name'];
+              $playerBot = 'BOT';
+            } else {
+              $playerBot = 'Human';
+            }
+            $deathsArray[$identifier] = array($deathsResult['Name'],$deathsResult['count(`EventType`)'],$playerBot);*/
+          }
+          echo 'deathsArray';
+          echo '<pre>' . var_export($deathsArray, true) . '</pre>'; //array check
+
+
+          $deathsQueryString = "SELECT `EventVariable`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP By `EventVariable` ORDER BY `count(``EventType``)` DESC";
+        ?>
+      <!--Leaderboard Table-->
+      <table>
+        <tr><td></td><td>Name</td><td>Kills</td></tr>
         
-      </td>
-    </tr>
-    <tr>
-      <td style='border-right: 1px solid #24292E;'>
-        3.
-      </td>
-      <td>
-        
-      </td>
-    </tr>
-    <tr>
-      <td style='border-right: 1px solid #24292E;'>
-        4.
-      </td>
-      <td>
-        
-      </td>
-    </tr>
-    <tr>
-      <td style='border-right: 1px solid #24292E;'>
-        5.
-      </td>
-      <td>
-        
-      </td>
-    </tr>
-    <tr>
-      <td style='border-right: 1px solid #24292E;'>
-        
-      </td>
-      <td>
-        
-      </td>
+      </table>
+      <input type='checkbox'>Tick this box to include BOTS!
+    </td>
+    <td>
+
+      <!--Award Table-->
+
+    </td>
     </tr>
   </table>
 
