@@ -1,10 +1,19 @@
 <?php
 require "../resources/config.php";
 
+///////    SYNTAX ERROR CHECK    ////////////
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 $EventTypeArray = array("triggered","connected","disconnected","purchased","threw","Killed","assisted","blinded");
 
 $NameEventsArray = array("Round_Start","Round_End","Game_Commencing","Match_Start","CT","TERRORIST","sv_cheats");
 $NameEventsArrayCash = array("cash_player_killed_teammate","cash_player_respawn_amount","cash_team_winner_bonus_consecutive_rounds","cash_team_rescued_hostage","cash_team_win_by_defusing_bomb","cash_player_interact_with_hostage","cash_team_elimination_bomb_map","cash_player_get_killed","cash_team_loser_bonus","cash_player_rescued_hostage","cash_player_killed_enemy_default","mp_hostagepenalty","cash_team_hostage_interaction","cash_team_win_by_time_running_out_bomb","cash_player_killed_enemy_factor","cash_team_survive_guardian_wave","cash_team_terrorist_win_bomb","cash_team_elimination_hostage_map_t","cash_team_win_by_time_running_out_hostage","cash_player_bomb_planted","cash_player_bomb_defused","cash_team_planted_bomb_but_defused","cash_player_killed_hostage","cash_team_elimination_hostage_map_ct","cash_team_win_by_hostage_rescue","cash_team_loser_bonus_consecutive_rounds","cash_player_damage_hostage","cash_team_hostage_alive");
+
+$skipEventVariableArray = array("STEAM USERID validated","entered the game","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");
+$skipMiscArray = array("Touched_A_Hostage","connected, address ","purchased ","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
 
 // Variable Creation
 $SessionID      = "";
@@ -55,7 +64,12 @@ if($debug==true){
     while ($data = fgets($handle,4096)) { 
         
         $string         = htmlentities($data);
-        $exploded       = @explode('"',$data);
+        if(strpos($data,'"') !== false) {
+            $exploded       = @explode('"',$data);
+        } else {
+            $exploded       = '123456789abcdefghijklmnopqrstuvwxyz'; //No data in double quotes present, filling with fluff to help debug any issues!
+        }
+        
 
         echo PHP_EOL . PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span> Reading line:" . $string;
 
@@ -159,26 +173,48 @@ if($debug==true){
                     if($EventVariable == 'BOT'){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
                     }
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+                    $Misc_1           = htmlentities($exploded[5]);
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
+                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+                } else if($EventType == 'assisted killing '){ //sometimes spaces are important!
+                    $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
+                    if($EventVariable == 'BOT'){
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                    }
+                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+                    $Misc_1           = '';
+                    $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
+                
+                } else if(in_array(html_entity_decode($EventType),$skipEventVariableArray)){ //I know, it's a hack, but at least it's a neat one!
+                    $EventVariable  = ''; // Don't judge me!
                 } else {
                     $EventVariable  = htmlentities($exploded[3]);
-                }
-                echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+                    
+                    //Misc_1 should only apply when NOT certain EventTypes are detected. More cases true than not.
+                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
 
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
-                if($EventVariable == 'flashbang'){
-                    $Misc_1 = str_replace(array("\r","\n"),'',str_replace(')','',explode(' ',$exploded[2])[8]));
-                } else {
-                    $Misc_1           = htmlentities($exploded[5]);
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+                       
+                    if($EventVariable == 'flashbang' && $EventType != 'purchased'){
+                        $Misc_1 = str_replace(array("\r","\n"),'',str_replace(')','',explode(' ',$exploded[2])[8]));
+                    } else if(in_array(html_entity_decode($EventVariable),$skipMiscArray) || in_array(html_entity_decode($EventType),$skipMiscArray)){
+                        $Misc_1 = ''; //I got away with it last time, no reason why I shouldn't do it again!
+                        var_dump($exploded);
+                    } else {
+                        $Misc_1           = htmlentities($exploded[5]);
+                        var_dump($exploded);
+                    }
                 }
-                
+                                
                 echo "<span style='color:#7accd3'>Misc_1:</span><span style='color:#7ad380'>" . $Misc_1 . "</span>" . PHP_EOL;
                 if(!empty($Misc_2)){
                     echo "<span style='color:#7accd3'>Misc_2:</span><span style='color:#7ad380'>" . $Misc_2 . "</span>" . PHP_EOL;
                 }
                 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting XYZ..." . PHP_EOL;
-                if($EventType == "killed"){
+                if($EventType == "killed" || $EventType == "assisted killing "){ //sometimes spaces are important!
                     $XYZ_1 = substr(htmlentities($exploded[2]),2,(strpos(htmlentities($exploded[2]),']'))-2);
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_1:" . $XYZ_1 . PHP_EOL;
                     $XYZ_2 = substr(htmlentities($exploded[4]),2,(strpos(htmlentities($exploded[4]),']'))-2);
