@@ -1,10 +1,15 @@
 <?php
 require "../resources/config.php";
 
-///////    SYNTAX ERROR CHECK    ////////////
+////////////   Real Time Output    ////////////
+set_time_limit( 120);
+ignore_user_abort(true);
+
+////////////  SYNTAX ERROR CHECK    ////////////
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 
 
 $EventTypeArray = array("triggered","connected","disconnected","purchased","threw","Killed","assisted","blinded");
@@ -255,6 +260,8 @@ if($debug==true){
         $lessThanPosition = "0";
 
         $rowAccept      = True;
+        flush();
+        ob_flush();
     }
 
     echo PHP_EOL . PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span> Process end time: " . date('d/m/y H:i:s') . PHP_EOL;
