@@ -18,7 +18,7 @@ $NameEventsArray = array("Round_Start","Round_End","Game_Commencing","Match_Star
 $NameEventsArrayCash = array("cash_player_killed_teammate","cash_player_respawn_amount","cash_team_winner_bonus_consecutive_rounds","cash_team_rescued_hostage","cash_team_win_by_defusing_bomb","cash_player_interact_with_hostage","cash_team_elimination_bomb_map","cash_player_get_killed","cash_team_loser_bonus","cash_player_rescued_hostage","cash_player_killed_enemy_default","mp_hostagepenalty","cash_team_hostage_interaction","cash_team_win_by_time_running_out_bomb","cash_player_killed_enemy_factor","cash_team_survive_guardian_wave","cash_team_terrorist_win_bomb","cash_team_elimination_hostage_map_t","cash_team_win_by_time_running_out_hostage","cash_player_bomb_planted","cash_player_bomb_defused","cash_team_planted_bomb_but_defused","cash_player_killed_hostage","cash_team_elimination_hostage_map_ct","cash_team_win_by_hostage_rescue","cash_team_loser_bonus_consecutive_rounds","cash_player_damage_hostage","cash_team_hostage_alive");
 
 $skipEventVariableArray = array("STEAM USERID validated","entered the game","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");
-$skipMiscArray = array("Touched_A_Hostage","connected, address ","purchased ","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
+$skipMiscArray = array("committed suicide","Touched_A_Hostage","connected, address ","purchased ","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
 
 // Variable Creation
 $SessionID      = "";
@@ -162,6 +162,9 @@ if($debug==true){
                 $EventType      = str_replace(array("\r","\n"),'',substr(htmlentities($exploded[2]),1));
                 if($EventType[0] == '[') {
                     $EventType = str_replace(array("\r","\n"),'',str_replace(' ','',substr($EventType,(strpos($EventType,']')+2))));
+                }
+                if($EventType == 'committedsuicidewith'){
+                    $EventType = 'committed suicide';
                 }
                 if(strpos($EventType,'threw') !== false){
                     //I got lazy, I figure if the line contains threw, then the player threw an Event Var!
