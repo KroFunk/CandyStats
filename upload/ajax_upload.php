@@ -192,6 +192,17 @@ if($debug==true){
                     $Misc_1           = '';
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
                 
+                } else if(stripos($EventType, 'blinded') !== false) {
+                    $EventType = 'blinded';
+                    $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
+                    if($EventVariable == 'BOT'){
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                    }
+                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+                    $Misc_1           = explode(' ',$exploded[2])[3] . '|' . explode(' ',$exploded[4])[4]; //time in seconds | entindex
+                    $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
+
                 } else if(in_array(html_entity_decode($EventType),$skipEventVariableArray)){ //I know, it's a hack, but at least it's a neat one!
                     $EventVariable  = ''; // Don't judge me!
                 } else {
@@ -202,14 +213,14 @@ if($debug==true){
 
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                        
-                    if($EventVariable == 'flashbang' && $EventType != 'purchased'){
+                    if($EventVariable == 'flashbang' && $EventType != 'purchased '){ // sometimes spaces are important
                         $Misc_1 = str_replace(array("\r","\n"),'',str_replace(')','',explode(' ',$exploded[2])[8]));
                     } else if(in_array(html_entity_decode($EventVariable),$skipMiscArray) || in_array(html_entity_decode($EventType),$skipMiscArray)){
                         $Misc_1 = ''; //I got away with it last time, no reason why I shouldn't do it again!
-                        var_dump($exploded);
+                        //var_dump($exploded);
                     } else {
                         $Misc_1           = htmlentities($exploded[5]);
-                        var_dump($exploded);
+                        //var_dump($exploded);
                     }
                 }
                                 
