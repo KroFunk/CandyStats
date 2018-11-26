@@ -18,7 +18,7 @@ $NameEventsArray = array("Round_Start","Round_End","Game_Commencing","Match_Star
 $NameEventsArrayCash = array("cash_player_killed_teammate","cash_player_respawn_amount","cash_team_winner_bonus_consecutive_rounds","cash_team_rescued_hostage","cash_team_win_by_defusing_bomb","cash_player_interact_with_hostage","cash_team_elimination_bomb_map","cash_player_get_killed","cash_team_loser_bonus","cash_player_rescued_hostage","cash_player_killed_enemy_default","mp_hostagepenalty","cash_team_hostage_interaction","cash_team_win_by_time_running_out_bomb","cash_player_killed_enemy_factor","cash_team_survive_guardian_wave","cash_team_terrorist_win_bomb","cash_team_elimination_hostage_map_t","cash_team_win_by_time_running_out_hostage","cash_player_bomb_planted","cash_player_bomb_defused","cash_team_planted_bomb_but_defused","cash_player_killed_hostage","cash_team_elimination_hostage_map_ct","cash_team_win_by_hostage_rescue","cash_team_loser_bonus_consecutive_rounds","cash_player_damage_hostage","cash_team_hostage_alive");
 
 $skipEventVariableArray = array("STEAM USERID validated","entered the game","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");
-$skipMiscArray = array("committed suicide","Touched_A_Hostage","connected, address ","purchased ","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
+$skipMiscArray = array("Rescued_A_Hostage","committed suicide","Touched_A_Hostage","connected, address ","purchased ","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
 
 // Variable Creation
 $SessionID      = "";
@@ -197,6 +197,8 @@ if($debug==true){
                 
                 } else if(stripos($EventType, 'blinded') !== false) {
                     $EventType = 'blinded';
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> 'blinded' EventType detected, stripping variables..." . PHP_EOL;
+                    echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
@@ -242,6 +244,10 @@ if($debug==true){
                 if($EventType == "threw"){
                     $subString_1    = substr(htmlentities($exploded[2]),(strpos(htmlentities($exploded[2]),'[') + 1));
                     $XYZ_1            = substr($subString_1,0,(strpos($subString_1,']')));
+                }
+                if($EventType == "committed suicide"){
+                    //var_dump($exploded);
+                    $XYZ_1 = substr(htmlentities($exploded[2]),2,(strpos(htmlentities($exploded[2]),']'))-2);
                 }
                 echo "<span style='color:#7accd3'>XYZ_1:</span><span style='color:#7ad380'>" . $XYZ_1 . "</span>" . PHP_EOL;
                 if(!empty($XYZ_2)){
