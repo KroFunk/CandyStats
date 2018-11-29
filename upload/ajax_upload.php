@@ -215,10 +215,10 @@ if($debug==true){
 
                 } else if($EventType == 'switched team'){
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
-                    $tempvar = htmlentities(explode('<',$exploded[2])[1]);
-                    $Misc_1 = substr($tempvar,0,stripos(htmlentities($tempvar),'>'));
-                    $tempvar = htmlentities(explode('<',$exploded[2])[2]);
-                    $Misc_2 = substr($tempvar,0,stripos(htmlentities($tempvar),'>'));
+                    $tempvar = explode('<',$exploded[2])[1];
+                    $Misc_1 = htmlentities(substr($tempvar,0,stripos($tempvar,'>')));
+                    $tempvar = explode('<',$exploded[2])[2];
+                    $Misc_2 = htmlentities(substr($tempvar,0,stripos($tempvar,'>')));
                     $tempvar = '';
                     
                 } else if(in_array(html_entity_decode($EventType),$skipEventVariableArray)){ //I know, it's a hack, but at least it's a neat one!
