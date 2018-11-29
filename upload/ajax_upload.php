@@ -158,7 +158,9 @@ if($debug==true){
                 $Team           = str_replace('>','',@explode('<',$explodedName)[3]);
                 echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
                 
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL; 
+                //Whilst this is where I am grabbing the EventType, it sometimes gets modified, check after extracting EventVariable.
+
                 $EventType      = str_replace(array("\r","\n"),'',substr(htmlentities($exploded[2]),1));
                 if($EventType[0] == '[') {
                     $EventType = str_replace(array("\r","\n"),'',str_replace(' ','',substr($EventType,(strpos($EventType,']')+2))));
@@ -169,6 +171,12 @@ if($debug==true){
                 if(strpos($EventType,'threw') !== false){
                     //I got lazy, I figure if the line contains threw, then the player threw an Event Var!
                     $EventType = 'threw';
+                }
+                if(stripos($EventType, 'blinded') !== false) {
+                    $EventType = 'blinded';
+                }
+                if(stripos($EventType, 'switched from team') !== false){
+                    $EventType = 'switched team';
                 }
                 echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
 
@@ -195,10 +203,7 @@ if($debug==true){
                     $Misc_1           = '';
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
                 
-                } else if(stripos($EventType, 'blinded') !== false) {
-                    $EventType = 'blinded';
-                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> 'blinded' EventType detected, stripping variables..." . PHP_EOL;
-                    echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
+                } else if($EventType == 'blinded') {
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
@@ -208,14 +213,20 @@ if($debug==true){
                     $Misc_1           = explode(' ',$exploded[2])[3] . '|' . explode(' ',$exploded[4])[4]; //time in seconds | entindex
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
 
+                } else if($EventType == 'switched team'){
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+                    $tempvar = htmlentities(explode('<',$exploded[2])[1]);
+                    $Misc_1 = substr($tempvar,0,stripos(htmlentities($tempvar),'>'));
+                    $tempvar = htmlentities(explode('<',$exploded[2])[2]);
+                    $Misc_2 = substr($tempvar,0,stripos(htmlentities($tempvar),'>'));
+                    $tempvar = '';
+                    
                 } else if(in_array(html_entity_decode($EventType),$skipEventVariableArray)){ //I know, it's a hack, but at least it's a neat one!
                     $EventVariable  = ''; // Don't judge me!
                 } else {
                     $EventVariable  = htmlentities($exploded[3]);
                     
                     //Misc_1 should only apply when NOT certain EventTypes are detected. More cases true than not.
-                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
-
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                        
                     if($EventVariable == 'flashbang' && $EventType != 'purchased '){ // sometimes spaces are important
@@ -228,7 +239,10 @@ if($debug==true){
                         //var_dump($exploded);
                     }
                 }
-                                
+
+
+                
+
                 echo "<span style='color:#7accd3'>Misc_1:</span><span style='color:#7ad380'>" . $Misc_1 . "</span>" . PHP_EOL;
                 if(!empty($Misc_2)){
                     echo "<span style='color:#7accd3'>Misc_2:</span><span style='color:#7ad380'>" . $Misc_2 . "</span>" . PHP_EOL;
