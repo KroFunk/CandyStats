@@ -61,7 +61,7 @@
               $identifier = $killsResult['Name'];
               $ishuman = 'No';
             }
-            $KD = number_format(intval($killsResult['kills']) / intval($killsResult['deaths']),2);
+            $KD = number_format(@(intval($killsResult['kills']) / intval($killsResult['deaths'])),2);
             $KDArray[$identifier] = array('name'=>$killsResult['Name'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
           }
           echo 'KDArray';
