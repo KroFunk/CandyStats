@@ -14,8 +14,18 @@
   <meta name="author" content="KroFunk and Naiboss">
 
   <link rel="stylesheet" href="resources/styles/style.css.php">
+  <link rel="stylesheet" type="text/css" href="resources/styles/jquery.dataTables.dark.css">
+  
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
   <script src="resources/js/scripts.js"></script>
+  <script>
+  $(document).ready( function () {
+    $('#globalLeaderboard').DataTable( {
+      "order": [[ 3, "desc" ]]
+    });
+  } );
+  </script>
 </head>
 
 <body>
@@ -64,16 +74,36 @@
             $KD = number_format(@(intval($killsResult['kills']) / intval($killsResult['deaths'])),2);
             $KDArray[$identifier] = array('name'=>$killsResult['Name'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
           }
-          echo 'KDArray';
-          echo '<pre>' . var_export($KDArray, true) . '</pre>'; //array check
+          //echo 'KDArray';
+          //echo '<pre>' . var_export($KDArray, true) . '</pre>'; //array check
 
         ?>
       <!--Leaderboard Table-->
-      <table>
-        <tr><td></td><td>Name</td><td>Kills</td></tr>
-        
+
+
+
+      <table id='globalLeaderboard' class='display'>
+        <thead>
+        <tr><td>Name</td><td>Kills</td><td>Deaths</td><td>KD</td></tr>
+        </thead>
+          <?php
+          foreach($KDArray as $KDResult){
+            echo '<tr class="'.$KDResult['ishuman'].'ishuman"><td>';
+            if($KDResult['ishuman'] == 'No') {
+              echo '<img src="resources/images/UI/bot.gif" /> ';
+            }
+            echo $KDResult['name'];
+            echo '</td><td>';
+            echo $KDResult['kills'];
+            echo '</td><td>';
+            echo $KDResult['deaths'];
+            echo '</td><td>';
+            echo $KDResult['KD'];
+            echo '</td></tr>';
+          }
+          ?>
       </table>
-      <input type='checkbox'>Tick this box to include BOTS!
+      <input type='checkbox' checked>Tick this box to include BOTS!
     </td>
     <td>
 
