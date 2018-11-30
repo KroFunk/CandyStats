@@ -152,6 +152,9 @@ if($debug==true){
                 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting SteamID..." . PHP_EOL;
                 $SteamID        = str_replace('>','',@explode('<',$explodedName)[2]);
+                if($SteamID == 'BOT'){ // Bots don't have STEAM_ at the beginning of their ID, this will allow us to use the identifier in reports but still single them out as synths!
+                    $SteamID = $Name;
+                }
                 echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
                 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
@@ -187,7 +190,7 @@ if($debug==true){
                 } else if($EventType == 'killed') {
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
-                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0]); // . '<BOT>'); //We already know they arent a BOT because they don't have the STEAM_ prefix
                     }
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = htmlentities($exploded[5]);
@@ -196,7 +199,7 @@ if($debug==true){
                 } else if($EventType == 'assisted killing '){ //sometimes spaces are important!
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
-                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
                     echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
@@ -206,7 +209,7 @@ if($debug==true){
                 } else if($EventType == 'blinded') {
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
-                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
                     echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;

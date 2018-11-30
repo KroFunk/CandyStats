@@ -45,50 +45,28 @@
     <tr>
     <td>
         <?php
-          $killsArray = array();
-          $deathsArray = array();
+          $KDArray = array();
 
-          $killsQueryString = "SELECT `Name`,`SteamID`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`, `Name` ORDER BY `count(``EventType``)` DESC";
-          $killsQuery = mysqli_query($con,$killsQueryString);
+          //$killsQueryString = "SELECT `Name`,`SteamID`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`, `Name` ORDER BY `count(``EventType``)` DESC";
+          //$deathsQueryString = "SELECT `EventVariable`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP By `EventVariable` ORDER BY `count(``EventType``)` DESC";
+
+          $QueryString = "SELECT `Name`,`SteamID` as PlayerID, count(`EventType`) as kills, (SELECT count(`EventType`) FROM `logdata` WHERE (`EventVariable` = PlayerID AND `EventType` = 'killed') GROUP BY `EventVariable` ORDER BY `count(``EventType``)` DESC) as deaths FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`, `Name` ORDER BY kills DESC";
+          $killsQuery = mysqli_query($con,$QueryString);
           while($killsResult = mysqli_fetch_array($killsQuery)){
             //echo '<pre>' . var_export($killsResult, true) . '</pre>'; //data finding mission.
-            $identifier = $killsResult['SteamID'];
-            if($killsResult['SteamID'] == 'BOT') {
+            $identifier = $killsResult['PlayerID'];
+            if(stripos($identifier,'STEAM') !== false) {
+              $ishuman = 'Yes';
+            } else {
               $identifier = $killsResult['Name'];
-              $playerBot = 'BOT';
-            } else {
-              $playerBot = 'Human';
+              $ishuman = 'No';
             }
-            $killsArray[$identifier] = array($killsResult['Name'],$killsResult['count(`EventType`)'],$playerBot);
+            $KD = number_format(intval($killsResult['kills']) / intval($killsResult['deaths']),2);
+            $KDArray[$identifier] = array('name'=>$killsResult['Name'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
           }
-          echo 'killsArray';
-          echo '<pre>' . var_export($killsArray, true) . '</pre>'; //array check
+          echo 'KDArray';
+          echo '<pre>' . var_export($KDArray, true) . '</pre>'; //array check
 
-          $deathsQueryString = "SELECT `EventVariable`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventVariable` ORDER BY `count(``EventType``)` DESC";
-          $deathsQuery = mysqli_query($con,$deathsQueryString);
-          while($deathsResult = mysqli_fetch_array($deathsQuery)){
-            // echo '<pre>' . var_export($deathsResult, true) . '</pre>'; //data finding mission.
-
-            //'EventVariable' 'count(`EventType`)'
-
-            echo html_entity_decode('EventVariable');
-
-
-
-            /*$identifier = $deathsResult['SteamID'];
-            if($deathsResult['SteamID'] == 'BOT') {
-              $identifier = $deathsResult['Name'];
-              $playerBot = 'BOT';
-            } else {
-              $playerBot = 'Human';
-            }
-            $deathsArray[$identifier] = array($deathsResult['Name'],$deathsResult['count(`EventType`)'],$playerBot);*/
-          }
-          echo 'deathsArray';
-          echo '<pre>' . var_export($deathsArray, true) . '</pre>'; //array check
-
-
-          $deathsQueryString = "SELECT `EventVariable`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP By `EventVariable` ORDER BY `count(``EventType``)` DESC";
         ?>
       <!--Leaderboard Table-->
       <table>
