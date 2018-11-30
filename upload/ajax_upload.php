@@ -152,13 +152,18 @@ if($debug==true){
                 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting SteamID..." . PHP_EOL;
                 $SteamID        = str_replace('>','',@explode('<',$explodedName)[2]);
+                if($SteamID == 'BOT'){ // Bots don't have STEAM_ at the beginning of their ID, this will allow us to use the identifier in reports but still single them out as synths!
+                    $SteamID = $Name;
+                }
                 echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
                 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
                 $Team           = str_replace('>','',@explode('<',$explodedName)[3]);
                 echo "<span style='color:#7accd3'>Team:</span><span style='color:#7ad380'>" . $Team . "</span>" . PHP_EOL;
                 
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL;
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventType..." . PHP_EOL; 
+                //Whilst this is where I am grabbing the EventType, it sometimes gets modified, check after extracting EventVariable.
+
                 $EventType      = str_replace(array("\r","\n"),'',substr(htmlentities($exploded[2]),1));
                 if($EventType[0] == '[') {
                     $EventType = str_replace(array("\r","\n"),'',str_replace(' ','',substr($EventType,(strpos($EventType,']')+2))));
@@ -170,6 +175,12 @@ if($debug==true){
                     //I got lazy, I figure if the line contains threw, then the player threw an Event Var!
                     $EventType = 'threw';
                 }
+                if(stripos($EventType, 'blinded') !== false) {
+                    $EventType = 'blinded';
+                }
+                if(stripos($EventType, 'switched from team') !== false){
+                    $EventType = 'switched team';
+                }
                 echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventVariable..." . PHP_EOL;
@@ -179,7 +190,7 @@ if($debug==true){
                 } else if($EventType == 'killed') {
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
-                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0]); // . '<BOT>'); //We already know they arent a BOT because they don't have the STEAM_ prefix
                     }
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = htmlentities($exploded[5]);
@@ -188,34 +199,37 @@ if($debug==true){
                 } else if($EventType == 'assisted killing '){ //sometimes spaces are important!
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
-                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
                     echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = '';
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
                 
-                } else if(stripos($EventType, 'blinded') !== false) {
-                    $EventType = 'blinded';
-                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> 'blinded' EventType detected, stripping variables..." . PHP_EOL;
-                    echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
+                } else if($EventType == 'blinded') {
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
-                        $EventVariable = htmlentities(explode('<',$exploded[3])[0] . '<BOT>');
+                        $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
                     echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = explode(' ',$exploded[2])[3] . '|' . explode(' ',$exploded[4])[4]; //time in seconds | entindex
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
 
+                } else if($EventType == 'switched team'){
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
+                    $tempvar = explode('<',$exploded[2])[1];
+                    $Misc_1 = htmlentities(substr($tempvar,0,stripos($tempvar,'>')));
+                    $tempvar = explode('<',$exploded[2])[2];
+                    $Misc_2 = htmlentities(substr($tempvar,0,stripos($tempvar,'>')));
+                    $tempvar = '';
+                    
                 } else if(in_array(html_entity_decode($EventType),$skipEventVariableArray)){ //I know, it's a hack, but at least it's a neat one!
                     $EventVariable  = ''; // Don't judge me!
                 } else {
                     $EventVariable  = htmlentities($exploded[3]);
                     
                     //Misc_1 should only apply when NOT certain EventTypes are detected. More cases true than not.
-                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
-
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                        
                     if($EventVariable == 'flashbang' && $EventType != 'purchased '){ // sometimes spaces are important
@@ -228,7 +242,10 @@ if($debug==true){
                         //var_dump($exploded);
                     }
                 }
-                                
+
+
+                
+
                 echo "<span style='color:#7accd3'>Misc_1:</span><span style='color:#7ad380'>" . $Misc_1 . "</span>" . PHP_EOL;
                 if(!empty($Misc_2)){
                     echo "<span style='color:#7accd3'>Misc_2:</span><span style='color:#7ad380'>" . $Misc_2 . "</span>" . PHP_EOL;
@@ -257,7 +274,7 @@ if($debug==true){
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
                 $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', '" . htmlentities($Team, ENT_QUOTES) . "', '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', '" . htmlentities($Misc_1, ENT_QUOTES) . "', '" . htmlentities($Misc_2, ENT_QUOTES) . "', '" . htmlentities($XYZ_1, ENT_QUOTES) . "', '" . htmlentities($XYZ_2, ENT_QUOTES) . "');";
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
-                //mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
+                mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
             }
         }
         // Variable Reset!
