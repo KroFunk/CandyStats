@@ -21,11 +21,21 @@
   <script src="resources/js/scripts.js"></script>
   <script>
   $(document).ready( function () {
-    $('#globalLeaderboard').DataTable( {
+    leaderboard = $('#globalLeaderboard').DataTable( {
       "order": [[ 3, "desc" ]],
-      "ajax": 'API/GET/leaderboard/datatables.php'
+      "ajax": 'API/GET/leaderboard/datatables.php?hide=bots'
     });
   } );
+
+
+  function showHideBots(checkvalue) {
+    if(checkvalue==true){
+      leaderboard.ajax.url( 'API/GET/leaderboard/datatables.php' ).load();
+    } else {
+      leaderboard.ajax.url( 'API/GET/leaderboard/datatables.php?hide=bots' ).load();
+    }
+}
+
   </script>
 </head>
 
@@ -65,7 +75,7 @@
         <tr><td>Name</td><td>Kills</td><td>Deaths</td><td>KD</td></tr>
         </thead>
       </table>
-      <input type='checkbox' checked onclick="showHideBots();">Tick this box to include BOTS!
+      <input type='checkbox' onclick="showHideBots(this.checked);">Tick this box to include BOTS!
     </td>
     <td>
 
