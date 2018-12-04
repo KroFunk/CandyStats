@@ -22,7 +22,8 @@
   <script>
   $(document).ready( function () {
     $('#globalLeaderboard').DataTable( {
-      "order": [[ 3, "desc" ]]
+      "order": [[ 3, "desc" ]],
+      "ajax": 'API/GET/leaderboard/datatables.php'
     });
   } );
   </script>
@@ -54,30 +55,7 @@
     <tr>
     <tr>
     <td>
-        <?php
-          $KDArray = array();
 
-          //$killsQueryString = "SELECT `Name`,`SteamID`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`, `Name` ORDER BY `count(``EventType``)` DESC";
-          //$deathsQueryString = "SELECT `EventVariable`,count(`EventType`) FROM `logdata` WHERE `EventType` = 'killed' GROUP By `EventVariable` ORDER BY `count(``EventType``)` DESC";
-
-          $QueryString = "SELECT `Name`,`SteamID` as PlayerID, count(`EventType`) as kills, (SELECT count(`EventType`) FROM `logdata` WHERE (`EventVariable` = PlayerID AND `EventType` = 'killed') GROUP BY `EventVariable` ORDER BY `count(``EventType``)` DESC) as deaths FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`, `Name` ORDER BY kills DESC";
-          $killsQuery = mysqli_query($con,$QueryString);
-          while($killsResult = mysqli_fetch_array($killsQuery)){
-            //echo '<pre>' . var_export($killsResult, true) . '</pre>'; //data finding mission.
-            $identifier = $killsResult['PlayerID'];
-            if(stripos($identifier,'STEAM') !== false) {
-              $ishuman = 'Yes';
-            } else {
-              $identifier = $killsResult['Name'];
-              $ishuman = 'No';
-            }
-            $KD = number_format(@(intval($killsResult['kills']) / intval($killsResult['deaths'])),2);
-            $KDArray[$identifier] = array('name'=>$killsResult['Name'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
-          }
-          //echo 'KDArray';
-          //echo '<pre>' . var_export($KDArray, true) . '</pre>'; //array check
-
-        ?>
       <!--Leaderboard Table-->
 
 
@@ -86,24 +64,8 @@
         <thead>
         <tr><td>Name</td><td>Kills</td><td>Deaths</td><td>KD</td></tr>
         </thead>
-          <?php
-          foreach($KDArray as $KDResult){
-            echo '<tr class="'.$KDResult['ishuman'].'ishuman"><td>';
-            if($KDResult['ishuman'] == 'No') {
-              echo '<img src="resources/images/UI/bot.gif" /> ';
-            }
-            echo $KDResult['name'];
-            echo '</td><td>';
-            echo $KDResult['kills'];
-            echo '</td><td>';
-            echo $KDResult['deaths'];
-            echo '</td><td>';
-            echo $KDResult['KD'];
-            echo '</td></tr>';
-          }
-          ?>
       </table>
-      <input type='checkbox' checked>Tick this box to include BOTS!
+      <input type='checkbox' checked onclick="showHideBots();">Tick this box to include BOTS!
     </td>
     <td>
 
