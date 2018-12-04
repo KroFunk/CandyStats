@@ -197,6 +197,7 @@ if($debug==true){
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
                     echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                 } else if($EventType == 'assisted killing '){ //sometimes spaces are important!
+                    $EventType = 'assisted killing'; //removing the space!
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
@@ -252,7 +253,7 @@ if($debug==true){
                 }
                 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting XYZ..." . PHP_EOL;
-                if($EventType == "killed" || $EventType == "assisted killing "){ //sometimes spaces are important!
+                if($EventType == "killed"){ 
                     $XYZ_1 = substr(htmlentities($exploded[2]),2,(strpos(htmlentities($exploded[2]),']'))-2);
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> XYZ_1:" . $XYZ_1 . PHP_EOL;
                     $XYZ_2 = substr(htmlentities($exploded[4]),2,(strpos(htmlentities($exploded[4]),']'))-2);

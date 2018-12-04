@@ -47,6 +47,12 @@
     });
   } );
 
+    $(document).ready( function () {
+    awards = $('#awards').DataTable( {
+      "order": [[ 0, "desc" ]],
+      "ajax": 'API/GET/awards/datatables.php'
+    });
+  } );
 
   function showHideBots(checkvalue) {
     if(checkvalue==true){
@@ -88,7 +94,6 @@
 
       <!--Leaderboard Table-->
 
-
       <table id='globalLeaderboard' class='display'>
         <thead>
         <tr><td>Name</td><td>K</td><td>D</td><td>KD</td></tr>
@@ -99,6 +104,12 @@
     <td>
 
       <!--Award Table-->
+
+      <table id='awards' class='display'>
+        <thead>
+        <tr><td>Award</td><td>Winner</td><td>Value</td></tr>
+        </thead>
+      </table>
 
     </td>
     </tr>
