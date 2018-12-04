@@ -1,7 +1,6 @@
 <?php
   require "resources/config.php";
 ?>
-
 <!doctype html>
 
 <html lang="en">
@@ -22,6 +21,27 @@
   <script>
   $(document).ready( function () {
     leaderboard = $('#globalLeaderboard').DataTable( {
+      'columnDefs': [
+        {
+            "targets": 0,
+            "className": "text-left"
+        },
+        {
+            "targets": 1,
+            "width":"15%",
+            "className": "text-right"
+        },
+        {
+            "targets": 2,
+            "width":"15%",
+            "className": "text-right"
+        },
+        {
+            "targets": 3, 
+            "width":"15%",
+            "className": "text-right"
+        }
+      ],
       "order": [[ 3, "desc" ]],
       "ajax": 'API/GET/leaderboard/datatables.php?hide=bots'
     });
@@ -44,7 +64,7 @@
 
 <div class='bodyWrapper'>
   <div class='menuBar' id='menuBar'>
-    <div class='logo'>CandyStats : Upload Log</div>
+    <div class='logo'>CandyStats : Global Overview</div>
     <div class='menuButton'><img src="resources/images/UI/login-nograd.png" /></div>
     <div class='menuLink'><a href='upload/'>Upload Log</a><a href='login/'>Login</a></div>  
   </div>
@@ -69,10 +89,9 @@
       <!--Leaderboard Table-->
 
 
-
       <table id='globalLeaderboard' class='display'>
         <thead>
-        <tr><td>Name</td><td>Kills</td><td>Deaths</td><td>KD</td></tr>
+        <tr><td>Name</td><td>K</td><td>D</td><td>KD</td></tr>
         </thead>
       </table>
       <input type='checkbox' onclick="showHideBots(this.checked);">Tick this box to include BOTS!

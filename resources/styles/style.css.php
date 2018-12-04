@@ -2,6 +2,15 @@
 header("Content-type: text/css");
 header("X-Content-Type-Options: nosniff");
 ?>
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
 body, HTML{
 padding:0;
 margin:0;

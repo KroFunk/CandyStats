@@ -12,14 +12,6 @@ function growShrinkMenu() {
   }
 }
 
-function showHideBots() {
-    var bots = document.getElementsByClassName("ishuman_No");
-    for(var i=0; i<bots.length; i++) {
-        bots[i].style.display = 'none';
-    }
-    alert('bots be hidden');
-}
-
 //Drag and Drop File Upload. Site: https://artisansweb.net/drag-drop-file-upload-using-javascript-php/
 var fileobj;
 function upload_file(e) {

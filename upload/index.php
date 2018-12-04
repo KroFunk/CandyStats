@@ -25,7 +25,7 @@
   </div>
 
   <div class='contentDiv'>
-  <a href='../'>Click here to go back to Game Overview</a>
+  <a href='../'>Click here to go back to Global Overview</a>
     
       <div id='PleaseWait' style='display:none;'>
         <p>Please wait while the magic happens...</p>
