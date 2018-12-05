@@ -1,11 +1,14 @@
 <?php 
 session_start();
 
-//SQL connection details
-$SQLServer="localhost";
-$SQLUser="root";
-$SQLPass="root";
-$SQLDB="candystats";
+//Steam API Key *Required*
+$SteamAPI="";
+
+//SQL connection details *Required*
+$SQLServer="";
+$SQLUser="";
+$SQLPass="";
+$SQLDB="";
 
 
 //########################################################################################
