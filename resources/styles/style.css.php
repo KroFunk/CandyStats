@@ -100,6 +100,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', endColorstr='#41127a',GradientType=0 ); /* IE6-9 */
     color:#FFF6EF;
     transition: all 0.2s ease-in-out;
+    z-index: 999999;
 }
 .smallMenuBar{
     width:100%;
@@ -116,6 +117,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', endColorstr='#41127a',GradientType=0 ); /* IE6-9 */
     color:#FFF6EF;
     transition: all 0.5s ease-in-out;
+    z-index: 999999;
 }
 .smallMenuBar .logo{
     color:#FFF6EF;

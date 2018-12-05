@@ -43,6 +43,7 @@
         }
       ],
       "order": [[ 3, "desc" ]],
+      "lengthChange": false,
       "ajax": 'API/GET/leaderboard/datatables.php?hide=bots'
     });
   } );
@@ -57,12 +58,27 @@
   } );
 
   function showHideBots(checkvalue) {
-    if(checkvalue==true){
+    if(checkvalue=='Show BOTS!'){
+      leaderboard.clear();
       leaderboard.ajax.url( 'API/GET/leaderboard/datatables.php' ).load();
+      document.getElementById('showHideBotsButton').value = 'Hide BOTS!';
     } else {
+      leaderboard.clear();
       leaderboard.ajax.url( 'API/GET/leaderboard/datatables.php?hide=bots' ).load();
+      document.getElementById('showHideBotsButton').value = 'Show BOTS!';
     }
-}
+  }
+
+    function fullList(checkvalue) {
+    if(checkvalue=='Show all players!'){
+      leaderboard.page.len(-1).draw();
+      document.getElementById('fullListButton').value = 'Show Top 10!';
+    } else {
+      leaderboard.page.len(10).draw();
+      document.getElementById('fullListButton').value = 'Show all players!';
+
+    }
+  }
 
   </script>
 </head>
@@ -95,13 +111,15 @@
     <td valign='top'>
 
       <!--Leaderboard Table-->
-
+      <div style="position: relative; z-index:1; width: 0; height: 0">
+      <input type="button" id='fullListButton' style='z-index:1; position: absolute; font-size:12px; height:15px; width:115px; padding:1; padding-bottom: 25px; top:-10px; left:10px;' class="glossyButton" value="Show all players!" onclick="fullList(this.value)">
+      <input type="button" id='showHideBotsButton' style='z-index:1; position: absolute; font-size:12px; height:15px; width:115px; padding:1; padding-bottom: 25px; top:-10px; left:135px;' class="glossyButton" value="Show BOTS!" onclick="showHideBots(this.value)">
+      </div>
       <table id='globalLeaderboard' class='display'>
         <thead>
         <tr><td>Name</td><td>K</td><td>D</td><td>KD</td></tr>
         </thead>
       </table>
-      <input type='checkbox' onclick="showHideBots(this.checked);">Tick this box to include BOTS!
 
     </td>
     <td valign='top'>
