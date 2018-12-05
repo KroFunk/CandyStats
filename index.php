@@ -49,7 +49,9 @@
 
     $(document).ready( function () {
     awards = $('#awards').DataTable( {
-      "order": [[ 0, "desc" ]],
+      "ordering": false,
+      "paging": false,
+      "info": false,
       "ajax": 'API/GET/awards/datatables.php'
     });
   } );
@@ -90,7 +92,7 @@
     </tr>
     <tr>
     <tr>
-    <td>
+    <td valign='top'>
 
       <!--Leaderboard Table-->
 
@@ -100,8 +102,9 @@
         </thead>
       </table>
       <input type='checkbox' onclick="showHideBots(this.checked);">Tick this box to include BOTS!
+
     </td>
-    <td>
+    <td valign='top'>
 
       <!--Award Table-->
 
