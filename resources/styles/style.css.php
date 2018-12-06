@@ -246,7 +246,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 .SelectionButton{
     text-align: center;
     padding:5px;
+    padding-top:10px;
     margin:3px 0 3px 0;
+}
+.SelectionButton:hover{
+    background:#24292E;
 }
 #PleaseWait{
     text-align:center;
@@ -255,4 +259,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 #PleaseWait img{
     border-radius:5px;
     height:200px;
+}
+.globalLeaderboard_wrapper_wrapper {
+    min-height: 602px !important;
 }

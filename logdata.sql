@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 21, 2018 at 02:55 PM
+-- Generation Time: Dec 06, 2018 at 05:13 PM
 -- Server version: 5.7.24-log
 -- PHP Version: 5.6.38
 
@@ -42,8 +42,10 @@ CREATE TABLE `logdata` (
   `EventVariable` text NOT NULL COMMENT 'Event Variable',
   `Misc_1` text COMMENT 'Misc info relating to event',
   `Misc_2` text,
+  `Misc_3` text,
   `XYZ_1` text COMMENT 'coordinates of event',
-  `XYZ_2` text
+  `XYZ_2` text,
+  `score` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

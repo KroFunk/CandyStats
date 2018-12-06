@@ -90,7 +90,7 @@
   <div class='menuBar' id='menuBar'>
     <div class='logo'>CandyStats : Global Overview</div>
     <div class='menuButton'><img src="resources/images/UI/login-nograd.png" /></div>
-    <div class='menuLink'><a href='upload/'>Upload Log</a><a href='login/'>Login</a></div>  
+    <div class='menuLink'><a href='team_calculator/'>Team Calculator</a><a href='config/'>Config Variables</a><a href='upload/'>Upload Log</a>|&nbsp;&nbsp;<a href='login/'>Login</a></div>  
   </div>
 
   <center>
@@ -111,15 +111,17 @@
     <td valign='top'>
 
       <!--Leaderboard Table-->
-      <div style="position: relative; z-index:1; width: 0; height: 0">
-      <input type="button" id='fullListButton' style='position:absolute; top:0px; left:10px; width:115px;' class="smallglossyButton" value="Show all players!" onclick="fullList(this.value)">
-      <input type="button" id='showHideBotsButton' style='position:absolute; top:0px; left:135px; width:115px;' class="smallglossyButton" value="Show BOTS!" onclick="showHideBots(this.value)">
+      <div class='globalLeaderboard_wrapper_wrapper'>
+        <div style="position: relative; z-index:1; width: 0; height: 0">
+          <input type="button" id='fullListButton' style='position:absolute; top:0px; left:10px; width:115px;' class="smallglossyButton" value="Show all players!" onclick="fullList(this.value)">
+          <input type="button" id='showHideBotsButton' style='position:absolute; top:0px; left:135px; width:115px;' class="smallglossyButton" value="Show BOTS!" onclick="showHideBots(this.value)">
+        </div>
+        <table id='globalLeaderboard' class='display'>
+          <thead>
+          <tr><td>Name</td><td>K</td><td>D</td><td>KD</td></tr>
+          </thead>
+        </table>
       </div>
-      <table id='globalLeaderboard' class='display'>
-        <thead>
-        <tr><td>Name</td><td>K</td><td>D</td><td>KD</td></tr>
-        </thead>
-      </table>
 
     </td>
     <td valign='top'>
@@ -161,19 +163,33 @@
           <br>
           <br>
           <br>
-          <br>
+          <br><br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         </div> 
       </td>
       <td>
-        <div class='SelectionDiv SelectionButton'>>|</div>
-        <div class='SelectionDiv SelectionButton'>></div>
-        <div class='SelectionDiv SelectionButton'><</div>
-        <div class='SelectionDiv SelectionButton'>|<</div>
+        <div class='SelectionButton'><img src='resources/images/add_all.png' /></div>
+        <div class='SelectionButton'><img src='resources/images/add.png' /></div>
+        <div class='SelectionButton'><img src='resources/images/remove.png' /></div>
+        <div class='SelectionButton'><img src='resources/images/remove_all.png' /></div>
 
       </td>
       <td style='padding-right:10px;'>
         <div class='SelectionDiv'>
         <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br><br>
         <br>
         <br>
         <br>
