@@ -85,6 +85,36 @@ background: -webkit-linear-gradient(top, #691df7 0%,#7b30d1 50%,#5619b7 50%,#411
 background: linear-gradient(to bottom, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', endColorstr='#41127a',GradientType=0 ); /* IE6-9 */
 }
+.smallglossyButton{
+    display:inline-block;
+    border:1px solid #4e277b;
+    border-radius:4px;
+    color:#FFF6EF;
+    padding:5px;
+    font-size:12px;
+    background: #8241f9; /* Old browsers */
+    background: -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8241f9', endColorstr='#4e277b',GradientType=0 ); /* IE6-9 */
+    outline:0 none;
+}
+.smallglossyButton:active{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#9d6cf7+0,9b6cd1+50,805db7+50,593e7a+100 */
+    background: #9d6cf7; /* Old browsers */
+    background: -moz-linear-gradient(top, #9d6cf7 0%, #9b6cd1 50%, #805db7 50%, #593e7a 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #9d6cf7 0%,#9b6cd1 50%,#805db7 50%,#593e7a 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #9d6cf7 0%,#9b6cd1 50%,#805db7 50%,#593e7a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9d6cf7', endColorstr='#593e7a',GradientType=0 ); /* IE6-9 */
+}
+.smallglossyButton:hover{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#691df7+0,7b30d1+50,5619b7+50,41127a+100 */
+    background: #691df7; /* Old browsers */
+    background: -moz-linear-gradient(top, #691df7 0%, #7b30d1 50%, #5619b7 50%, #41127a 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', endColorstr='#41127a',GradientType=0 ); /* IE6-9 */
+}
 .menuBar{
     width:100%;
     max-width:1000px;

@@ -112,8 +112,8 @@
 
       <!--Leaderboard Table-->
       <div style="position: relative; z-index:1; width: 0; height: 0">
-      <input type="button" id='fullListButton' style='z-index:1; position: absolute; font-size:12px; height:15px; width:115px; padding:1; padding-bottom: 25px; top:-10px; left:10px;' class="glossyButton" value="Show all players!" onclick="fullList(this.value)">
-      <input type="button" id='showHideBotsButton' style='z-index:1; position: absolute; font-size:12px; height:15px; width:115px; padding:1; padding-bottom: 25px; top:-10px; left:135px;' class="glossyButton" value="Show BOTS!" onclick="showHideBots(this.value)">
+      <input type="button" id='fullListButton' style='position:absolute; top:0px; left:10px; width:115px;' class="smallglossyButton" value="Show all players!" onclick="fullList(this.value)">
+      <input type="button" id='showHideBotsButton' style='position:absolute; top:0px; left:135px; width:115px;' class="smallglossyButton" value="Show BOTS!" onclick="showHideBots(this.value)">
       </div>
       <table id='globalLeaderboard' class='display'>
         <thead>
