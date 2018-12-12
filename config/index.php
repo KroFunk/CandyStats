@@ -1,3 +1,6 @@
+<?php
+require('../resources/config.php');
+?>
 <!doctype html>
 
 <html lang="en">
@@ -33,39 +36,49 @@
     
     
     <h2>Scores.</h2>
+
+    <?php
+    $baseScores = array();
+      $queryString = "SELECT * FROM `basescores`";
+      $query = mysqli_query($con,$queryString);
+      while($result = mysqli_fetch_array($query)){
+        $baseScores[$result['BaseScore']] = $result['Value'];
+      }
+    ?>
+
     <p class='h1Subheading'>Scores are calculated when logs are uploaded using the values below.</p>
     <table>
 
     <tr>
-      <td width='160px' align='right'>Hostage rescued</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
-      <td width='180px' align='right'>Team Kill</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
-      <td width='170px' align='right'>Headshot</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
+      <td width='155px' align='right'>Hostage rescued</td><td><input class='configNumber' name='Hostage_Rescued' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Hostage_Rescued']?>' /></td>
+      <td width='175px' align='right'>Team Kill</td><td><input class='configNumber' name='Team_Kill' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Team_Kill']?>' /></td>
+      <td width='165px' align='right'>Headshot</td><td><input class='configNumber' name='Headshot' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Headshot']?>' /></td>
 
     </tr>
 
     <tr>
-      <td align='right'>Hostage damage</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
-      <td align='right'>Suicide</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
-      <td align='right'>Penetration</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
+      <td align='right'>Hostage damage</td><td><input name='Hostage_Damage' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Hostage_Damage']?>' /></td>
+      <td align='right'>Suicide</td><td><input name='Suicide' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Suicide']?>' /></td>
+      <td align='right'>Penetration</td><td><input name='Penetration' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Penetration']?>' /></td>
       
     </tr>
 
     <tr>
-      <td align='right'>Bomb planted</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
-      <td align='right'>Kill assist</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
+      <td align='right'>Bomb planted</td><td><input name='Bomb_Planted' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Bomb_Planted']?>' /></td>
+      <td align='right'>Kill assist</td><td><input name='Kill_Assist' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Kill_Assist']?>' /></td>
       <td></td><td></td>
 
     </tr>
 
     <tr>
-      <td align='right'>Bomb exploded</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
-      <td align='right'>Kill Base Score</td><td><input class='configNumber' type='number' /></td
+      <td align='right'>Bomb exploded</td><td><input name='Bomb_Successful' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Bomb_Successful']?>' /></td>
+      <td align='right'>Kill Base Score</td><td><input name='Kill_Base' class='configNumber' type='number' value='<?php echo $baseScores['Kill_Base']?>' /></td
       ><td></td><td></td>
 
     </tr>
 
     <tr>
-      <td align='right'>Bomb defused</td><td><input class='configNumber' type='number' min='1' max='9999' /></td>
+      <td align='right'>Bomb defused</td><td><input name='Bomb_Defusal' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Bomb_Defusal']?>' /></td>
       <td></td><td></td>
       <td></td><td></td>
 
@@ -73,7 +86,7 @@
 
     </table>
 
-    <p>Kills have a base score (+ headshot/penetration), multiplied by the weapon weighting.</p>
+    <p>Kills have a base score (+ headshot/penetration), multiplied by the weapon weightings below.</p>
 
 
     <table width='100%'>
@@ -129,7 +142,7 @@
       <td align='right'><img src='../resources/images/weapons/Scar20.png' class='gunIcon' /> SCAR-20</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1'  /></td>
       <td align='right'><img src='../resources/images/weapons/Sg556.png' class='gunIcon' /> SG 553</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1'  /></td>
       <td align='right'><img src='../resources/images/weapons/Ssg08.png' class='gunIcon' /> SSG 08</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1'  /></td>
-      <td align='right'><img src='../resources/images/weapons/Taserhud.png' class='gunIcon' /> Zeus (Taser)</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1'  /></td>    
+      <td align='right'><img src='../resources/images/weapons/Taserhud.png' class='gunIcon' /> Zeus(Taser)</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1'  /></td>    
     </tr>
     <tr>
       <td align='right'><img src='../resources/images/weapons/Tec9.png' class='gunIcon' /> TEC-9</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1'  /></td>
@@ -138,10 +151,8 @@
       <td align='right'><img src='../resources/images/weapons/CSGO_XM1014_Inventory.png' class='gunIcon' /> XM1014</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1'  /></td>    
     </tr>
     </table>
-    
-    <table>
-    <tr><td></td><td></td></tr>
-    </table>
+    <p><i>Changes to base scores and weapon weightings will only affect new logs added to CandyStats. Existing scores will not be updated!</i></p>
+    <div style='text-align:right;'><input type="submit" class="glossyButton" value="Save Config"></div>
 
   </div>
 
