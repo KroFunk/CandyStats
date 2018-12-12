@@ -1,2 +1,6 @@
 resources\config.php
 resources/config.php
+.vs/
+.vscode/
+.vs\
+.vscode\
