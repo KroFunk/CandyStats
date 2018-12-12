@@ -51,3 +51,9 @@ function ajax_file_upload(file_obj) {
         });
     }
 }
+function setOneNumberDecimal(numberInput) {
+    numberInput.value = parseFloat(numberInput.value).toFixed(1);
+}
+function setTwoNumberDecimal(numberInput) {
+    numberInput.value = parseFloat(numberInput.value).toFixed(2);
+}

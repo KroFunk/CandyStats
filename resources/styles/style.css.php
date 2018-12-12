@@ -27,6 +27,8 @@ h1{
 h2{
     font-weight:300!important;
     color:#FFF6EF;
+    margin-bottom:0;
+    padding-bottom:0;
 }
 .h1Subheading{
     padding-top:0;
@@ -262,4 +264,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 }
 .globalLeaderboard_wrapper_wrapper {
     min-height: 602px !important;
+}
+.configNumber {
+    width:50px;
+    background: #24292E;
+    border:0 none;
+    outline:0 none;
+    color:#FFF6EF;
+    padding:5px;
+    border-radius: 2px;
+    transition: 0.2s ease-in-out;
+}
+.configNumber:hover, .configNumber:active, .configNumber:focus {
+    background: #393d42;
+}
+.gunIcon {
+    max-width: 80px;
+    max-height: 80px;
+    vertical-align: middle;
 }
