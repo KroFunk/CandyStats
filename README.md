@@ -27,7 +27,7 @@ The user facing website should give good insights but the plan is to also provid
 # Installation
 1. Place directory on your web server. 
 2. Create a "candystats" database on your MySQL server.
-3. Import the _logdata.sql_ table into the database.
+3. Import the _candystats.sql_ table into the database.
 4. Rename resources/config-template.php to config.php
 5. Edit config.php, fill in your MySQL credentials and Steam API key.
 
