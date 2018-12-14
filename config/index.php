@@ -34,13 +34,48 @@ require('../resources/config.php');
       <p class='h1Subheading'>Settings that allow you to customise CandyStats.</p>
     </center>
     
+
+
+  <?php 
+    if(isset($_POST['save'])) {
+      /*
+      foreach ($_POST as $key => $value) {
+            $output .=  "&#36;_POST['";
+            $output .=  $key;
+            $output .=  "'] ";
+            $output .=  $value;
+            $output .=  "<br>";
+        }
+      echo $output;
+      */
     
+      $updateQueryString = "UPDATE `basescores` SET `Value` = '" . intval($_POST['Hostage_Rescued']) . "' WHERE `basescores`.`BaseScore` = 'Hostage_Rescued'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Hostage_Damage']) . "' WHERE `basescores`.`BaseScore` = 'Hostage_Damage'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Planted']) . "' WHERE `basescores`.`BaseScore` = 'Bomb_Planted'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Successful']) . "' WHERE `basescores`.`BaseScore` = 'Bomb_Successful'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Defusal']) . "' WHERE `basescores`.`BaseScore` = 'Bomb_Defusal'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Team_Kill']) . "' WHERE `basescores`.`BaseScore` = 'Team_Kill'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Suicide']) . "' WHERE `basescores`.`BaseScore` = 'Suicide'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Kill_Assist']) . "' WHERE `basescores`.`BaseScore` = 'Kill_Assist'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Headshot']) . "' WHERE `basescores`.`BaseScore` = 'Headshot'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Penetration']) . "' WHERE `basescores`.`BaseScore` = 'Penetration'; 
+      UPDATE `basescores` SET `Value` = '" . intval($_POST['Kill_Base']) . "' WHERE `basescores`.`BaseScore` = 'Kill_Base';";
+      //echo $queryString;
+      $basescoresmysql = mysqli_multi_query($con, $updateQueryString) or die(mysqli_error($con).PHP_EOL.$updateQueryString);
+      
+    }
+    
+  ?>
+
+
+
+    <form method='POST' action='save.php' >
     <h2>Scores.</h2>
 
     <?php
     $baseScores = array();
       $queryString = "SELECT * FROM `basescores`";
-      $query = mysqli_query($con,$queryString);
+      $query = mysqli_query($con,$queryString) or die(mysqli_error($con).PHP_EOL.$queryString);
       while($result = mysqli_fetch_array($query)){
         $baseScores[$result['BaseScore']] = $result['Value'];
       }
@@ -91,11 +126,10 @@ require('../resources/config.php');
     <?php
       $weaponWeighting = array();
       $queryString = "SELECT * FROM `weaponweighting`";
-      $query = mysqli_query($con,$queryString);
+      $query = mysqli_query($con,$queryString) or die(mysqli_error($con).PHP_EOL.$queryString);
       while($result = mysqli_fetch_array($query)){
         $weaponWeighting[$result['Weapon']] = $result['Weighting'];
       }
-      var_dump($weaponWeighting);
     ?>
 
     <table width='100%'>
@@ -161,7 +195,8 @@ require('../resources/config.php');
     </tr>
     </table>
     <p><i>Changes to base scores and weapon weightings will only affect new logs added to CandyStats. Existing scores will not be updated!</i></p>
-    <div style='text-align:right;'><input type="submit" class="glossyButton" value="Save Config"></div>
+    <div style='text-align:right;'><input type="submit" class="glossyButton" name="save" value="Save Config"></div>
+    </form>
 
   </div>
 
