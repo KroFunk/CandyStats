@@ -61,20 +61,20 @@ require('../resources/config.php');
       }
     ?>
 
-    <p class='h1Subheading'>Scores are calculated when logs are uploaded using the values below.</p>
+    <p class='h1Subheading'>Scores are calculated using the values below.</p>
     <table>
 
     <tr>
       <td width='155px' align='right'>Hostage rescued</td><td><input class='configNumber' name='Hostage_Rescued' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Hostage_Rescued']?>' /></td>
       <td width='175px' align='right'>Team Kill</td><td><input class='configNumber' name='Team_Kill' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Team_Kill']?>' /></td>
-      <td width='165px' align='right'>Headshot</td><td><input class='configNumber' name='Headshot' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Headshot']?>' /></td>
+      <td width='165px' align='right'>Headshot</td><td><input class='configNumber' name='Headshot' type='number' min='-9999' max='9999' value='<?php echo ($baseScores['Headshot'] - $baseScores['Kill_Base'])?>' /></td>
 
     </tr>
 
     <tr>
       <td align='right'>Hostage damage</td><td><input name='Hostage_Damage' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Hostage_Damage']?>' /></td>
       <td align='right'>Suicide</td><td><input name='Suicide' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Suicide']?>' /></td>
-      <td align='right'>Penetration</td><td><input name='Penetration' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Penetration']?>' /></td>
+      <td align='right'>Penetration</td><td><input name='Penetration' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo ($baseScores['Penetration'] - $baseScores['Kill_Base'])?>' /></td>
       
     </tr>
 
@@ -174,7 +174,7 @@ require('../resources/config.php');
       <td align='right'><img src='../resources/images/weapons/CSGO_XM1014_Inventory.png' class='gunIcon' /> XM1014</td><td width='70px'><input class='configNumber' onchange='setOneNumberDecimal(this)' type='number' min='0.1' max='2' step='0.1' name='xm1014' value='<?php echo $weaponWeighting['xm1014']?>'  /></td>    
     </tr>
     </table>
-    <p><i>Changes to base scores and weapon weightings will only affect new logs added to CandyStats. Existing scores will not be updated!</i></p>
+    <p><i>Changes to base scores and weapon weightings will affect all logs added to CandyStats!</i></p>
     <div style='text-align:right;'><input type="submit" class="glossyButton" name="save" value="Save Config"></div>
     </form>
 

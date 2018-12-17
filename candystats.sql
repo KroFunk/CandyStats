@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Dec 13, 2018 at 12:54 PM
--- Server version: 5.7.23
--- PHP Version: 7.2.10
+-- Host: localhost
+-- Generation Time: Dec 17, 2018 at 05:02 PM
+-- Server version: 5.7.24-log
+-- PHP Version: 5.6.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,13 +28,11 @@ SET time_zone = "+00:00";
 -- Table structure for table `basescores`
 --
 
-DROP TABLE IF EXISTS `basescores`;
-CREATE TABLE IF NOT EXISTS `basescores` (
-  `BS_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `basescores` (
+  `BS_ID` int(11) NOT NULL,
   `BaseScore` text NOT NULL,
-  `Value` int(11) NOT NULL,
-  PRIMARY KEY (`BS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  `Value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `basescores`
@@ -49,9 +47,10 @@ INSERT INTO `basescores` (`BS_ID`, `BaseScore`, `Value`) VALUES
 (6, 'Team_Kill', -200),
 (7, 'Suicide', -200),
 (8, 'Kill_Assist', 50),
-(9, 'Headshot', 50),
-(10, 'Penetration', 50),
-(11, 'Kill_Base', 100);
+(9, 'Headshot', 150),
+(10, 'Penetration', 150),
+(11, 'Headshot Penetration', 200),
+(12, 'Kill_Base', 100);
 
 -- --------------------------------------------------------
 
@@ -59,9 +58,8 @@ INSERT INTO `basescores` (`BS_ID`, `BaseScore`, `Value`) VALUES
 -- Table structure for table `logdata`
 --
 
-DROP TABLE IF EXISTS `logdata`;
-CREATE TABLE IF NOT EXISTS `logdata` (
-  `CSID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `logdata` (
+  `CSID` int(11) NOT NULL,
   `SessionID` text NOT NULL COMMENT 'Effectively the Log Name',
   `TIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Time and date of the event',
   `TAG1` text NOT NULL COMMENT 'User defined tag',
@@ -72,13 +70,12 @@ CREATE TABLE IF NOT EXISTS `logdata` (
   `Team` text COMMENT 'Team of Player',
   `EventType` text NOT NULL COMMENT 'Type of Event',
   `EventVariable` text NOT NULL COMMENT 'Event Variable',
-  `Misc_1` text COMMENT 'Misc info relating to event',
-  `Misc_2` text,
-  `Misc_3` text,
+  `Misc_1` text COMMENT 'Misc info relating to event E.G. gun name',
+  `Misc_2` text COMMENT '2nd misc field, used for misc data, E.G. player name',
+  `Misc_3` text COMMENT '3rd misc field, used for joining score related tables',
   `XYZ_1` text COMMENT 'coordinates of event',
-  `XYZ_2` text,
-  `score` int(11) DEFAULT NULL,
-  UNIQUE KEY `CSID` (`CSID`)
+  `XYZ_2` text COMMENT 'co-ordinates of a victim if applicable',
+  `score` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -87,13 +84,11 @@ CREATE TABLE IF NOT EXISTS `logdata` (
 -- Table structure for table `weaponweighting`
 --
 
-DROP TABLE IF EXISTS `weaponweighting`;
-CREATE TABLE IF NOT EXISTS `weaponweighting` (
-  `WW_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `weaponweighting` (
+  `WW_ID` int(11) NOT NULL,
   `Weapon` text NOT NULL,
-  `Weighting` float NOT NULL,
-  PRIMARY KEY (`WW_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+  `Weighting` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `weaponweighting`
@@ -139,7 +134,51 @@ INSERT INTO `weaponweighting` (`WW_ID`, `Weapon`, `Weighting`) VALUES
 (37, 'hegrenade', 1),
 (38, 'decoy', 1.5),
 (39, 'inferno', 1.2),
-(40, 'ssg08', 0.8);
+(40, 'ssg08', 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `basescores`
+--
+ALTER TABLE `basescores`
+  ADD PRIMARY KEY (`BS_ID`);
+
+--
+-- Indexes for table `logdata`
+--
+ALTER TABLE `logdata`
+  ADD UNIQUE KEY `CSID` (`CSID`);
+
+--
+-- Indexes for table `weaponweighting`
+--
+ALTER TABLE `weaponweighting`
+  ADD PRIMARY KEY (`WW_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `basescores`
+--
+ALTER TABLE `basescores`
+  MODIFY `BS_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `logdata`
+--
+ALTER TABLE `logdata`
+  MODIFY `CSID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `weaponweighting`
+--
+ALTER TABLE `weaponweighting`
+  MODIFY `WW_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

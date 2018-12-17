@@ -238,6 +238,38 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 #drag_upload_file #selectfile {
     display: none;
 }
+#debugOutput {
+    width:960px;
+    height:520px;
+    margin-top:20px;
+    overflow-x:scroll;
+    overflow-y:scroll;
+    border:1px solid #24292E;
+    border-radius: 2px;
+}
+::-webkit-scrollbar {
+    width:15px;
+    height:15px;
+    background:rgba(0,0,0,0)
+}
+::-webkit-scrollbar-track {
+    border-radius: 2px;
+    -webkit-box-shadow: inset 0 0 2px #24292E;
+    box-shadow: inset 0 0 2px #24292E;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #B3B4AE;
+    -webkit-box-shadow: inset 0 0 2px #24292E;
+    box-shadow: inset 0 0 2px #24292E);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #B3B4AE;
+}
+::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,0);
+}
 .SelectionDiv{
     border:1px solid #24292E;
     transition:0.5s ease-in-out;
