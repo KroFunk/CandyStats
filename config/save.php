@@ -59,7 +59,46 @@ require('../resources/config.php');
       $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Kill_Base']) .         "' WHERE `basescores`.`BaseScore` = 'Kill_Base';";
 
       //Weapon Weighting
-      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['ak47']) .      "' WHERE `weaponweighting`.`Weapon` = 'ak47';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['ak47']) .          "' WHERE `weaponweighting`.`Weapon` = 'ak47';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['aug']) .           "' WHERE `weaponweighting`.`Weapon` = 'aug';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['awp']) .           "' WHERE `weaponweighting`.`Weapon` = 'awp';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['bizon']) .         "' WHERE `weaponweighting`.`Weapon` = 'bizon';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['cz75a']) .         "' WHERE `weaponweighting`.`Weapon` = 'cz75a';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['deagle']) .        "' WHERE `weaponweighting`.`Weapon` = 'deagle';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['decoy']) .         "' WHERE `weaponweighting`.`Weapon` = 'decoy';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['elite']) .         "' WHERE `weaponweighting`.`Weapon` = 'elite';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['famas']) .         "' WHERE `weaponweighting`.`Weapon` = 'famas';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['fieseven']) .      "' WHERE `weaponweighting`.`Weapon` = 'fieseven';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['g3sg1']) .         "' WHERE `weaponweighting`.`Weapon` = 'g3sg1';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['galilar']) .       "' WHERE `weaponweighting`.`Weapon` = 'galilar';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['glock']) .         "' WHERE `weaponweighting`.`Weapon` = 'glock';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['hegrenade']) .     "' WHERE `weaponweighting`.`Weapon` = 'hegrenade';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['hkp2000']) .       "' WHERE `weaponweighting`.`Weapon` = 'hkp2000';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['inferno']) .       "' WHERE `weaponweighting`.`Weapon` = 'inferno';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['knife']) .         "' WHERE `weaponweighting`.`Weapon` = 'knife';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['knifegg']) .       "' WHERE `weaponweighting`.`Weapon` = 'knifegg';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['m249']) .          "' WHERE `weaponweighting`.`Weapon` = 'm249';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['m4a1']) .          "' WHERE `weaponweighting`.`Weapon` = 'm4a1';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['m4a1_silencer']) . "' WHERE `weaponweighting`.`Weapon` = 'm4a1_silencer';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['mac10']) .         "' WHERE `weaponweighting`.`Weapon` = 'mac10';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['mag7']) .          "' WHERE `weaponweighting`.`Weapon` = 'mag7';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['mp5sd']) .         "' WHERE `weaponweighting`.`Weapon` = 'mp5sd';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['mp7']) .           "' WHERE `weaponweighting`.`Weapon` = 'mp7';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['mp9']) .           "' WHERE `weaponweighting`.`Weapon` = 'mp9';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['negev']) .         "' WHERE `weaponweighting`.`Weapon` = 'negev';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['nova']) .          "' WHERE `weaponweighting`.`Weapon` = 'nova';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['p250']) .          "' WHERE `weaponweighting`.`Weapon` = 'p250';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['p90']) .           "' WHERE `weaponweighting`.`Weapon` = 'p90';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['revolver']) .      "' WHERE `weaponweighting`.`Weapon` = 'revolver';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['sawedoff']) .      "' WHERE `weaponweighting`.`Weapon` = 'sawedoff';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['scar20']) .        "' WHERE `weaponweighting`.`Weapon` = 'scar20';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['sg556']) .         "' WHERE `weaponweighting`.`Weapon` = 'sg556';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['ssg08']) .         "' WHERE `weaponweighting`.`Weapon` = 'ssg08';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['taser']) .         "' WHERE `weaponweighting`.`Weapon` = 'taser';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['tec9']) .          "' WHERE `weaponweighting`.`Weapon` = 'tec9';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['ump45']) .         "' WHERE `weaponweighting`.`Weapon` = 'ump45';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['usp_silencer']) .  "' WHERE `weaponweighting`.`Weapon` = 'usp_silencer';"; 
+      $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['xm1014']) .        "' WHERE `weaponweighting`.`Weapon` = 'xm1014';"; 
       
       $basescoresmysql = mysqli_multi_query($con, $updateQueryString) or die(mysqli_error($con).PHP_EOL.$updateQueryString);
       if($basescoresmysql == true){
