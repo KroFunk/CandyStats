@@ -19,10 +19,14 @@ $NameEventsArrayCash = array("cash_player_killed_teammate","cash_player_respawn_
 
 // Ignore these events in certain circumstances
 $skipEventVariableArray = array("STEAM USERID validated","entered the game","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");
-$skipMiscArray = array("Player has left the game - IGNORE","Rescued_A_Hostage","committed suicide","Touched_A_Hostage","Player Connected","connected, address ","purchased ","Player Disconnected","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
+$skipMiscArray  = array("Got_The_Bomb","Player has left the game - IGNORE","Rescued_A_Hostage","committed suicide","Touched_A_Hostage","connected","connected, address ","purchased ","disconnected","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
 
-// When a player connects, they join the array, when they leave they get removed. Events relating to a player not in the list should be ignored. 
-$activePlayers = array();
+$Misc_3_Array   = array("Planted_The_Bomb","Begin_Bomb_Defuse_Without_Kit","Rescued_A_Hostage");
+$bombLastPlantedBy  = "";
+
+// When a player connects, they join the array, when they leave they get moved into inactive. Events relating to a player not in the active list should be ignored unless it's a connect string! 
+$activePlayers  = array();
+$inactivePlayers = array();
 
 // Variable Creation
 $SessionID      = "";
@@ -46,6 +50,29 @@ $isPlayer       = True;
 $lessThanPosition = "0";
 
 $rowAccept      = True;
+$logClosed      = False;
+
+function PlayerActive() {
+    if(in_array($GLOBALS['SteamID'],$GLOBALS['activePlayers'])){
+        //player is already in array, do nothing for now.
+    } else {
+        if(!in_array($GLOBALS['SteamID'],$GLOBALS['inactivePlayers'])){
+            array_push($GLOBALS['activePlayers'],$GLOBALS['SteamID']);
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Active Players Array updated!".PHP_EOL;
+
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
+            $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($GLOBALS['SessionID'], ENT_QUOTES) . "', '" . htmlentities($GLOBALS['TIMESTAMP'], ENT_QUOTES) . "', '', '', '', '', '" . htmlentities($GLOBALS['SteamID'], ENT_QUOTES) . "', '', 'connected', '', '', '', '', '', '');";
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
+            mysqli_query($GLOBALS['con'], $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($GLOBALS['con']));
+
+            var_dump($GLOBALS['activePlayers']);
+            echo PHP_EOL;
+        } else {
+            //This player has been marked as inactive!
+        }
+        
+    }
+}
 
 if(isset($_GET['debug'])){
     $debug=true;
@@ -115,6 +142,28 @@ if($debug==true){
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
             mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
         
+        } else if(stripos($string, 'Log file closed') !== false){
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Special Line; Log File Closed..." . PHP_EOL;
+            $logClosed = True;
+
+        } else if($exploded[3] == "SFUI_Notice_Target_Bombed"){
+            $Name           = $bombLastPlantedBy[1];
+            $EventType      = "Triggered";
+            $EventVariable  = 'SFUI_Notice_Target_Bombed';
+            $SteamID        = $bombLastPlantedBy[0];
+            $Misc_3         = 'Bomb_Successful';
+
+            echo "<span style='color:#7accd3'>Name:</span><span style='color:#7ad380'>" . $Name . "</span>" . PHP_EOL;
+            echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
+            echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+            echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
+            echo "<span style='color:#7accd3'>Misc_3:</span><span style='color:#7ad380'>" . $Misc_3 . "</span>" . PHP_EOL;
+            //Enter World Row into MySQL!
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
+            $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_3`, `XYZ_1`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, '" . htmlentities($Misc_3, ENT_QUOTES) . "', NULL);";
+            echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
+            mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
+
         } else {//end of special considerations!
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Name..." . PHP_EOL;
             $Name          = @explode('<',$explodedName)[0];
@@ -132,6 +181,7 @@ if($debug==true){
                 if(in_array($Name,$NameEventsArray)){
                     //Store World Event
                     echo '<span style="color:#8e7bd5">[CandyStats]</span> "' . $Name . '" is an important NameEvent...' . PHP_EOL;
+
                     $Name           = "World";
                     $EventType      = "Triggered";
                     $EventVariable  = @explode('<',$explodedName)[0];
@@ -152,7 +202,7 @@ if($debug==true){
                 } else {
                     echo '<span style="color:#8e7bd5">[CandyStats]</span> <span style="color:#d37a7a;">"' . $Name . '" is not present in the Arrays...' . "</span>" . PHP_EOL;
                     //Query Ian to see if event is worth storing
-                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line ignored!</span>" . PHP_EOL;
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line handled!</span>" . PHP_EOL;
                 }
             } else {
                 //This line of the log is in regards to a player, continue process.
@@ -163,6 +213,10 @@ if($debug==true){
                 if($SteamID == 'BOT'){ // Bots don't have STEAM_ at the beginning of their ID, this will allow us to use the identifier in reports but still single them out as synths!
                     $SteamID = $Name;
                 }
+                
+                //Check if this player is in the active array or not, update accordingly
+                PlayerActive();
+
                 echo "<span style='color:#7accd3'>SteamID:</span><span style='color:#7ad380'>" . $SteamID . "</span>" . PHP_EOL;
                 
                 echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Team..." . PHP_EOL;
@@ -178,20 +232,24 @@ if($debug==true){
                 }
                 
                 if($EventType == 'connected, address '){
-                    $EventType = 'Player Connected';
-                    if(in_array($SteamID,$activePlayers)){
-                        //player is already in array, do nothing for now.
-                    } else {
-                        array_push($activePlayers,$SteamID);
-                    }
+                    $EventType = 'connected';
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Active player array updated..." . PHP_EOL;
-                    //var_dump($activePlayers);
+                    if(in_array($SteamID,$inactivePlayers)){ //this is a connection string, if the player is in the inactive array they will not be readded and the line will be ignored! Remove the entry and call PlayerActive again!
+                        $position = array_search($SteamID, $inactivePlayers);
+                        unset($activePlayers[$position]);
+                    }
+                    PlayerActive();
+                    $rowAccept = false; // connection strings are handled by the PlayerActive() function.
                 }
                 if($EventType == 'disconnected (reason '){
-                    $EventType = 'Player Disconnected';
+                    $EventType = 'disconnected';
                     if(in_array($SteamID,$activePlayers)){
                         $position = array_search($SteamID, $activePlayers);
                         unset($activePlayers[$position]);
+                        if(!in_array($SteamID,$inactivePlayers)){
+                            array_push($inactivePlayers,$SteamID);
+                        }
+                        
                         echo "<span style='color:#8e7bd5'>[CandyStats]</span> Setting Misc..." . PHP_EOL;
                         $Misc_1 = $exploded[3];
                         //var_dump($exploded);
@@ -199,7 +257,7 @@ if($debug==true){
                         //player isn't in the array, do nothing for now.
                     }
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Active player array updated..." . PHP_EOL;
-                    //var_dump($activePlayers);
+                    var_dump($activePlayers);
                 }
                 if($EventType == 'committedsuicidewith'){
                     if(in_array($SteamID,$activePlayers)){
@@ -212,9 +270,15 @@ if($debug==true){
                         $rowAccept = false;
                     }
                 }
+
+                if($EventType == 'triggered '){
+                    $EventType = 'triggered';
+                }
+
                 if(strpos($EventType,'threw') !== false){
                     //I got lazy, I figure if the line contains threw, then the player threw an Event Var!
                     $EventType = 'threw';
+                    
                 }
                 if(stripos($EventType, 'blinded') !== false) {
                     $EventType = 'blinded';
@@ -222,9 +286,10 @@ if($debug==true){
                 if(stripos($EventType, 'switched from team') !== false){
                     $EventType = 'switched team';
                 }
+
                 echo "<span style='color:#7accd3'>EventType:</span><span style='color:#7ad380'>" . $EventType . "</span>" . PHP_EOL;
 
-                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventVariable..." . PHP_EOL;
+                echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting EventVariable & Misc Data..." . PHP_EOL;
                 
                 if($EventType == 'threw'){
                     $EventVariable = explode(' ',htmlentities($exploded[2]))[2];
@@ -252,14 +317,13 @@ if($debug==true){
                             $Misc_3 = 'Headshot Penetrated';
                         }
                     }
-                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
+                    
                 } else if($EventType == 'assisted killing '){ //sometimes spaces are important!
                     $EventType = 'assisted killing'; //removing the space!
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
-                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = '';
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
@@ -270,7 +334,6 @@ if($debug==true){
                     if($EventVariable == 'BOT'){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
-                    echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = explode(' ',$exploded[2])[3] . '|' . explode(' ',$exploded[4])[4]; //time in seconds | entindex
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
@@ -287,7 +350,7 @@ if($debug==true){
                     $EventVariable  = ''; // Don't judge me!
                 } else {
                     $EventVariable  = htmlentities($exploded[3]);
-                    
+                    echo 'reached the else!'.PHP_EOL;
                     //Misc_1 should only apply when NOT certain EventTypes are detected. More cases true than not.
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                        
@@ -296,16 +359,22 @@ if($debug==true){
                     } else if(in_array(html_entity_decode($EventVariable),$skipMiscArray) || in_array(html_entity_decode($EventType),$skipMiscArray)){
                         $Misc_1 = ''; //I got away with it last time, no reason why I shouldn't do it again!
                         //var_dump($exploded);
+                    } else if(in_array($EventVariable,$Misc_3_Array)){
+                        $Misc_3 = $EventVariable;
+                        if($EventVariable = 'Planted_The_Bomb'){
+                            $bombLastPlantedBy = array($SteamID,$Name);
+                        }
                     } else {
                         $Misc_1           = htmlentities($exploded[5]);
                         //var_dump($exploded);
                     }
                 }
 
+                echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
 
-                
-
+                if(!empty($Misc_1)){
                 echo "<span style='color:#7accd3'>Misc_1:</span><span style='color:#7ad380'>" . $Misc_1 . "</span>" . PHP_EOL;
+                }
                 if(!empty($Misc_2)){
                     echo "<span style='color:#7accd3'>Misc_2:</span><span style='color:#7ad380'>" . $Misc_2 . "</span>" . PHP_EOL;
                 }
@@ -346,7 +415,7 @@ if($debug==true){
         }
         // Variable Reset!
         //$SessionID      = "";
-        $TIMESTAMP      = "";
+        //$TIMESTAMP      = ""; // We want to know what the last timestamp was just incase the log doesn't close gracefully!
         $TAG1           = "";
         $TAG2           = "";
         $TAG3           = "";
@@ -369,6 +438,19 @@ if($debug==true){
         flush();
         ob_flush();
     }
+
+//check if the log ended gracefully, if not, add disconnect lines for all players in the active player array!
+if($logClosed == false){
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span>End of file reached but the log has not been closed!".PHP_EOL;
+}
+echo "<span style='color:#8e7bd5'>[CandyStats]</span>Disconnecting all active players...".PHP_EOL;
+foreach($activePlayers as $player){ //always terminate player sessions, if there was another match, they will just rejoin. 
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
+    $queryString = "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '', '" . htmlentities($player, ENT_QUOTES) . "', '', 'disconnected', 'Log End', '', '', '', '', '');";
+    echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
+    mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
+}
+
 
     echo PHP_EOL . PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span> Process end time: " . date('d/m/y H:i:s') . PHP_EOL;
     echo '</pre>';

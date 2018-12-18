@@ -272,7 +272,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 }
 .SelectionDiv{
     border:1px solid #24292E;
-    transition:0.5s ease-in-out;
+    transition:0.2s ease-in-out;
+    height:340px;
+    overflow-y: scroll;
 }
 .SelectionDiv:hover{
     border:1px solid #B3B4AE;
