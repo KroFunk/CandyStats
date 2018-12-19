@@ -94,9 +94,47 @@
   </div>
 
   <center>
-    <h1>Global Stats</h1>
+    <h1>Global Overview</h1>
     <p class='h1Subheading'>Below are general stats from all sessions</p>
   </center>
+  
+  <?php
+  //Pulling the global stats
+
+  //Total kills
+  $queryString = "SELECT count(*) as 'TotalKills' FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`";
+  $totalKills = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalKills'];
+
+  //Total knife kills
+  $queryString = "SELECT count(*) as 'TotalKnifeKills' FROM `logdata` WHERE `EventType` = 'killed' AND `Misc_1` LIKE '%knife%' GROUP BY `EventType`";
+  $totalKnifeKills = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalKnifeKills'];
+
+  //Total knife kills
+  $queryString = "SELECT count(*) as 'TotalObjectsThrown' FROM `logdata` WHERE `EventType` = 'threw' GROUP BY `EventType`";
+  $TotalObjectsThrown = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalObjectsThrown'];
+  ?>
+
+  <div style='padding:20px;'>
+  <table style='width:100%;' cellspacing='0'>
+    <tr>
+      <td align='right' width='180'>Total kills:</td><td width='140'><?php echo $totalKills; ?></td>
+      <td align='right' width='180'>Total knife kills:</td><td width='140'><?php echo $totalKnifeKills; ?></td>
+      <td align='right' width='180'>Total grenades thrown:</td><td width='140'><?php echo $TotalObjectsThrown; ?></td>
+    </tr>
+    <tr>
+      <td align='right'>Total items purchased:</td><td></td>
+      <td align='right'>Total cash spent:</td><td></td>
+      <td align='right'>Most purchased item:</td><td></td>
+    </tr>
+    <tr>
+      <td align='right'>Total bombs planted:</td><td></td>
+      <td align='right'>Total bombs exploded:</td><td></td>
+      <td align='right'>Total bombs defused:</td><td></td>
+    </tr>
+    </div>
+
+  </table>
+
   <table style='width:100%;' cellspacing='0'>
     <tr>
       <td style='width:50%;'>

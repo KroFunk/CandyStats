@@ -271,8 +271,12 @@ if($debug==true){
                     }
                 }
 
+                if($EventType == 'purchased '){
+                    $EventType == 'purchased'; // Squash dem spaces!
+                }
+
                 if($EventType == 'triggered '){
-                    $EventType = 'triggered';
+                    $EventType = 'triggered'; // Squash dem spaces!
                 }
 
                 if(strpos($EventType,'threw') !== false){
@@ -366,7 +370,7 @@ if($debug==true){
                     //Misc_1 should only apply when NOT certain EventTypes are detected. More cases true than not.
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                        
-                    if($EventVariable == 'flashbang' && $EventType != 'purchased '){ // sometimes spaces are important
+                    if($EventVariable == 'flashbang' && $EventType != 'purchased'){ // sometimes spaces are important
                         $Misc_1 = str_replace(array("\r","\n"),'',str_replace(')','',explode(' ',$exploded[2])[8]));
                     } else if(in_array(html_entity_decode($EventVariable),$skipMiscArray) || in_array(html_entity_decode($EventType),$skipMiscArray)){
                         $Misc_1 = ''; //I got away with it last time, no reason why I shouldn't do it again!
