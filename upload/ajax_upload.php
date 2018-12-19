@@ -272,7 +272,7 @@ if($debug==true){
                 }
 
                 if($EventType == 'purchased '){
-                    $EventType == 'purchased'; // Squash dem spaces!
+                    $EventType = 'purchased'; // Squash dem spaces!
                 }
 
                 if($EventType == 'triggered '){
