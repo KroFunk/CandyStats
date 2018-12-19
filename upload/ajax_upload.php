@@ -309,6 +309,17 @@ if($debug==true){
                         $Misc_3 = 'Team_Kill';
                     } else {
                         $Misc_3 = 'Kill_Base';
+
+                        if(stripos($exploded[6],'headshot') !== false){
+                            $Misc_3 = 'Headshot';
+                        }
+                        if(stripos($exploded[6],'penetrated') !== false){
+                            $Misc_3 = 'Penetrated';
+                        }
+                        if(stripos($exploded[6],'headshot') !== false && stripos($exploded[6],'penetrated') !== false){
+                            $Misc_3 = 'Headshot Penetrated';
+                        }
+                        /* Turns out there is also domination and revenge tags, searching for strings rather than looking at explicit options might be wiser...
                         if(str_replace(array("\r","\n"," "),'',$exploded[6]) == '(headshot)') {
                             $Misc_3 = 'Headshot';
                         } else if(str_replace(array("\r","\n"," "),'',$exploded[6]) == '(penetrated)') {
@@ -316,6 +327,7 @@ if($debug==true){
                         } else if(str_replace(array("\r","\n"," "),'',$exploded[6]) == '(headshotpenetrated)') {
                             $Misc_3 = 'Headshot Penetrated';
                         }
+                        */
                     }
                     
                 } else if($EventType == 'assisted killing '){ //sometimes spaces are important!

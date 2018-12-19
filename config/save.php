@@ -45,9 +45,9 @@ require('../resources/config.php');
       echo $output;
       
       //Scores
-      $updateQueryString  = "UPDATE `basescores` SET `Value` = '" . intval($_POST['Hostage_Rescued']) .   "' WHERE `basescores`.`BaseScore` = 'Hostage_Rescued';"; 
+      $updateQueryString  = "UPDATE `basescores` SET `Value` = '" . intval($_POST['Hostage_Rescued']) .   "' WHERE `basescores`.`BaseScore` = 'Rescued_A_Hostage';"; 
       $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Hostage_Damage']) .    "' WHERE `basescores`.`BaseScore` = 'Hostage_Damage';"; 
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Planted']) .      "' WHERE `basescores`.`BaseScore` = 'Bomb_Planted';"; 
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Planted']) .      "' WHERE `basescores`.`BaseScore` = 'Planted_The_Bomb';"; 
       $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Successful']) .   "' WHERE `basescores`.`BaseScore` = 'Bomb_Successful';"; 
       $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Defusal']) .      "' WHERE `basescores`.`BaseScore` = 'Bomb_Defusal';"; 
       $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Team_Kill']) .         "' WHERE `basescores`.`BaseScore` = 'Team_Kill';";
