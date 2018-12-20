@@ -102,38 +102,96 @@
   //Pulling the global stats
 
   //Total kills
-  $queryString = "SELECT count(*) as 'TotalKills' FROM `logdata` WHERE `EventType` = 'killed' GROUP BY `EventType`";
+  $queryString = "SELECT count(*) as 'TotalKills' FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
   $totalKills = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalKills'];
 
+  //Total headshot kills
+  $queryString = "SELECT count(*) as 'Totalheadshots' FROM `logdata` WHERE `EventType` = 'killed' AND `Misc_3` LIKE '%headshot%' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
+  $Totalheadshots = mysqli_fetch_array(mysqli_query($con,$queryString))['Totalheadshots'];
+
   //Total knife kills
-  $queryString = "SELECT count(*) as 'TotalKnifeKills' FROM `logdata` WHERE `EventType` = 'killed' AND `Misc_1` LIKE '%knife%' GROUP BY `EventType`";
+  $queryString = "SELECT count(*) as 'TotalKnifeKills' FROM `logdata` WHERE `EventType` = 'killed' AND `Misc_1` LIKE '%knife%' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
   $totalKnifeKills = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalKnifeKills'];
 
-  //Total knife kills
-  $queryString = "SELECT count(*) as 'TotalObjectsThrown' FROM `logdata` WHERE `EventType` = 'threw' GROUP BY `EventType`";
+  //Total grenades thrown
+  $queryString = "SELECT count(*) as 'TotalObjectsThrown' FROM `logdata` WHERE `EventType` = 'threw' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
   $TotalObjectsThrown = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalObjectsThrown'];
+
+  //Total items purchased
+  $queryString = "SELECT count(*) as `TotalPurchases` FROM `logdata` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
+  $TotalPurchases = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalPurchases'];
+
+  //Total cash spent
+  $queryString = "SELECT sum(`itempricing`.`Price`) as `TotalSpent` FROM `logdata` LEFT JOIN `itempricing` on `logdata`.`EventVariable` = `itempricing`.`item` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
+  $TotalSpent = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalSpent'];
+  
+  //Most purchased item
+  $queryString = "SELECT `EventVariable`, count(*) as `MostPurchased` FROM `logdata` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY `MostPurchased` DESC LIMIT 1";
+  $MostPurchasedArray = mysqli_fetch_array(mysqli_query($con,$queryString));
+  $MostPurchasedItem = $MostPurchasedArray['EventVariable'];
+  $MostPurchasedItemCount = $MostPurchasedArray['MostPurchased'];
+
+  //Least purchased item
+  $queryString = "SELECT `EventVariable`, count(*) as `LeastPurchased` FROM `logdata` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY `LeastPurchased` ASC LIMIT 1";
+  $LeastPurchasedArray = mysqli_fetch_array(mysqli_query($con,$queryString));
+  $LeastPurchasedItem = $LeastPurchasedArray['EventVariable'];
+  $LeastPurchasedItemCount = $LeastPurchasedArray['LeastPurchased'];
+  
+  //Total bombs planted
+  $queryString = "SELECT count(*) as 'BombsPlanted' FROM `logdata` WHERE `Misc_3` = 'Planted_The_Bomb' AND `SteamID` LIKE 'STEAM_%'";
+  $BombsPlanted = mysqli_fetch_array(mysqli_query($con,$queryString))['BombsPlanted'];
+  
+  //Total bombs successful
+  $queryString = "SELECT count(*) as 'BombSuccessful' FROM `logdata` WHERE `Misc_3` = 'Bomb_Successful' AND `SteamID` LIKE 'STEAM_%'";
+  $BombSuccessful = mysqli_fetch_array(mysqli_query($con,$queryString))['BombSuccessful'];
+
+  //Total bombs defused
+  $queryString = "SELECT count(*) as 'BombDefused' FROM `logdata` WHERE `Misc_3` = 'Bomb_Defusal' AND `SteamID` LIKE 'STEAM_%'";
+  $BombDefused = mysqli_fetch_array(mysqli_query($con,$queryString))['BombDefused'];
+  
+  //Total bombs dropped
+  $queryString = "SELECT COUNT(*) as 'BombDrops' FROM `logdata` WHERE `EventVariable` LIKE 'Dropped_The_Bomb' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventVariable`";
+  $BombDrops = mysqli_fetch_array(mysqli_query($con,$queryString))['BombDrops'];
+
+  //Total chickens murdered
+  $queryString = "SELECT count(*) as 'MurderedChickens' FROM `logdata` WHERE `EventVariable` LIKE 'chicken%' AND `SteamID` LIKE 'STEAM_%'";
+  $MurderedChickens = mysqli_fetch_array(mysqli_query($con,$queryString))['MurderedChickens'];
+
+  //Total hostages rescued
+  $queryString = "SELECT count(*) as 'MurderedChickens' FROM `logdata` WHERE `EventVariable` LIKE 'chicken%' AND `SteamID` LIKE 'STEAM_%'";
+  $HostagesRescued = mysqli_fetch_array(mysqli_query($con,$queryString))['HostagesRescued'];
   ?>
 
-  <div style='padding:20px;'>
-  <table style='width:100%;' cellspacing='0'>
-    <tr>
-      <td align='right' width='180'>Total kills:</td><td width='140'><?php echo $totalKills; ?></td>
-      <td align='right' width='180'>Total knife kills:</td><td width='140'><?php echo $totalKnifeKills; ?></td>
-      <td align='right' width='180'>Total grenades thrown:</td><td width='140'><?php echo $TotalObjectsThrown; ?></td>
-    </tr>
-    <tr>
-      <td align='right'>Total items purchased:</td><td></td>
-      <td align='right'>Total cash spent:</td><td></td>
-      <td align='right'>Most purchased item:</td><td></td>
-    </tr>
-    <tr>
-      <td align='right'>Total bombs planted:</td><td></td>
-      <td align='right'>Total bombs exploded:</td><td></td>
-      <td align='right'>Total bombs defused:</td><td></td>
-    </tr>
-    </div>
+  <div style='padding:20px;font-size:13px;'>
 
-  </table>
+    <table style='width:100%;' cellspacing='0'>
+      <tr>
+        <td align='right' width='180'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td>
+        <td align='right' width='180'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td>
+        <td align='right' width='180'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td>
+        <td align='right' width='180'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td>
+      </tr>
+      <tr>
+        <td align='right'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td>
+        <td align='right'>Bombs exploded:</td><td><strong><?php echo $BombSuccessful; ?></strong></td>
+        <td align='right'>Bombs defused:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+        <td align='right'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td>
+      </tr>
+      <tr>
+        <td align='right'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td>
+        <td align='right'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td>
+        <td align='right'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+        <td align='right'>:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+      </tr>
+      <tr>
+        <td align='right' valign='top'>Total items purchased:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td>
+        <td align='right' valign='top'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td>
+        <td align='right' valign='top'>Most purchased item:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td>
+        <td align='right' valign='top'>Least purchased item:</td><td valign='top'><strong><?php echo $LeastPurchasedItem . ' (' . $LeastPurchasedItemCount . ')'; ?></strong></td>
+      </tr>
+    </table>
+
+  </div>
 
   <table style='width:100%;' cellspacing='0'>
     <tr>

@@ -19,9 +19,10 @@ $NameEventsArrayCash = array("cash_player_killed_teammate","cash_player_respawn_
 
 // Ignore these events in certain circumstances
 $skipEventVariableArray = array("STEAM USERID validated","entered the game","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");
-$skipMiscArray  = array("Got_The_Bomb","Player has left the game - IGNORE","Rescued_A_Hostage","committed suicide","Touched_A_Hostage","connected","connected, address ","purchased ","disconnected","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
+$skipMiscArray  = array("Dropped_The_Bomb","Got_The_Bomb","Player has left the game - IGNORE","Rescued_A_Hostage","committed suicide","Touched_A_Hostage","connected","connected, address ","purchased","disconnected","disconnected (reason ","switched from team <Unassigned> to <TERRORIST>","switched from team <Unassigned> to <CT>","switched from team <TERRORIST> to <CT>","switched from team <CT> to <TERRORIST>","switched from team <CT> to <Unassigned>","switched from team <TERRORIST> to <Unassigned>");//Sometimes spaces are important!
 
-$Misc_3_Array   = array("Planted_The_Bomb","Begin_Bomb_Defuse_Without_Kit","Rescued_A_Hostage");
+// These events go into the Misc_3 field for joining the logdata and base score tables. 
+$Misc_3_Array   = array("Planted_The_Bomb","Dropped_The_Bomb","Got_The_Bomb","Begin_Bomb_Defuse_Without_Kit","Rescued_A_Hostage","Touched_A_Hostage");
 $bombLastPlantedBy  = "";
 
 // When a player connects, they join the array, when they leave they get moved into inactive. Events relating to a player not in the active list should be ignored unless it's a connect string! 
@@ -146,7 +147,7 @@ if($debug==true){
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Special Line; Log File Closed..." . PHP_EOL;
             $logClosed = True;
 
-        } else if($exploded[3] == "SFUI_Notice_Target_Bombed"){
+        } else if(@$exploded[3] == "SFUI_Notice_Target_Bombed"){
             $Name           = $bombLastPlantedBy[1];
             $EventType      = "Triggered";
             $EventVariable  = 'SFUI_Notice_Target_Bombed';
@@ -297,6 +298,10 @@ if($debug==true){
                 
                 if($EventType == 'threw'){
                     $EventVariable = explode(' ',htmlentities($exploded[2]))[2];
+                    
+                    if($EventVariable == 'flashbang'){ //if the item thrown was a flashbang, we want to store the ID.
+                        $Misc_1 = str_replace(array("\r","\n"),'',str_replace(')','',explode(' ',$exploded[2])[8]));
+                    }
                 } else if($EventType == 'killed') {
                     $EventVariable  = htmlentities(str_replace('>','',explode('<',$exploded[3])[2]));
                     if($EventVariable == 'BOT'){
@@ -323,6 +328,7 @@ if($debug==true){
                         if(stripos($exploded[6],'headshot') !== false && stripos($exploded[6],'penetrated') !== false){
                             $Misc_3 = 'Headshot Penetrated';
                         }
+                        
                         /* Turns out there is also domination and revenge tags, searching for strings rather than looking at explicit options might be wiser...
                         if(str_replace(array("\r","\n"," "),'',$exploded[6]) == '(headshot)') {
                             $Misc_3 = 'Headshot';
@@ -340,6 +346,15 @@ if($debug==true){
                     if($EventVariable == 'BOT'){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
+
+
+
+                    
+
+
+
+
+
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = '';
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
@@ -366,20 +381,24 @@ if($debug==true){
                     $EventVariable  = ''; // Don't judge me!
                 } else {
                     $EventVariable  = htmlentities($exploded[3]);
-                    echo 'reached the else!'.PHP_EOL;
+
+
+
+
+                    //echo 'reached the else!'.PHP_EOL;
                     //Misc_1 should only apply when NOT certain EventTypes are detected. More cases true than not.
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
-                       
-                    if($EventVariable == 'flashbang' && $EventType != 'purchased'){ // sometimes spaces are important
-                        $Misc_1 = str_replace(array("\r","\n"),'',str_replace(')','',explode(' ',$exploded[2])[8]));
-                    } else if(in_array(html_entity_decode($EventVariable),$skipMiscArray) || in_array(html_entity_decode($EventType),$skipMiscArray)){
-                        $Misc_1 = ''; //I got away with it last time, no reason why I shouldn't do it again!
-                        //var_dump($exploded);
-                    } else if(in_array($EventVariable,$Misc_3_Array)){
+
+                    if(in_array($EventVariable,$Misc_3_Array)){
                         $Misc_3 = $EventVariable;
-                        if($EventVariable = 'Planted_The_Bomb'){
+                        if($EventVariable == 'Planted_The_Bomb'){
                             $bombLastPlantedBy = array($SteamID,$Name);
                         }
+                    } 
+                    
+                    if(in_array(html_entity_decode($EventVariable),$skipMiscArray) || in_array(html_entity_decode($EventType),$skipMiscArray)){
+                        $Misc_1 = ''; //I got away with it last time, no reason why I shouldn't do it again!
+                        //var_dump($exploded);
                     } else {
                         $Misc_1           = htmlentities($exploded[5]);
                         //var_dump($exploded);
