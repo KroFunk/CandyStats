@@ -443,7 +443,7 @@ if($debug==true){
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Executing: " . $queryString . "</span>" . PHP_EOL;
                     mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
                 } else {
-                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line ignored!</span>" . PHP_EOL;
+                    echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line handled!</span>" . PHP_EOL;
                 }
                 $rowAccept = True;
             }

@@ -158,7 +158,7 @@
   $MurderedChickens = mysqli_fetch_array(mysqli_query($con,$queryString))['MurderedChickens'];
 
   //Total hostages rescued
-  $queryString = "SELECT count(*) as 'MurderedChickens' FROM `logdata` WHERE `EventVariable` LIKE 'chicken%' AND `SteamID` LIKE 'STEAM_%'";
+  $queryString = "SELECT COUNT(*) as 'HostagesRescued' FROM `logdata` WHERE `Misc_3` LIKE 'Rescued_A_Hostage' GROUP BY `Misc_3`";
   $HostagesRescued = mysqli_fetch_array(mysqli_query($con,$queryString))['HostagesRescued'];
   ?>
 
