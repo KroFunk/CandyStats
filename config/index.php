@@ -65,7 +65,7 @@ require('../resources/config.php');
     <table>
 
     <tr>
-      <td width='155px' align='right'>Hostage rescued</td><td><input class='configNumber' name='Hostage_Rescued' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Hostage_Rescued']?>' /></td>
+      <td width='155px' align='right'>Hostage rescued</td><td><input class='configNumber' name='Rescued_A_Hostage' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Rescued_A_Hostage']?>' /></td>
       <td width='175px' align='right'>Team Kill</td><td><input class='configNumber' name='Team_Kill' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Team_Kill']?>' /></td>
       <td width='165px' align='right'>Headshot</td><td><input class='configNumber' name='Headshot' type='number' min='-9999' max='9999' value='<?php echo ($baseScores['Headshot'] - $baseScores['Kill_Base'])?>' /></td>
 
@@ -79,7 +79,7 @@ require('../resources/config.php');
     </tr>
 
     <tr>
-      <td align='right'>Bomb planted</td><td><input name='Bomb_Planted' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Bomb_Planted']?>' /></td>
+      <td align='right'>Bomb planted</td><td><input name='Planted_The_Bomb' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Planted_The_Bomb']?>' /></td>
       <td align='right'>Kill assist</td><td><input name='Kill_Assist' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Kill_Assist']?>' /></td>
       <td></td><td></td>
 

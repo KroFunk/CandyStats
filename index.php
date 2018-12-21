@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="resources/styles/style.css.php">
   <link rel="stylesheet" type="text/css" href="resources/styles/jquery.dataTables.dark.css">
   
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+  <script src="resources/js/jquery-1.10.2.js"></script>
+  <script type="text/javascript" charset="utf8" src="resources/js/jquery.dataTables.js"></script>
   <script src="resources/js/scripts.js"></script>
   <script>
   $(document).ready( function () {

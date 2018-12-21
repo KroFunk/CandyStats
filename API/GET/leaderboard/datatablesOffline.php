@@ -28,42 +28,24 @@ while($killsResult = mysqli_fetch_array($killsQuery)){
     $identifier = $killsResult['Name'];
     $ishuman = 'No';
   }
-  $KD = number_format(@(intval($killsResult['kills']) / intval($killsResult['deaths'])),2);
+  $KD = $killsResult['ratio'];
   $KDArray[$identifier] = array('steamID'=>$killsResult['SteamID'],'name'=>$killsResult['Name'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
 }
 $i = 0;
-$datatableOutput = '{ "data": [';
+$datatableOutput = '{ "data": ['.PHP_EOL;
 
 foreach($KDArray as $KDResult){
   if($i>0){
-    $datatableOutput .= ',';
+    $datatableOutput .= ','.PHP_EOL;
   }
-  if($KDResult['ishuman'] == 'No') {
+  
     $name = "<img style='vertical-align:middle;width:32px;height:32px;' src='resources/images/UI/noavatar.jpg' /> <img style='vertical-align:text-bottom;' src='resources/images/UI/bot.gif' /> ".$KDResult['name'];
-  } else {
-    if(isset($_SESSION[$KDResult['steamID']. 'name']) && isset($_SESSION[$KDResult['steamID'] . 'avatar'])){
-      $name = "<img style='vertical-align:middle;width:32px;height:32px;' src='".$_SESSION[$KDResult['steamID']. 'avatar']."' /> ".$_SESSION[$KDResult['steamID'] . 'name'];
-    } else {
-      try
-      {
-        // Constructor also accepts Steam3 and Steam2 representations
-        $s = new SteamID( $KDResult['steamID'] );
-      }
-      catch( InvalidArgumentException $e )
-      {
-        echo 'Given SteamID could not be parsed.';
-      }
-      $SteamProfile = json_decode(file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.$SteamAPI.'&steamids='.$s->ConvertToUInt64()), TRUE);
-      $name = "<img style='vertical-align:middle;width:32px;height:32px;' src='".$SteamProfile['response']['players'][0]['avatar']."' /> ".$SteamProfile['response']['players'][0]['personaname'];
-      $_SESSION[$KDResult['steamID'] . 'name'] = $SteamProfile['response']['players'][0]['personaname'];
-      $_SESSION[$KDResult['steamID'] . 'avatar'] = $SteamProfile['response']['players'][0]['avatar'];
-    }
-  }
-  $datatableOutput .= '[ "'.$name.'","'.$KDResult['kills'].'","'.$KDResult['deaths'].'","'.$KDResult['KD'].'"]';
+
+  $datatableOutput .= ' [ "'.$name.'","'.$KDResult['kills'].'","'.$KDResult['deaths'].'","'.$KDResult['KD'].'"]';
   $i++;
 }
 
-$datatableOutput .= '] }';
+$datatableOutput .= PHP_EOL.'] }';
 
 echo $datatableOutput;
 ?>
