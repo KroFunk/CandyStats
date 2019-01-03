@@ -28,8 +28,8 @@ while($killsResult = mysqli_fetch_array($killsQuery)){
     //$identifier = $killsResult['Name'];
     $ishuman = 'No';
   }
-  $KD = number_format(@(intval($killsResult['kills']) / intval($killsResult['deaths'])),2);
-  $KDArray[$identifier] = array('steamID'=>$killsResult['SteamID'],'name'=>$killsResult['Name'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
+  $KD = number_format(@(intval($killsResult['kills']) / @intval($killsResult['deaths'])),2);
+  $KDArray[$identifier] = array('steamID'=>$killsResult['SteamID'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
 }
 $i = 0;
 $datatableOutput = '{ "data": [';
