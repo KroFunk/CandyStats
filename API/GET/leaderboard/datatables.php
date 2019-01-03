@@ -25,7 +25,7 @@ while($killsResult = mysqli_fetch_array($killsQuery)){
   if(stripos($identifier,'STEAM') !== false) {
     $ishuman = 'Yes';
   } else {
-    $identifier = $killsResult['Name'];
+    //$identifier = $killsResult['Name'];
     $ishuman = 'No';
   }
   $KD = number_format(@(intval($killsResult['kills']) / intval($killsResult['deaths'])),2);
