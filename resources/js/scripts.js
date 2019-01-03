@@ -12,11 +12,11 @@ function growShrinkMenu() {
   }
 }
 
-//Drag and Drop File Upload. Site: https://artisansweb.net/drag-drop-file-upload-using-javascript-php/
+//Drag and Drop File Upload. modified from Site: https://artisansweb.net/drag-drop-file-upload-using-javascript-php/
 var fileobj;
 function upload_file(e) {
     e.preventDefault();
-    fileobj = e.dataTransfer.files[0];
+    fileobj = e.dataTransfer.files;// testing multiple uploads[0];
     document.getElementById('drop_file_zone').style.display = 'none';
     document.getElementById('PleaseWait').style.display = 'block';
     ajax_file_upload(fileobj);
@@ -36,7 +36,7 @@ function ajax_file_upload(file_obj) {
         form_data.append('file', file_obj);
         $.ajax({
             type: 'POST',
-            url: 'ajax_upload.php?debug=1',
+            url: 'ajax_multi_upload.php?debug=1',
             //url: 'ajax_upload.php',
             contentType: false,
             processData: false,
