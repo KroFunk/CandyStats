@@ -16,7 +16,8 @@ function growShrinkMenu() {
 var fileobj;
 function upload_file(e) {
     e.preventDefault();
-    fileobj = e.dataTransfer.files;// testing multiple uploads[0];
+    var dt = e.dataTransfer;
+    fileobj = dt;
     document.getElementById('drop_file_zone').style.display = 'none';
     document.getElementById('PleaseWait').style.display = 'block';
     ajax_file_upload(fileobj);
@@ -32,8 +33,11 @@ function file_explorer() {
 
 function ajax_file_upload(file_obj) {
     if(file_obj != undefined) {
-        var form_data = new FormData();                  
-        form_data.append('file', file_obj);
+        var form_data = new FormData(); 
+        var files = file_obj.files.length;
+        for (var x = 0; x < files; x++) {
+            form_data.append("files[]", file_obj.files[x]);
+        }                 
         $.ajax({
             type: 'POST',
             url: 'ajax_multi_upload.php?debug=1',

@@ -82,7 +82,7 @@ if(isset($_GET['debug'])){
 }
 $arr_file_types = ['application/octet-stream'];
 
-foreach($_FILES['file']['type'] as $fileType){
+foreach($_FILES['files']['type'] as $fileType){
     if (!(in_array($fileType, $arr_file_types))) {
     echo "Error: Only .log files are supported 'application/octet-stream'.\n\nFile provided: " . $fileType;
     return;
@@ -95,17 +95,21 @@ if($debug==true){
     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Log Processing debug Active!" . PHP_EOL . PHP_EOL;
     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Process start time: " . date('Y.m.d H:i:s') . PHP_EOL . PHP_EOL;
     //$file = $_FILES["file"]["tmp_name"]; 
-    foreach($_FILES["file"]["tmp_name"] as $file){
+    //var_dump($_FILES);
+
+    //foreach($_FILES["files"]["tmp_name"] as $file){
+    $count = count($_FILES['files']['tmp_name']);
+    for ($fileIncriment = 0; $fileIncriment < $count; $fileIncriment++) {
 
     echo "<span style='color:#8e7bd5'>[CandyStats]</span> File Variable set." . PHP_EOL;
-    $handle = @fopen($file,"r"); 
+    $handle = @fopen($_FILES["files"]["tmp_name"][$fileIncriment],"r"); 
     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Handle set; File opened." . PHP_EOL;
 
     //loop through the log file and insert into database 
     
     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Parsing Data..." . PHP_EOL;
     //SessionID is constant and does not need to be re-read.
-    $SessionID      = $_FILES["file"]["name"];
+    $SessionID      = $_FILES["files"]["name"][$fileIncriment];
 
     while ($data = fgets($handle,4096)) { 
         
