@@ -166,28 +166,28 @@
 
     <table style='width:100%;' cellspacing='0'>
       <tr>
-        <td align='right' width='180'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td>
-        <td align='right' width='180'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td>
-        <td align='right' width='180'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td>
-        <td align='right' width='180'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td>
+        <td align='right' width='140'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td>
+        <td align='right' width='140'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td>
+        <td align='right' width='140'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td>
+        <td align='right' width='140'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td>
       </tr>
       <tr>
-        <td align='right'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td>
-        <td align='right'>Bombs exploded:</td><td><strong><?php echo $BombSuccessful; ?></strong></td>
-        <td align='right'>Bombs defused:</td><td><strong><?php echo $BombDefused; ?></strong></td>
-        <td align='right'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td>
+        <td align='right' width='140'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td>
+        <td align='right' width='140'>Bombs exploded:</td><td><strong><?php echo $BombSuccessful; ?></strong></td>
+        <td align='right' width='140'>Bombs defused:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+        <td align='right' width='140'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td>
       </tr>
       <tr>
-        <td align='right'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td>
-        <td align='right'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td>
-        <td align='right'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td>
-        <td align='right'>:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+        <td align='right' width='140'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td>
+        <td align='right' width='140'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td>
+        <td align='right' width='140'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+        <td align='right' width='140'>:</td><td><strong><?php echo $BombDefused; ?></strong></td>
       </tr>
       <tr>
-        <td align='right' valign='top'>Total items purchased:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td>
-        <td align='right' valign='top'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td>
-        <td align='right' valign='top'>Most purchased item:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td>
-        <td align='right' valign='top'>Least purchased item:</td><td valign='top'><strong><?php echo $LeastPurchasedItem . ' (' . $LeastPurchasedItemCount . ')'; ?></strong></td>
+        <td align='right' valign='top' width='140'>Total purchases:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td>
+        <td align='right' valign='top' width='140'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td>
+        <td align='right' valign='top' width='140'>Most purchased:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td>
+        <td align='right' valign='top' width='140'>Least purchased:</td><td valign='top'><strong><?php echo $LeastPurchasedItem . ' (' . $LeastPurchasedItemCount . ')'; ?></strong></td>
       </tr>
     </table>
 
