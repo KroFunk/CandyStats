@@ -64,9 +64,9 @@ function PlayerActive() {
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Active Players Array updated!".PHP_EOL;
 
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-            $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($GLOBALS['SessionID'], ENT_QUOTES) . "', '" . htmlentities($GLOBALS['TIMESTAMP'], ENT_QUOTES) . "', '', '', '', '', '" . htmlentities($GLOBALS['SteamID'], ENT_QUOTES) . "', '', 'connected', '', '', '', '', '', '');";
+            $GLOBALS['$queryString'] .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($GLOBALS['SessionID'], ENT_QUOTES) . "', '" . htmlentities($GLOBALS['TIMESTAMP'], ENT_QUOTES) . "', '', '', '', '', '" . htmlentities($GLOBALS['SteamID'], ENT_QUOTES) . "', '', 'connected', '', '', '', '', '', '');";
             //echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Query: " . $queryString . "</span>" . PHP_EOL;
-            mysqli_query($GLOBALS['con'], $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($GLOBALS['con']));
+            //mysqli_query($GLOBALS['con'], $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($GLOBALS['con']));
 
             var_dump($GLOBALS['activePlayers']);
             echo PHP_EOL;
