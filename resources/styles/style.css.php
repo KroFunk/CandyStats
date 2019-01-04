@@ -297,7 +297,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
     height:200px;
 }
 .globalLeaderboard_wrapper_wrapper {
-    min-height: 602px !important;
+    min-height: 636px !important;
 }
 .configNumber {
     width:50px;
