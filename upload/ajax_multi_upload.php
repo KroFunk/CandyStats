@@ -502,10 +502,10 @@ foreach($activePlayers as $player){ //always terminate player sessions, if there
 
     
 }
-
+echo PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span><span style='color:#ccac30;'> Executing Query</span>";
 mysqli_multi_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
 
-echo PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span><span style='color:#ccac30;'> Query: ".PHP_EOL.str_replace(';',';'.PHP_EOL,$queryString)."</span>";
+//echo PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span><span style='color:#ccac30;'> Query: ".PHP_EOL.str_replace(';',';'.PHP_EOL,$queryString)."</span>";
 
 
 }
