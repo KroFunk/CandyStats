@@ -252,21 +252,13 @@
     <tr>
       <td style='padding-left:10px;'>
         <div class='SelectionDiv'>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br><br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        <?php
+            $queryString = "SELECT SessionID, TIMESTAMP, TAG1, TAG2, TAG3, COUNT(*) as Rounds FROM `logdata` WHERE EventVariable = 'Round_Start' GROUP BY SessionID";
+            $query = mysqli_query($con,$queryString);
+            while($row = mysqli_fetch_array($query)){
+              echo '<div class="SelectionDivItem" id="'.$row['SessionID'].'">'. $row['TIMESTAMP'] .', ' . $row['Rounds'] . ' Rounds</div>';
+            }
+        ?>
         </div> 
       </td>
       <td>

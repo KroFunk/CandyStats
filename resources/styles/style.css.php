@@ -262,7 +262,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
     border-radius: 2px;
     background: #B3B4AE;
     -webkit-box-shadow: inset 0 0 2px #24292E;
-    box-shadow: inset 0 0 2px #24292E);
+    box-shadow: inset 0 0 2px #24292E;
 }
 ::-webkit-scrollbar-thumb:window-inactive {
     background: #B3B4AE;
@@ -278,6 +278,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 }
 .SelectionDiv:hover{
     border:1px solid #B3B4AE;
+}
+.SelectionDivItem {
+    padding:5px;
+    border-bottom:1px solid #24292E;
+}
+.SelectionDivItem:hover {
+    background:#24292E;
 }
 .SelectionButton{
     text-align: center;
