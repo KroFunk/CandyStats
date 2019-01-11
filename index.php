@@ -18,6 +18,7 @@
   <script src="resources/js/jquery-1.10.2.js"></script>
   <script type="text/javascript" charset="utf8" src="resources/js/jquery.dataTables.js"></script>
   <script src="resources/js/scripts.js"></script>
+  
   <script>
   $(document).ready( function () {
     leaderboard = $('#globalLeaderboard').DataTable( {
@@ -256,7 +257,7 @@
             $queryString = "SELECT SessionID, TIMESTAMP, TAG1, TAG2, TAG3, COUNT(*) as Rounds FROM `logdata` WHERE EventVariable = 'Round_Start' GROUP BY SessionID";
             $query = mysqli_query($con,$queryString);
             while($row = mysqli_fetch_array($query)){
-              echo '<div class="SelectionDivItem" id="'.$row['SessionID'].'"><div style="float:right;"><img src="resources/images/UI/editicon.png" /></div>'. date($DateFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>Tag1 Tag2 Tag3</div></div>';
+              echo '<div class="SelectionDivItem" id="'.$row['SessionID'].'"><div style="float:right;"><img onclick="openwrapper('."'".'edit-session.php'."'".',800,600,5);" src="resources/images/UI/editicon.png" /></div>'. date($DateFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>Tag1 Tag2 Tag3</div></div>';
             }
         ?>
         </div> 
@@ -294,7 +295,9 @@
 <hr>
 <center><small>Made Possible by Robin Wright @KroFunk and Ian Arnold @Naiboss. Copyright &copy; 2018-<?php echo date('Y') ?>, Licensed under GNU GPL V3.</small></center>
 </div>
-  
+
+<!-- yes, this script is supposed to be down here! http://krofunk.github.io/LightBox/ -->
+<script type="text/javascript" src="resources/js/lightbox.wrapper.js"></script>
 </body>
 
 </html>
