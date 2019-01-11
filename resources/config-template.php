@@ -4,6 +4,9 @@ session_start();
 //Steam API Key *Required*
 $SteamAPI="";
 
+//Date format, E.G. "d/m/Y H:i" would be 19/05/2018 11:29 see http://php.net/manual/en/function.date.php for parameter options
+$DateFormat = "d/m/Y H:i";
+
 //SQL connection details *Required*
 $SQLServer="";
 $SQLUser="";
