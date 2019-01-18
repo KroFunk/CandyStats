@@ -61,3 +61,5 @@ function setOneNumberDecimal(numberInput) {
 function setTwoNumberDecimal(numberInput) {
     numberInput.value = parseFloat(numberInput.value).toFixed(2);
 }
+
+

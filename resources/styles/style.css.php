@@ -14,8 +14,10 @@ header("X-Content-Type-Options: nosniff");
 body, HTML{
 padding:0;
 margin:0;
-background:#24292E;
 font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+body{
+background:#24292E;
 }
 h1{
     font-weight:300;
@@ -295,6 +297,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', end
 .SelectionButton:hover{
     background:#24292E;
 }
+.popupFormTextInput {
+    border: 1px solid #24292E;
+    padding: 5px;
+    margin:0;
+    background:#24292E;
+    color:#FFF6EF;
+    border-radius: 4px;
+    outline: 0 none;
+}
+.footerLink {
+    text-decoration: none;
+    color:#B3B4AE;
+}
+.footerLink:visited {
+    color: #b3b3b3;
+}
+.footerLink:hover {
+    text-decoration: underline;
+    color:#8e7bd5;
+}
+
 #PleaseWait{
     text-align:center;
     font-size:18px;

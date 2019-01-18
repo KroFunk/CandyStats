@@ -35,9 +35,7 @@ document.body.appendChild(lightBox);
 document.getElementById('lightBoxWrapper').innerHTML = '<div id="grey" style="-webkit-transition: 0.5s; -moz-transition: 0.5s; transition: 0.5s;position:fixed; left:-5%; top:-5%; opacity:0.4; background:#000; width:110%; height:110%; display: none; visibility: hidden;" onclick="closewrapper();">&nbsp;</div><div id="lightBoxwrapper" style="-webkit-transition: 0.5s; -moz-transition: 0.5s; transition: 0.5s;background-color:rgba(255,255,255,0); border-radius: 0px; padding:0px; position: fixed; left: 50%; top: 50%; z-index: 999999; width:0px; height:0px; margin-left:0px; margin-top:0px; display: none; visibility: hidden;"><a href="javascript:void(0);" onclick="closewrapper();"><img id="lightBoxX" src="'+mydir+'X.png" style="-webkit-transition: 0.5s; -moz-transition: 0.5s; transition: 0.5s;position:relative; top:-0px; left:0px; border:0 none;"></a><div id="lightBoxBorder" style="overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;-webkit-transition: 0.5s; -moz-transition: 0.5s; transition: 0.5s; background:#171A1C; border-radius:2px; margin-top:-10px;"><iframe id="lightBox" style="-webkit-transition: 0.5s; -moz-transition: 0.5s; transition: 0.5s; border:0 none; height:220px; width:100%;" border="0" frameborder="0"></iframe></div></div>';
 
 // Stop scroll event 'bubble' - requires jQuery
-$('#lightBox').on('mousewheel DOMMouseScroll', function(ev) {
-ev.preventDefault();
-});
+
 
 
 function openwrapper(url, x, y, border){
@@ -79,3 +77,25 @@ document.getElementById('grey').style.display='none';
 document.getElementById('grey').style.visibility='hidden';
 document.getElementById('lightBoxwrapper').style.visibility='hidden'; 
 }
+
+
+// Stop double scroll // https://stackoverflow.com/questions/32165246/prevent-parent-page-from-scrolling-when-mouse-is-over-embedded-iframe-in-firefox
+iframe = document.getElementById('lightBox');
+(function(w) {
+    var s = { insideIframe: false } 
+
+    iframe.addEventListener('mouseenter', function() {
+        s.insideIframe = true;
+        s.scrollX = w.scrollX;
+        s.scrollY = w.scrollY;
+    });
+
+    iframe.addEventListener('mouseleave', function() {
+        s.insideIframe = false;
+    });
+
+    document.addEventListener('scroll', function() {
+        if (s.insideIframe)
+            w.scrollTo(s.scrollX, s.scrollY);
+    });
+})(window);
