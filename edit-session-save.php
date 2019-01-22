@@ -27,9 +27,36 @@
   </center>
   <div style='padding-left:10px;padding-right:10px;'>
   <?php
-  $querystring = "SELECT * FROM `logdata` WHERE `SessionID` = '". htmlentities($_GET['id'],ENT_QUOTES) ."' limit 1"; 
+  //TAG1
+  $querystring = "SELECT * FROM `sessiontags` WHERE `Tag` LIKE '". strtoupper(htmlentities($_POST['TAG1'],ENT_QUOTES)) ."'";
+  $TAGCheck = mysqli_num_rows(mysqli_query($con,$querystring));
+  if($TAGCheck == 0) {
+    //New Tag, add it to database. 
+    $addtagquery = "INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES (NULL, '". strtoupper(htmlentities($_POST['TAG1'],ENT_QUOTES)) ."');";
+    mysqli_query($con,$addtagquery) or die(mysqli_error($con));
+  }
+
+  //TAG2
+  $querystring = "SELECT * FROM `sessiontags` WHERE `Tag` LIKE '". strtoupper(htmlentities($_POST['TAG2'],ENT_QUOTES)) ."'";
+  $TAGCheck = mysqli_num_rows(mysqli_query($con,$querystring));
+  if($TAGCheck == 0) {
+    //New Tag, add it to database. 
+    $addtagquery = "INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES (NULL, '". strtoupper(htmlentities($_POST['TAG2'],ENT_QUOTES)) ."');";
+    mysqli_query($con,$addtagquery) or die(mysqli_error($con));
+  }
+
+  //TAG3
+  $querystring = "SELECT * FROM `sessiontags` WHERE `Tag` LIKE '". strtoupper(htmlentities($_POST['TAG3'],ENT_QUOTES)) ."'";
+  $TAGCheck = mysqli_num_rows(mysqli_query($con,$querystring));
+  if($TAGCheck == 0) {
+    //New Tag, add it to database. 
+    $addtagquery = "INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES (NULL, '". strtoupper(htmlentities($_POST['TAG3'],ENT_QUOTES)) ."');";
+    mysqli_query($con,$addtagquery) or die(mysqli_error($con));
+  }
+
   //$query = mysqli_query($con,$querystring);
   //$row = mysqli_fetch_array($query);
+  
   ?>
   <p>You may close this popup if it does not do so automatically.</p>
   </div>

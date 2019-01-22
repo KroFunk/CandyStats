@@ -1,5 +1,15 @@
 <?php
   require "resources/config.php";
+  $autocompletearray = '';
+  $query = mysqli_query($con,'SELECT * FROM `sessiontags`');
+  while ($row = mysqli_fetch_array($query)){
+    if(empty($autocompletearray)){
+      $autocompletearray = '"'.$row['Tag'].'"';
+    } else {
+      $autocompletearray .= ', "'.$row['Tag'].'"';
+    }
+  }
+
 ?>
 <!doctype html>
 
@@ -7,6 +17,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Candy Stats</title>
   <meta name="description" content="PHP Script for storing and reporting on CSGO server logs">
@@ -14,6 +25,50 @@
 
   <link rel="stylesheet" href="resources/styles/style.css.php">
   <link rel="stylesheet" type="text/css" href="resources/styles/jquery.dataTables.dark.css">
+  
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+  width:100%;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #24292E;
+  border-bottom: none;
+  border-radius:4px;
+  margin-left:5px;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #171A1C; 
+  border-bottom:1px solid #24292E
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #24292E; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: #8e7bd5 !important; 
+  color: #ffffff; 
+}
+</style>
 </head>
 
 <body style='background-color:#171A1C !important;'>
@@ -39,24 +94,34 @@
       <td>TIMESTMAP:</td><td><b><?php echo date($DateFormat,strtotime($row['TIMESTAMP'])); ?></b></td>
     </tr>
   </table>
-  <form method='POST' action='edit-session-save.php'>
-  <table cellspacing='5px'>
+  <form autocomplete="off" method='POST' action='edit-session-save.php'>
+  <div class='autocomplete'>
+  <table cellspacing='5px' width='100%'>
     <tr>
       <td>Tag 1</td>
       <td>Tag 2</td>
       <td>Tag 3</td>
     </tr>
     <tr>
-      <td><input type='text' name='TAG1' class='popupFormTextInput' style='width:140px' value='<?php echo $_GET['TAG1']; ?>' /></td>
-      <td><input type='text' name='TAG2' class='popupFormTextInput' style='width:140px' value='<?php echo $_GET['TAG2']; ?>' /></td>
-      <td><input type='text' name='TAG3' class='popupFormTextInput' style='width:140px' value='<?php echo $_GET['TAG3']; ?>' /></td>
+      <td><input type='text' name='TAG1' id='TAG1' class='popupFormTextInput' style='width:153px' value='<?php echo $_GET['TAG1']; ?>' /></td>
+      <td><input type='text' name='TAG2' id='TAG2' class='popupFormTextInput' style='width:153px' value='<?php echo $_GET['TAG2']; ?>' /></td>
+      <td><input type='text' name='TAG3' id='TAG3' class='popupFormTextInput' style='width:153px' value='<?php echo $_GET['TAG3']; ?>' /></td>
     </tr>
   </table>
+  </div>
   <div align='right'>
   <input type='hidden' value='<?php echo $_GET['id']; ?>' name='SessionID' />
   <p><input type="submit" class='glossyButton' value="Save Changes" /></p>
   </div>
 </form>
+<script src='resources/js/autocomplete.js'></script>
+<script>
+  autocompletearray = [<?php echo $autocompletearray; ?>];
+  autocomplete(document.getElementById("TAG1"), autocompletearray);
+  autocomplete(document.getElementById("TAG2"), autocompletearray);
+  autocomplete(document.getElementById("TAG3"), autocompletearray);
+</script>
+
   </div>
 <hr>
 <center><small>Made Possible by Robin Wright <a href='https://twitter.com/krofunk' class='footerLink' target='_new'>@KroFunk</a> and Ian Arnold <a href='https://twitter.com/naiboss'  class='footerLink' target='_new'>@Naiboss</a>. <br>Copyright &copy; 2018-<?php echo date('Y') ?>, Licensed under GNU GPL V3.</small></center>

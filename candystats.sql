@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 19, 2018 at 11:12 AM
+-- Generation Time: Jan 22, 2019 at 05:32 PM
 -- Server version: 5.7.24-log
 -- PHP Version: 5.6.38
 
@@ -143,6 +143,17 @@ CREATE TABLE `logdata` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sessiontags`
+--
+
+CREATE TABLE `sessiontags` (
+  `TagID` int(11) NOT NULL,
+  `Tag` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `weaponweighting`
 --
 
@@ -221,6 +232,12 @@ ALTER TABLE `logdata`
   ADD UNIQUE KEY `CSID` (`CSID`);
 
 --
+-- Indexes for table `sessiontags`
+--
+ALTER TABLE `sessiontags`
+  ADD UNIQUE KEY `UNIQUE` (`TagID`);
+
+--
 -- Indexes for table `weaponweighting`
 --
 ALTER TABLE `weaponweighting`
@@ -247,6 +264,12 @@ ALTER TABLE `itempricing`
 --
 ALTER TABLE `logdata`
   MODIFY `CSID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sessiontags`
+--
+ALTER TABLE `sessiontags`
+  MODIFY `TagID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `weaponweighting`
