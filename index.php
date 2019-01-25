@@ -203,7 +203,7 @@
         <td align='right' width='140'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td>
         <td align='right' width='140'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td>
         <td align='right' width='140'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td>
-        <td align='right' width='140'>:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+        <td align='right' width='140'></td><td><strong></strong></td>
       </tr>
       <tr>
         <td align='right' valign='top' width='140'>Total purchases:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td>

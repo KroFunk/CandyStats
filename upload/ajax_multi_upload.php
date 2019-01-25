@@ -32,9 +32,7 @@ $inactivePlayers = array();
 // Variable Creation
 $SessionID      = "";
 $TIMESTAMP      = "";
-$TAG1           = "";
-$TAG2           = "";
-$TAG3           = "";
+$TAGS           = "";
 $Name           = "";
 $SteamID        = "";
 $Team           = "";
@@ -64,7 +62,7 @@ function PlayerActive() {
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Active Players Array updated!".PHP_EOL;
 
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-            $GLOBALS['$queryString'] .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($GLOBALS['SessionID'], ENT_QUOTES) . "', '" . htmlentities($GLOBALS['TIMESTAMP'], ENT_QUOTES) . "', '', '', '', '', '" . htmlentities($GLOBALS['SteamID'], ENT_QUOTES) . "', '', 'connected', '', '', '', '', '', '');";
+            $GLOBALS['$queryString'] .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAGS`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($GLOBALS['SessionID'], ENT_QUOTES) . "', '" . htmlentities($GLOBALS['TIMESTAMP'], ENT_QUOTES) . "', '', '', '" . htmlentities($GLOBALS['SteamID'], ENT_QUOTES) . "', '', 'connected', '', '', '', '', '', '');";
             //echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Query: " . $queryString . "</span>" . PHP_EOL;
             //mysqli_query($GLOBALS['con'], $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($GLOBALS['con']));
 
@@ -133,9 +131,7 @@ if($debug==true){
         $TIMESTAMP      = date('Y-m-d H:i:s', strtotime($TIMESTAMP));
         echo "<span style='color:#7accd3'>TIMESTAMP:</span><span style='color:#7ad380'>" . $TIMESTAMP . "</span>" . PHP_EOL;
 
-        $TAG1           = "";
-        $TAG2           = "";
-        $TAG3           = "";
+        $TAGS           = "";
 
         
         $explodedName   = $exploded[1];
@@ -150,7 +146,7 @@ if($debug==true){
             echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
             //Enter World Row into MySQL!
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-            $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `XYZ_1`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', NULL, NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, NULL);";
+            $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAGS`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `XYZ_1`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '" . htmlentities($Name, ENT_QUOTES) . "', NULL, NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, NULL);";
             //echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Query: " . $queryString . "</span>" . PHP_EOL;
             //mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
         
@@ -172,7 +168,7 @@ if($debug==true){
             echo "<span style='color:#7accd3'>Misc_3:</span><span style='color:#7ad380'>" . $Misc_3 . "</span>" . PHP_EOL;
             //Enter World Row into MySQL!
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-            $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_3`, `XYZ_1`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, '" . htmlentities($Misc_3, ENT_QUOTES) . "', NULL);";
+            $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAGS`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_3`, `XYZ_1`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, '" . htmlentities($Misc_3, ENT_QUOTES) . "', NULL);";
             //echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Query: " . $queryString . "</span>" . PHP_EOL;
             //mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
 
@@ -203,7 +199,7 @@ if($debug==true){
                     echo "<span style='color:#7accd3'>EventVariable:</span><span style='color:#7ad380'>" . $EventVariable . "</span>" . PHP_EOL;
                     //Enter World Row into MySQL!
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-                    $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `XYZ_1`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', NULL, NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, NULL);";
+                    $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAGS`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `XYZ_1`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '" . htmlentities($Name, ENT_QUOTES) . "', NULL, NULL, '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', NULL, NULL);";
                     //echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Query: " . $queryString . "</span>" . PHP_EOL;
                     //mysqli_query($con, $queryString) or die("There was a problem with the query and the script has been stopped." . mysqli_error($con));
 
@@ -358,14 +354,6 @@ if($debug==true){
                         $EventVariable = htmlentities(explode('<',$exploded[3])[0]);// . '<BOT>');
                     }
 
-
-
-                    
-
-
-
-
-
                     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Extracting Misc..." . PHP_EOL;
                     $Misc_1           = '';
                     $Misc_2 = htmlentities(explode('<',$exploded[3])[0]);
@@ -392,8 +380,6 @@ if($debug==true){
                     $EventVariable  = ''; // Don't judge me!
                 } else {
                     $EventVariable  = htmlentities($exploded[3]);
-
-
 
 
                     //echo 'reached the else!'.PHP_EOL;
@@ -455,7 +441,7 @@ if($debug==true){
         //Enter Row into MySQL!
         if($rowAccept == True){
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-            $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', '" . htmlentities($Team, ENT_QUOTES) . "', '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', '" . htmlentities($Misc_1, ENT_QUOTES) . "', '" . htmlentities($Misc_2, ENT_QUOTES) . "', '" . htmlentities($Misc_3, ENT_QUOTES) . "', '" . htmlentities($XYZ_1, ENT_QUOTES) . "', '" . htmlentities($XYZ_2, ENT_QUOTES) . "');";
+            $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAGS`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '" . htmlentities($Name, ENT_QUOTES) . "', '" . htmlentities($SteamID, ENT_QUOTES) . "', '" . htmlentities($Team, ENT_QUOTES) . "', '" . htmlentities($EventType, ENT_QUOTES) . "', '" . htmlentities($EventVariable, ENT_QUOTES) . "', '" . htmlentities($Misc_1, ENT_QUOTES) . "', '" . htmlentities($Misc_2, ENT_QUOTES) . "', '" . htmlentities($Misc_3, ENT_QUOTES) . "', '" . htmlentities($XYZ_1, ENT_QUOTES) . "', '" . htmlentities($XYZ_2, ENT_QUOTES) . "');";
             //echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Query: " . $queryString . "</span>" . PHP_EOL;
         } else {
             echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#d37a7a;'>Line handled!</span>" . PHP_EOL;
@@ -465,9 +451,7 @@ if($debug==true){
         // Variable Reset!
         //$SessionID      = "";
         //$TIMESTAMP      = ""; // We want to know what the last timestamp was just incase the log doesn't close gracefully!
-        $TAG1           = "";
-        $TAG2           = "";
-        $TAG3           = "";
+        $TAGS          = "";
         $Name           = "";
         $SteamID        = "";
         $Team           = "";
@@ -495,7 +479,7 @@ if($logClosed == false){
 echo "<span style='color:#8e7bd5'>[CandyStats]</span>Disconnecting all active players...".PHP_EOL;
 foreach($activePlayers as $player){ //always terminate player sessions, if there was another match, they will just rejoin. 
     echo "<span style='color:#8e7bd5'>[CandyStats]</span> Prepping MySQL Command..." . PHP_EOL;
-    $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAG1`, `TAG2`, `TAG3`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '', '', '" . htmlentities($player, ENT_QUOTES) . "', '', 'disconnected', 'Log End', '', '', '', '', '');";
+    $queryString .= "INSERT INTO `logdata` (`CSID`, `SessionID`, `TIMESTAMP`, `TAGS`, `Name`, `SteamID`, `Team`, `EventType`, `EventVariable`, `Misc_1`, `Misc_2`, `Misc_3`, `XYZ_1`, `XYZ_2`) VALUES (NULL, '" . htmlentities($SessionID, ENT_QUOTES) . "', '" . htmlentities($TIMESTAMP, ENT_QUOTES) . "', '', '', '" . htmlentities($player, ENT_QUOTES) . "', '', 'disconnected', 'Log End', '', '', '', '', '');";
     //echo "<span style='color:#8e7bd5'>[CandyStats]</span> <span style='color:#ccac30;'>Query: " . $queryString . "</span>" . PHP_EOL;
 }
 
@@ -507,9 +491,7 @@ mysqli_multi_query($con, $queryString) or die("There was a problem with the quer
 
 //echo PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span><span style='color:#ccac30;'> Query: ".PHP_EOL.str_replace(';',';'.PHP_EOL,$queryString)."</span>";
 
-
 }
-
 
 
 echo PHP_EOL . PHP_EOL . "<span style='color:#8e7bd5'>[CandyStats]</span> Process end time: " . date('d/m/y H:i:s') . PHP_EOL;
