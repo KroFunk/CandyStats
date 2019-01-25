@@ -62,4 +62,22 @@ function setTwoNumberDecimal(numberInput) {
     numberInput.value = parseFloat(numberInput.value).toFixed(2);
 }
 
+function addtag(e) {
+        if (e.keyCode == 13) {
+            var randomnumber = Math.random();
+            var tagname = document.getElementById('TAG1');
+            var tagdiv = document.getElementById('tagdiv');
+            tagdiv.innerHTML += '<div id="'+tagname.value+randomnumber+'" class="SelectionDivItem">'+tagname.value.toUpperCase()+'<input type="hidden" name="TAGS[]" value="'+tagname.value.toUpperCase()+'" /><div style="float:right;"><img style="cursor:pointer;" onclick="removeTag(this.parentNode.parentNode.id)" src="resources/images/UI/cross.png" /></div></div>';
+            tagdiv.scrollTop = tagdiv.scrollHeight;
+            tagname.value = '';
+            return false;
+        } else {
+            return true;
+        }
+}
+
+function removeTag(tagdiv) {
+    var elem = document.getElementById(tagdiv);
+    elem.parentNode.removeChild(elem);
+}
 
