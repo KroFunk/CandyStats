@@ -200,16 +200,16 @@
         <td align='right' width='140'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td>
       </tr>
       <tr>
-        <td align='right' width='140'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td>
-        <td align='right' width='140'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td>
-        <td align='right' width='140'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td>
-        <td align='right' width='140'></td><td><strong></strong></td>
-      </tr>
-      <tr>
         <td align='right' valign='top' width='140'>Total purchases:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td>
         <td align='right' valign='top' width='140'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td>
         <td align='right' valign='top' width='140'>Most purchased:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td>
         <td align='right' valign='top' width='140'>Least purchased:</td><td valign='top'><strong><?php echo $LeastPurchasedItem . ' (' . $LeastPurchasedItemCount . ')'; ?></strong></td>
+      </tr>
+      <tr>
+        <td align='right' width='140'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td>
+        <td align='right' width='140'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td>
+        <td align='right' width='140'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td>
+        <td align='right' width='140'></td><td><strong></strong></td>
       </tr>
     </table>
 
