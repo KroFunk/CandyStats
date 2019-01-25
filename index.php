@@ -117,6 +117,22 @@
   $queryString = "SELECT count(*) as 'TotalObjectsThrown' FROM `logdata` WHERE `EventType` = 'threw' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
   $TotalObjectsThrown = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalObjectsThrown'];
 
+  //Total CT kills
+  $queryString = "SELECT count(*) as 'TotalCTKills' FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE 'STEAM_%' AND `Team` = 'CT' GROUP BY `EventType`";
+  $totalCTKills = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalCTKills'];
+  
+  //Total T kills
+  $queryString = "SELECT count(*) as 'TotalTKills' FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE 'STEAM_%' AND `Team` = 'TERRORIST' GROUP BY `EventType`";
+  $totalTKills = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalTKills'];
+
+  //Total Matches Played
+  $queryString = "SELECT count(*) as 'TotalMatches' FROM `logdata` WHERE `EventType` = 'Triggered' AND `EventVariable` = 'Match_Start' GROUP BY `EventType`";
+  $TotalMatches = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalMatches'];
+  
+  //Total Rounds Played
+  $queryString = "SELECT count(*) as 'TotalRounds' FROM `logdata` WHERE `EventType` = 'Triggered' AND `EventVariable` = 'Round_Start' GROUP BY `EventType`";
+  $TotalRounds = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalRounds'];
+
   //Total items purchased
   $queryString = "SELECT count(*) as `TotalPurchases` FROM `logdata` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventType`";
   $TotalPurchases = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalPurchases'];
@@ -170,6 +186,12 @@
         <td align='right' width='140'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td>
         <td align='right' width='140'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td>
         <td align='right' width='140'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td>
+      </tr>
+	  <tr>
+        <td align='right' width='140'>Total CT kills:</td><td><strong><?php echo $totalCTKills; ?></strong></td>
+        <td align='right' width='140'>Total Terrorist kills:</td><td><strong><?php echo $totalTKills; ?></strong></td>
+        <td align='right' width='140'>Total Matches Played:</td><td><strong><?php echo $TotalMatches; ?></strong></td>
+        <td align='right' width='140'>Total Rounds Played:</td><td><strong><?php echo $TotalRounds; ?></strong></td>
       </tr>
       <tr>
         <td align='right' width='140'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td>
