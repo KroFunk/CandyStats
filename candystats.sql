@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 22, 2019 at 05:32 PM
+-- Generation Time: Jan 26, 2019 at 04:05 PM
 -- Server version: 5.7.24-log
--- PHP Version: 5.6.38
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -124,9 +124,7 @@ CREATE TABLE `logdata` (
   `CSID` int(11) NOT NULL,
   `SessionID` text NOT NULL COMMENT 'Effectively the Log Name',
   `TIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Time and date of the event',
-  `TAG1` text NOT NULL COMMENT 'User defined tag',
-  `TAG2` text NOT NULL COMMENT 'User defined tag',
-  `TAG3` text NOT NULL COMMENT 'User defined tag',
+  `TAGS` text NOT NULL COMMENT 'User defined tags',
   `Name` text NOT NULL COMMENT 'Name of Player',
   `SteamID` text COMMENT 'SteamID of player',
   `Team` text COMMENT 'Team of Player',
