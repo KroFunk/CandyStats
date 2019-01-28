@@ -8,7 +8,7 @@ The user facing website should give good insights but the plan is to also provid
 # Finished features
 1. Drag and Drop log upload (multi files at once!)
 2. Basic global stat extraction
-3. Global leaderboard (currently working from K:D)
+3. Global leader board (currently working from K:D)
 
 # Currently working on
 1. Processing logs
@@ -24,7 +24,7 @@ The user facing website should give good insights but the plan is to also provid
 # Requirements
 **_As CandyStats is under active development (and isn't close to finished/working) there is a good chance these requirements will change!_**
 1. Web server (Apahce and IIS tested)
-2. PHP 5.6(ish)
+2. PHP 5.6 and up (tested with 5.6.38 and 7.2.10)
 3. PHP_GMP MUST be installed. (uncomment extension=php_gmp.dll in your PHP.ini on Windows.)
 4. Steam API key (https://steamcommunity.com/dev/apikey)
 3. MySQL 5.7
