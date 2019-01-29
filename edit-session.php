@@ -45,7 +45,6 @@
       border: 1px solid #24292E;
       border-bottom: none;
       border-radius:4px;
-      margin-left:5px;
       z-index: 99;
       /*position the autocomplete items to be the same width as the container:*/
       top: 100%;
@@ -87,6 +86,13 @@
   $querystring = "SELECT * FROM `logdata` WHERE `SessionID` = '". htmlentities($_GET['id'],ENT_QUOTES) ."' limit 1"; 
   $query = mysqli_query($con,$querystring);
   $row = mysqli_fetch_array($query);
+  $TAGS = json_decode(html_entity_decode($row['TAGS']));
+  $TAGDivs = '';
+  $randomnumber = 0; //in this case, the number doesn't have to be all that random...I think. 
+  foreach($TAGS as $TAG){
+    $TAGDivs .= '<div id="' . $TAG . $randomnumber . '" class="SelectionDivItem">' . $TAG . '<input type="hidden" name="TAGS[]" value="' . $TAG . '" /><div style="float:right;"><img style="cursor:pointer;" onclick="removeTag(this.parentNode.parentNode.id)" src="resources/images/UI/cross.png" /></div></div>';
+    $randomnumber++;
+  }
   ?>
   <table>
     <tr>
@@ -99,6 +105,9 @@
   <div style='padding-left:5px;'>TAGS:</div>
   <form autocomplete="off" method='POST' action='edit-session-save.php'>
   <div class="SelectionDivNoHover" id='tagdiv' style='height:110px !important;'>
+
+  <?php echo $TAGDivs; ?>
+
   </div>
   <div class='autocomplete'>
     <input type='text' name='TAG1' id='TAG1' class='popupFormTextInput' style='width:100%; border-top-left-radius:0; border-top-right-radius:0;' onkeyup="return addtag(event)" value='' placeholder='Enter TAG...' /> 

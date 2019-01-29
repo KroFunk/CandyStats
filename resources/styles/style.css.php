@@ -324,6 +324,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 .SelectionDivItem {
     padding:5px;
     border-bottom:1px solid #24292E;
+    clear:both;
+}
+.clearP {
+    margin:0;
+    padding:0;
+    height:0;
+    clear:both;
 }
 .SelectionDivItem:hover {
     background:#24292E;
@@ -386,4 +393,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     max-width: 80px;
     max-height: 80px;
     vertical-align: middle;
+}
+.tagdiv {
+    background: #8845d3;
+    border-radius: 5px;
+    font-size: 10px;
+    color: white;
+    float:left;
+    margin-right:5px;
+    padding-left:4px;
+    padding-right:4px;
 }

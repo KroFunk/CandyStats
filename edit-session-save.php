@@ -27,38 +27,33 @@
   </center>
   <div style='padding-left:10px;padding-right:10px;'>
   <?php
-  //TAG1
-  $querystring = "SELECT * FROM `sessiontags` WHERE `Tag` LIKE '". strtoupper(htmlentities($_POST['TAG1'],ENT_QUOTES)) ."'";
-  $TAGCheck = mysqli_num_rows(mysqli_query($con,$querystring));
-  if($TAGCheck == 0) {
-    //New Tag, add it to database. 
-    $addtagquery = "INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES (NULL, '". strtoupper(htmlentities($_POST['TAG1'],ENT_QUOTES)) ."');";
-    mysqli_query($con,$addtagquery) or die(mysqli_error($con));
+  //TAG list check and update
+  $RawTagArray = array();
+  foreach($_POST['TAGS'] as $TAG) {
+    $querystring = "SELECT * FROM `sessiontags` WHERE `Tag` LIKE '". strtoupper(htmlentities($TAG,ENT_QUOTES)) ."'";
+    $TAGCheck = mysqli_num_rows(mysqli_query($con,$querystring));
+    if($TAGCheck == 0) {
+      //New Tag, add it to database. 
+      $addtagquery = "INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES (NULL, '". strtoupper(htmlentities($TAG,ENT_QUOTES)) ."');";
+      mysqli_query($con,$addtagquery) or die(mysqli_error($con));
+    }
+    array_push($RawTagArray,htmlentities($TAG,ENT_QUOTES));
   }
+  $JSONTagArray = htmlentities(json_encode($RawTagArray),ENT_QUOTES);
+  //var_dump($JSONTagArray);
+  //echo PHP_EOL;
 
-  //TAG2
-  $querystring = "SELECT * FROM `sessiontags` WHERE `Tag` LIKE '". strtoupper(htmlentities($_POST['TAG2'],ENT_QUOTES)) ."'";
-  $TAGCheck = mysqli_num_rows(mysqli_query($con,$querystring));
-  if($TAGCheck == 0) {
-    //New Tag, add it to database. 
-    $addtagquery = "INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES (NULL, '". strtoupper(htmlentities($_POST['TAG2'],ENT_QUOTES)) ."');";
-    mysqli_query($con,$addtagquery) or die(mysqli_error($con));
-  }
-
-  //TAG3
-  $querystring = "SELECT * FROM `sessiontags` WHERE `Tag` LIKE '". strtoupper(htmlentities($_POST['TAG3'],ENT_QUOTES)) ."'";
-  $TAGCheck = mysqli_num_rows(mysqli_query($con,$querystring));
-  if($TAGCheck == 0) {
-    //New Tag, add it to database. 
-    $addtagquery = "INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES (NULL, '". strtoupper(htmlentities($_POST['TAG3'],ENT_QUOTES)) ."');";
-    mysqli_query($con,$addtagquery) or die(mysqli_error($con));
-  }
-
-  //$query = mysqli_query($con,$querystring);
-  //$row = mysqli_fetch_array($query);
+  $querystring = "UPDATE `logdata` SET `TAGS` = '$JSONTagArray' WHERE `logdata`.`SessionID` = '" . htmlentities($_POST['SessionID'],ENT_QUOTES) . "';";
+  $UpdateTags = mysqli_query($con,$querystring);
+  //echo $querystring;
+  //echo PHP_EOL . PHP_EOL;
+  //var_dump($UpdateTags);
   
   ?>
-  <p>You may close this popup if it does not do so automatically.</p>
+  <script>
+  setTimeout(function(){ parent.location.reload(); }, 1500);
+  </script>
+  <p><center>You may close this popup if it does not do so automatically.<br><small>Changes will not be displayed until the page is refreshed.</small></center></p>
   </div>
 <hr>
 <center><small>Made Possible by Robin Wright <a href='https://twitter.com/krofunk' class='footerLink' target='_new'>@KroFunk</a> and Ian Arnold <a href='https://twitter.com/naiboss'  class='footerLink' target='_new'>@Naiboss</a>. <br>Copyright &copy; 2018-<?php echo date('Y') ?>, Licensed under GNU GPL V3.</small></center>

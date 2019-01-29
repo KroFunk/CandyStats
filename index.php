@@ -277,8 +277,14 @@
         <?php
             $queryString = "SELECT SessionID, TIMESTAMP, TAGS, COUNT(*) as Rounds FROM `logdata` WHERE EventVariable = 'Round_Start' GROUP BY SessionID";
             $query = mysqli_query($con,$queryString);
+            $TAGDivs = '';
             while($row = mysqli_fetch_array($query)){
-              echo '<div class="SelectionDivItem" id="'.$row['SessionID'].'"><div style="float:right;"><img style="cursor:pointer;" onclick="openwrapper('."'".'edit-session.php?id='.$row['SessionID']."'".',500,450,5);" src="resources/images/UI/editicon.png" /></div>'. date($DateFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>Tag1 Tag2 Tag3</div></div>';
+              $TAGS = json_decode(html_entity_decode($row['TAGS']));
+              foreach($TAGS as $TAG){
+                $TAGDivs .= '<div class="tagdiv">' . $TAG . '</div>';
+              }
+              echo '<div class="SelectionDivItem" id="'.$row['SessionID'].'"><div style="float:right;"><img style="cursor:pointer;" onclick="openwrapper('."'".'edit-session.php?id='.$row['SessionID']."'".',500,450,5);" src="resources/images/UI/editicon.png" /></div>'. date($DateFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>' . $TAGDivs . '</div><p class="clearP"></p></div>';
+              $TAGDivs = '';            
             }
         ?>
         </div> 
