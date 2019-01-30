@@ -214,6 +214,13 @@
     </table>
 
   </div>
+  <div class='playerStats invisible' id='playerStats'>
+    <hr>
+    <div style='float:right; cursor:pointer; margin-top:10px;' onclick="document.getElementById('playerStats').className='playerStats invisible'"><span style='font-weight:600;font-size:20px;color:#FFF6EF'>Close </span> <img src='resources/images/UI/close.png' style='vertical-align:top;' /></div>
+    <h1 style='margin-top:0px;'>Player Stats</h1>
+    <p>This is not data, nothing is being populated yet. Isn't testing things fun!</p><p>This is not data, nothing is being populated yet. Isn't testing things fun!</p><p>This is not data, nothing is being populated yet. Isn't testing things fun!</p><p>This is not data, nothing is being populated yet. Isn't testing things fun!</p><p>This is not data, nothing is being populated yet. Isn't testing things fun!</p><p>This is not data, nothing is being populated yet. Isn't testing things fun!</p><p>This is not data, nothing is being populated yet. Isn't testing things fun!</p>
+    <hr>
+  </div>
 
   <table style='width:100%;' cellspacing='0'>
     <tr>
@@ -279,6 +286,7 @@
             $query = mysqli_query($con,$queryString);
             $TAGDivs = '';
             while($row = mysqli_fetch_array($query)){
+              $TAGS = array();
               $TAGS = json_decode(html_entity_decode($row['TAGS']));
               foreach($TAGS as $TAG){
                 $TAGDivs .= '<div class="tagdiv">' . $TAG . '</div>';

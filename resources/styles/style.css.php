@@ -404,3 +404,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     padding-left:4px;
     padding-right:4px;
 }
+.playerStats {
+    /*nothing of note right now*/
+    padding:10px;
+}
+.displayNone {
+    display: none;
+    height:0px;
+}
+.displayBlock {
+    display: block;
+}
+.invisible {
+    transition: visibility 0.8s ease-in-out,opacity 0.8s ease-in-out,max-height 0.8s ease-in-out;
+    visibility:hidden;
+    opacity:0;
+    max-height: 0px;
+}
+.visible {
+    transition: visibility 1s ease-in-out,opacity 1s ease-in-out,max-height 1s ease-in-out;
+    visibility:visible;
+    opacity:1;
+    max-height: 1000px;
+}
