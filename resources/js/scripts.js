@@ -81,3 +81,6 @@ function removeTag(tagdiv) {
     elem.parentNode.removeChild(elem);
 }
 
+function openStats(name,steamID){
+    document.getElementById(`playerStats`).className=`playerStats visible`;
+}

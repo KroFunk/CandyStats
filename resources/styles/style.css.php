@@ -332,6 +332,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     height:0;
     clear:both;
 }
+.clear {
+    clear:both;
+}
 .SelectionDivItem:hover {
     background:#24292E;
 }
@@ -407,6 +410,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 .playerStats {
     /*nothing of note right now*/
     padding:10px;
+    overflow: hidden;
 }
 .displayNone {
     display: none;
@@ -416,14 +420,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     display: block;
 }
 .invisible {
-    transition: visibility 0.8s ease-in-out,opacity 0.8s ease-in-out,max-height 0.8s ease-in-out;
+    transition: visibility 0.5s ease-in-out,opacity 0.5s ease-in-out,max-height 0.8s ease-in-out,display 0.8s ease-in-out,height 0.8s ease-in-out;
     visibility:hidden;
     opacity:0;
+    height:0px;
     max-height: 0px;
 }
 .visible {
-    transition: visibility 1s ease-in-out,opacity 1s ease-in-out,max-height 1s ease-in-out;
+    transition: visibility 1s ease-in-out,opacity 1s ease-in-out,max-height 1s ease-in-out,display 1s ease-in-out,height 1s ease-in-out;
     visibility:visible;
     opacity:1;
+    height: 100%;
     max-height: 1000px;
 }
