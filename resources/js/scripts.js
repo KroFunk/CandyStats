@@ -82,5 +82,35 @@ function removeTag(tagdiv) {
 }
 
 function openStats(name,steamID){
+    //fetch the stuff via ajax
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {// code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+        document.getElementById("playerStats").innerHTML=xmlhttp.responseText;
+        console.log("Player Stats Updated");
+        
+        if(action != 'loadForm'){
+        updateNavigation();
+        }
+
+        }
+        console.log("ajax status: "+xmlhttp.status);
+    }
+    
+    xmlhttp.open("POST","playerstats.php",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("SteamID="+steamID);
+
+    //make the box visible.
     document.getElementById(`playerStats`).className=`playerStats visible`;
 }

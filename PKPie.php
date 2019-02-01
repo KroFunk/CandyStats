@@ -32,15 +32,24 @@
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'KD');
-        data.addColumn('number', 'count');
+        data.addColumn('string', 'Player');
+        data.addColumn('number', 'Kills');
         data.addRows([
-          ['kills', 3],
-          ['deaths', 1]
+          
+          //################################# Magic happens here ###################################
+          //# These are examples.                                                                  #
+          //# A query will need to be made that lists all the players killed by a supplied steam   # 
+          //# ID and count the number of kills.                                                    #
+          //# Then a PHP loop will create the array for the Google Chart/Graph                     #
+          //########################################################################################
+          
+          ['IrateDwarf', 3],
+          ['SFAIGAMER', 1]
+          
         ]);
 
         // Set chart options
-        var options = {'title':'Kill to death ratio',
+        var options = {'title':'Player Kills',
                        'width':400,
                        'height':300};
 
