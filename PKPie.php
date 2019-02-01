@@ -83,9 +83,18 @@
       // Set options
       var options = {title:'Weapon Kills',
                     backgroundColor: '#171A1C',
-                    legend: {position: 'right', textStyle: {color: '#B3B4AE', fontSize: 12}},
                     titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
                     legend: { position: "none" },
+                    hAxis: {
+                      textStyle:{
+                        color: '#B3B4AE'
+                      }
+                    },
+                    vAxis: {
+                      textStyle:{
+                        color: '#B3B4AE'
+                      }
+                    },
                     width:400,
                     height:300};
 
