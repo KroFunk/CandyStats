@@ -57,6 +57,11 @@
                         backgroundColor: '#171A1C',
                         legend: {position: 'right', textStyle: {color: '#B3B4AE', fontSize: 12}},
                         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
+                        animation:{
+                          startup: 1,
+                          duration: 1000,
+                          easing: 'inAndOut',
+                        },
                        'width':400,
                        'height':300};
 
@@ -95,6 +100,11 @@
                         color: '#B3B4AE'
                       }
                     },
+                    animation:{
+                          startup: 1,
+                          duration: 1000,
+                          easing: 'inAndOut',
+                    },
                     width:400,
                     height:300};
 
@@ -109,7 +119,7 @@
 
 </head>
 
-<body>
+<body style='background:#171a1c !important;'>
 
 <!--Div that will hold the pie chart-->
 <div id="chart_div"></div>
