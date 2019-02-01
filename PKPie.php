@@ -42,9 +42,11 @@
           //# ID and count the number of kills.                                                    #
           //# Then a PHP loop will create the array for the Google Chart/Graph                     #
           //########################################################################################
-          
+
           ['IrateDwarf', 3],
           ['SFAIGAMER', 1]
+
+          // echo "['".$row['Misc_2']."', ".$row['count(*)']."]"
           
         ]);
 
