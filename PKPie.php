@@ -57,13 +57,8 @@
                         backgroundColor: '#171A1C',
                         legend: {position: 'right', textStyle: {color: '#B3B4AE', fontSize: 12}},
                         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
-                        animation:{
-                          startup: 1,
-                          duration: 1000,
-                          easing: 'inAndOut',
-                        },
                        'width':400,
-                       'height':300};
+                       'height':200};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -74,46 +69,65 @@
       function drawWeaponChart() {
 
       // Create the data table
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Weapon');
-      data.addColumn('number', 'Kills');
-      data.addRows([
-        ['AK47', 2],
-        ['P250', 2],
-        ['Negev', 2],
-        ['Knife', 1],
-        ['Grenade', 3]
+      var data = google.visualization.arrayToDataTable([
+        ['Weapon', 'Kills', 'Headshot'],
+        <?php
+          $queryString = "SELECT `Misc_1`, `Misc_3`, count(*) FROM `logdata` WHERE `SteamID` = '" . htmlentities($_GET['ID'], ENT_QUOTES) . "' AND `EventType` = 'killed' GROUP BY `Misc_3`, `Misc_1` ORDER BY `Misc_1`,`Misc_3` ASC";
+          $query = mysqli_query($con, $queryString);
+          $weaponChartArray = array();
+          while($result = mysqli_fetch_array($query)){
+            $weaponChartArray[$result['Misc_1']][$result['Misc_3']] = $result['count(*)'];
+          }
+          $i = 0;
+          foreach($weaponChartArray as $key => $value) {
+            if($i > 0){
+              echo ',' . PHP_EOL;
+            }
+
+            if(!empty($value['Headshot'])){
+              $Headshot = $value['Headshot'];
+            } else {
+              $Headshot = 0;
+            }
+
+            if(!empty($value['Kill_Base'])){
+              $Kill_Base = $value['Kill_Base'];
+            } else {
+              $Kill_Base = 0;
+            }
+
+          echo "['" . $key . "', " . $Headshot . ", " . $Kill_Base . "]";
+          $i++;
+          }
+          echo PHP_EOL;
+        ?>
       ]);
 
-      // Set options
-      var options = {title:'Weapon Kills',
-                    backgroundColor: '#171A1C',
-                    titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
-                    legend: { position: "none" },
-                    hAxis: {
-                      textStyle:{
-                        color: '#B3B4AE'
-                      }
-                    },
-                    vAxis: {
-                      textStyle:{
-                        color: '#B3B4AE'
-                      }
-                    },
-                    animation:{
-                          startup: 1,
-                          duration: 1000,
-                          easing: 'inAndOut',
-                    },
-                    width:400,
-                    height:300};
+      var options = {
+        title:'Weapon Kills',
+        backgroundColor: '#171A1C',
+        titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
+        width: 400,
+        height: 850,
+        legend: { textStyle: {color: '#B3B4AE', fontSize: 10}, position: 'top', maxLines: 2 },
+        bar: { groupWidth: '75%' },
+        isStacked: true,
+        hAxis: {
+          textStyle:{
+            color: '#B3B4AE'
+          }
+        },
+        vAxis: {
+          textStyle:{
+            color: '#B3B4AE'
+          }
+        },
+      };
 
       // Instantiate and draw the chart for Anthony's pizza.
       var chart = new google.visualization.BarChart(document.getElementById('graph_div'));
       chart.draw(data, options);
       }
-
-      //SELECT `Misc_1` as 'Weapon', Count(*) as 'Kills' FROM `logdata` WHERE `SteamID` LIKE 'STEAM_1:0:445846' AND `EventType` LIKE 'killed' GROUP BY Misc_1 ORDER BY `Weapon` ASC
     </script>
   
 

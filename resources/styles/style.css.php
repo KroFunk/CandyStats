@@ -431,5 +431,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     visibility:visible;
     opacity:1;
     height: 100%;
-    max-height: 1000px;
+    max-height: 1100px;
 }
