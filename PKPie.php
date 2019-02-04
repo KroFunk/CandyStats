@@ -70,8 +70,8 @@
                         backgroundColor: '#171A1C',
                         legend: {position: 'right', textStyle: {color: '#B3B4AE', fontSize: 12}},
                         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
-                       'width':400,
-                       'height':200};
+                       'width':490,
+                       'height':425};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('kills_div'));
@@ -117,8 +117,8 @@
                         backgroundColor: '#171A1C',
                         legend: {position: 'right', textStyle: {color: '#B3B4AE', fontSize: 12}},
                         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
-                       'width':400,
-                       'height':200};
+                       'width':490,
+                       'height':425};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('deaths_div'));
@@ -167,7 +167,7 @@
         title:'Weapon Kills',
         backgroundColor: '#171A1C',
         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
-        width: 400,
+        width: 490,
         height: 850,
         legend: { textStyle: {color: '#B3B4AE', fontSize: 10}, position: 'top', maxLines: 2 },
         bar: { groupWidth: '75%' },
@@ -196,10 +196,14 @@
 <body style='background:#171a1c !important;'>
 
 <!--Div that will hold the pie chart-->
+<div id="pies" style="float:left;">
 <div id="kills_div"></div>
 <div id="deaths_div"></div>
-<div id="weaons_div"></div>
+</div>
 
+<div id="bars" style="float:right;">
+<div id="weaons_div"></div>
+</div>
 
 </body>
 
