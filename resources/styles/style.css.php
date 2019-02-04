@@ -433,3 +433,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     height: 100%;
     max-height: 1100px;
 }
+/* Fix flashing tooltip */
+svg > g > g:last-child { pointer-events: none }
