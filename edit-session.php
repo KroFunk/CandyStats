@@ -89,9 +89,11 @@
   $TAGS = json_decode(html_entity_decode($row['TAGS']));
   $TAGDivs = '';
   $randomnumber = 0; //in this case, the number doesn't have to be all that random...I think. 
-  foreach($TAGS as $TAG){
+  if(!empty($TAGS)){
+    foreach($TAGS as $TAG){
     $TAGDivs .= '<div id="' . $TAG . $randomnumber . '" class="SelectionDivItem">' . $TAG . '<input type="hidden" name="TAGS[]" value="' . $TAG . '" /><div style="float:right;"><img style="cursor:pointer;" onclick="removeTag(this.parentNode.parentNode.id)" src="resources/images/UI/cross.png" /></div></div>';
     $randomnumber++;
+    }
   }
   ?>
   <table>
