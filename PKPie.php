@@ -45,11 +45,23 @@
           //# Then a PHP loop will create the array for the Google Chart/Graph                     #
           //########################################################################################
 
-          ['IrateDwarf', 3],
-          ['SFAIGAMER', 1]
-
           // echo "['".$row['Misc_2']."', ".$row['count(*)']."]"
           
+		<?php
+          $queryString = "SELECT `EventVariable`, count(*) FROM `logdata` WHERE `SteamID` = '" . htmlentities($_GET['ID'], ENT_QUOTES) . "' AND `EventType` = 'killed' AND `EventVariable` LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY count(*) DESC";
+          $query = mysqli_query($con, $queryString);
+          $victimChartArray = array();
+		  $i=0;
+          while($result = mysqli_fetch_array($query)){
+			  if($i > 0){
+              echo ',' . PHP_EOL;
+            }
+          echo "['" . $_SESSION[$result['EventVariable'] . 'name'] . "', " . $result['count(*)'] . "]";
+		  $i++;
+		  }
+          echo PHP_EOL;
+        ?>
+		  
         ]);
 
         // Set chart options
