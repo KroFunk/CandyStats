@@ -23,14 +23,15 @@
       google.charts.load('current', {'packages':['corechart']});
 
       // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawKillsChart);
+	  google.charts.setOnLoadCallback(drawDeathsChart);
       google.charts.setOnLoadCallback(drawWeaponChart);
 
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
       // draws it.
-      function drawChart() {
+      function drawKillsChart() {
 
         // Create the data table.
         var data = new google.visualization.DataTable();
@@ -73,10 +74,57 @@
                        'height':200};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('kills_div'));
         chart.draw(data, options);
       }
 
+	  function drawDeathsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Player');
+        data.addColumn('number', 'Deaths');
+        data.addRows([
+          
+          //################################# Magic happens here ###################################
+          //# These are examples.                                                                  #
+          //# A query will need to be made that lists all the players killed by a supplied steam   # 
+          //# ID and count the number of kills.                                                    #
+          //# Then a PHP loop will create the array for the Google Chart/Graph                     #
+          //########################################################################################
+
+          // echo "['".$row['Misc_2']."', ".$row['count(*)']."]"
+          
+		<?php
+          $queryString = "SELECT `SteamID`, count(*) FROM `logdata` WHERE `EventVariable` = '" . htmlentities($_GET['ID'], ENT_QUOTES) . "' AND `EventType` = 'killed' AND `SteamID` LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY count(*) DESC";
+          $query = mysqli_query($con, $queryString);
+          $victimChartArray = array();
+		  $i=0;
+          while($result = mysqli_fetch_array($query)){
+			  if($i > 0){
+              echo ',' . PHP_EOL;
+            }
+          echo "['" . $_SESSION[$result['SteamID'] . 'name'] . "', " . $result['count(*)'] . "]";
+		  $i++;
+		  }
+          echo PHP_EOL;
+        ?>
+		  
+        ]);
+
+        // Set chart options
+        var options = {'title':'Player Deaths',
+                        backgroundColor: '#171A1C',
+                        legend: {position: 'right', textStyle: {color: '#B3B4AE', fontSize: 12}},
+                        titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
+                       'width':400,
+                       'height':200};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('deaths_div'));
+        chart.draw(data, options);
+      }
+	  
       // Callback that draws the weapon bar graph.
       function drawWeaponChart() {
 
@@ -137,7 +185,7 @@
       };
 
       // Instantiate and draw the chart for Anthony's pizza.
-      var chart = new google.visualization.BarChart(document.getElementById('graph_div'));
+      var chart = new google.visualization.BarChart(document.getElementById('weaons_div'));
       chart.draw(data, options);
       }
     </script>
@@ -148,8 +196,9 @@
 <body style='background:#171a1c !important;'>
 
 <!--Div that will hold the pie chart-->
-<div id="chart_div"></div>
-<div id="graph_div"></div>
+<div id="kills_div"></div>
+<div id="deaths_div"></div>
+<div id="weaons_div"></div>
 
 
 </body>
