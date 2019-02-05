@@ -98,10 +98,38 @@ function openStats(name,steamID){
         {
         document.getElementById("playerStats").innerHTML=xmlhttp.responseText;
         console.log("Player Stats Updated");
-        
-        if(action != 'loadForm'){
-        updateNavigation();
-        }
+
+        // LOAD THE DATATABLE
+        $(document).ready( function () {
+            leaderboard = $('#globalLeaderboardTEST').DataTable( {
+              'columnDefs': [
+                {
+                    "targets": 0,
+                    "className": "text-left"
+                },
+                {
+                    "targets": 1,
+                    "width":"15%",
+                    "className": "text-right"
+                },
+                {
+                    "targets": 2,
+                    "width":"15%",
+                    "className": "text-right"
+                },
+                {
+                    "targets": 3, 
+                    "width":"15%",
+                    "className": "text-right"
+                }
+              ],
+              "order": [[ 3, "desc" ]],
+              "lengthChange": false,
+              "ajax": 'API/GET/leaderboard/datatables.php?hide=bots'
+            });
+          } );
+          // END OF DATATABLE
+    
 
         }
         console.log("ajax status: "+xmlhttp.status);

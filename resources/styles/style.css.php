@@ -32,6 +32,12 @@ h2{
     margin-bottom:0;
     padding-bottom:0;
 }
+h3{
+    font-weight:300!important;
+    color:#FFF6EF;
+    margin-bottom:0;
+    padding-bottom:0;
+}
 .h1Subheading{
     padding-top:0;
     margin-top:0;
@@ -431,7 +437,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     visibility:visible;
     opacity:1;
     height: 100%;
-    max-height: 1100px;
+    max-height: 1200px;
 }
 /* Fix flashing tooltip */
 svg > g > g:last-child { pointer-events: none }
