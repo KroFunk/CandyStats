@@ -130,7 +130,7 @@
 
       // Create the data table
       var data = google.visualization.arrayToDataTable([
-        ['Weapon', 'Kills', 'Headshot'],
+        ['Weapon', 'Headshot Kills', 'Other Kills'],
         <?php
           $queryString = "SELECT `Misc_1`, `Misc_3`, count(*) FROM `logdata` WHERE `SteamID` = '" . htmlentities($_GET['ID'], ENT_QUOTES) . "' AND `EventType` = 'killed' GROUP BY `Misc_3`, `Misc_1` ORDER BY `Misc_1`,`Misc_3` ASC";
           $query = mysqli_query($con, $queryString);
@@ -156,7 +156,7 @@
               $Kill_Base = 0;
             }
 
-          echo "['" . $key . "', " . $Headshot . ", " . $Kill_Base . "]";
+          echo "['" . $key . "', " . $Kill_Base . ", " . $Headshot . "]";
           $i++;
           }
           echo PHP_EOL;
@@ -164,7 +164,7 @@
       ]);
 
       var options = {
-        title:'Weapon Kills',
+        title:'Total Weapon Kills',
         backgroundColor: '#171A1C',
         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
         width: 490,
