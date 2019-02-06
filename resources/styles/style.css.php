@@ -58,7 +58,7 @@ a:visited{
     color:#8e7bd5;
 }
 .bodyWrapper{
-    max-width:1000px;
+    max-width:1200px;
     margin:0 auto;
     background:#171a1c;
     color:#B3B4AE;
@@ -159,7 +159,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 .menuBar{
     width:100%;
-    max-width:1000px;
+    max-width:1200px;
     margin:0 auto;
     position:fixed;
     top:0;
@@ -176,7 +176,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 .smallMenuBar{
     width:100%;
-    max-width:1000px;
+    max-width:1200px;
     margin:0 auto;
     position:fixed;
     top:0;

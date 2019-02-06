@@ -67,10 +67,10 @@
       var options = {
         title:'Total Weapon Kills',
         titlePosition:'none',
-        chartArea:{left:20,top:35,width:'97%',height:'50%'},
+        chartArea:{left:30,top:35,width:'95%',height:'50%'},
         backgroundColor: '#171A1C',
         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
-        width: 980,
+        width: 700,
         height: 400,
         legend: { textStyle: {color: '#B3B4AE', fontSize: 10}, position: 'top', maxLines: 2 },
         bar: { groupWidth: '75%' },

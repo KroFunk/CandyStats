@@ -57,10 +57,10 @@
         var options = {'title':'Player Kills',
                         titlePosition:'none',
                         backgroundColor: '#171A1C',
-                        chartArea:{left:50,top:5,width:'80%',height:'95%'},
+                        chartArea:{left:5,top:5,width:'100%',height:'100%'},
                         legend: {position: 'right', textStyle: {color: '#B3B4AE', fontSize: 12}},
                         titleTextStyle: {color: '#FFF6EF', fontName: 'Arial', fontSize: 24, bold: 0},
-                       'width':470,
+                       'width':350,
                        'height':280};
 
         // Instantiate and draw our chart, passing in some options.
