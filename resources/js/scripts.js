@@ -97,7 +97,7 @@ function openStats(name,steamID){
     if (xmlhttp.readyState==4 && xmlhttp.status==200)
         {
         document.getElementById("playerStats").innerHTML=xmlhttp.responseText;
-        console.log("Player Stats Updated");
+        console.log("Player Stats Updated for "+steamID);
 
         // LOAD THE DATATABLE
         $(document).ready( function () {
