@@ -89,8 +89,13 @@
   ?>
 
 <hr>
-<div style='float:right; cursor:pointer; margin-top:10px;' onclick="document.getElementById('playerStats').className='playerStats invisible'"><span style='font-weight:600;font-size:20px;color:#FFF6EF'>Close </span> <img src='resources/images/UI/close.png' style='vertical-align:top;' /></div>
-<h1 style='margin-top:0px; display:table;'><span style='vertical-align:middle; display:table-cell;'><img style='border:2px solid #FFF6EF; border-radius:2px; width:40px;margin-top:20px;' src='<?php echo $_SESSION[$_POST['SteamID'] . 'avatar']; ?>' />&nbsp;</span><span style='vertical-align:middle; display:table-cell;'><?php echo $_SESSION[$_POST['SteamID'] . 'name']; ?> (<?php echo $KD ?>)</span></h1>
+<div style='float:right; cursor:pointer; margin-top:10px;' onclick="document.getElementById('playerStats').className='playerStats invisible'">
+  <span style='font-weight:600;font-size:20px;color:#FFF6EF'>Close </span> <img src='resources/images/UI/close.png' style='vertical-align:top;' />
+</div>
+<h1 style='margin-top:0px; display:table;'>
+<span style='vertical-align:middle; display:table-cell;'><img style='border-radius:4px; width:64px;margin-top:20px;margin-right:5px;' src='<?php echo $_SESSION[$_POST['SteamID'] . 'avatar']; ?>' /></span>
+<span style='vertical-align:middle; display:table-cell;'><?php echo $_SESSION[$_POST['SteamID'] . 'name']; ?> (<?php echo $KD ?>) (<?php echo $_POST['SteamID'] ?>)</span>
+</h1>
 
 
 
@@ -151,8 +156,8 @@
 
 <div class='globalLeaderboard_wrapper_wrapper'>
   <div style="position: relative; z-index:1; width: 0; height: 0">
-    <input type="button" id='fullListButton' style='position:absolute; top:0px; left:10px; width:115px;' class="smallglossyButton" value="Victims" onclick="victims(this.value, '<?php echo $_POST['SteamID'] ?>')">
-    <input type="button" id='showHideBotsButton' style='position:absolute; top:0px; left:135px; width:115px;' class="smallglossyButton" value="Weapons" onclick="weapons(this.value, '<?php echo $_POST['SteamID'] ?>')">
+    <input type="button" id='fullListButton' style='position:absolute; top:0px; left:10px; width:105px;' class="smallglossyButton" value="Victims" onclick="victims(this.value, '<?php echo $_POST['SteamID'] ?>')">
+    <input type="button" id='showHideBotsButton' style='position:absolute; top:0px; left:125px; width:105px;' class="smallglossyButton" value="Weapons" onclick="weapons(this.value, '<?php echo $_POST['SteamID'] ?>')">
   </div>
   <table id='globalLeaderboardTEST' class='display'>
     <thead>

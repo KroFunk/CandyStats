@@ -125,7 +125,7 @@ function openStats(name,steamID){
               ],
               "order": [[ 3, "desc" ]],
               "lengthChange": false,
-              "ajax": 'API/GET/leaderboard/datatables.php?hide=bots'
+              "ajax": 'API/GET/victims/datatables.php?hide=bots&ID='+steamID
             });
           } );
           // END OF DATATABLE
