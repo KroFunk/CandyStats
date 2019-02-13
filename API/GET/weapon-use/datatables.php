@@ -32,10 +32,9 @@ while($killsResult = mysqli_fetch_array($killsQuery)){
     $ishuman = 'No';
   }
   //build kill section of array
-  $KDArray[$identifier] = array('weapon'=>$killsResult['weapon'],'kills'=>$killsResult['kills'],'deaths'=>'0','KD'=>'0','ishuman'=>$ishuman);
+  $KDArray[$identifier] = array('weapon'=>$killsResult['weapon'],'kills'=>$killsResult['kills'],'deaths'=>'0','KD'=>'0');
 }
 
-//$KD = number_format(@(intval($killsResult['kills']) / @intval($killsResult['deaths'])),2);
 
 if($hide == 'bots'){
   $QueryString = "SELECT `Misc_1` as weapon, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' AND `SteamID` LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY deaths DESC";
@@ -72,12 +71,8 @@ while($deathssResult = mysqli_fetch_array($deathsQuery)){
   }
   
   //build death section of array
-  $KDArray[$identifier] = array('steamID'=>$deathssResult['KillerSteamID'],'kills'=>$killsValue,'deaths'=>$deathssResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
+  $KDArray[$identifier] = array('weapon'=>$deathssResult['weapon'],'kills'=>$killsValue,'deaths'=>$deathssResult['deaths'],'KD'=>$KD);
 }
-
-//echo PHP_EOL . 'Dumping complete array' . PHP_EOL;
-
-//echo var_export($KDArray, true); //data finding mission.
 
 
 $i = 0;
@@ -88,30 +83,9 @@ foreach($KDArray as $KDResult){
   if($i>0){
     $datatableOutput .= ',';
   }
-
-  if($KDResult['ishuman'] == 'No') {
-    $name = "<img style='vertical-align:middle;width:32px;height:32px;' src='resources/images/UI/noavatar.jpg' /> <img style='vertical-align:text-bottom;' src='resources/images/UI/bot.gif' /> ".$KDResult['steamID'];
-  } else {
-    if(isset($_SESSION[$KDResult['steamID']. 'name']) && isset($_SESSION[$KDResult['steamID'] . 'avatar'])){
-      
-      $name = "<div style='cursor:pointer' onclick='openStats(`".$_SESSION[$KDResult['steamID'] . 'name']."`,`".$KDResult['steamID']."`)'><img style='vertical-align:middle;width:32px;height:32px;' src='".$_SESSION[$KDResult['steamID']. 'avatar']."' /> ".$_SESSION[$KDResult['steamID'] . 'name']."</div>";
-    } else {
-      try
-      {
-        // Constructor also accepts Steam3 and Steam2 representations
-        $s = new SteamID( $KDResult['steamID'] );
-      }
-      catch( InvalidArgumentException $e )
-      {
-        echo 'Given SteamID could not be parsed.';
-      }
-      $SteamProfile = json_decode(file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.$SteamAPI.'&steamids='.$s->ConvertToUInt64()), TRUE);
-      $name = "<div style='cursor:pointer' onclick='openStats(`" . $SteamProfile['response']['players'][0]['personaname']. '`,`' . $KDResult['steamID'] . "`)'><img style='vertical-align:middle;width:32px;height:32px;' src='".$SteamProfile['response']['players'][0]['avatar']."' /> ".$SteamProfile['response']['players'][0]['personaname']."</div>";
-      $_SESSION[$KDResult['steamID'] . 'name'] = $SteamProfile['response']['players'][0]['personaname'];
-      $_SESSION[$KDResult['steamID'] . 'avatar'] = $SteamProfile['response']['players'][0]['avatarmedium'];
-    }
-
-  }
+  
+  $name = "<img style='vertical-align:middle;width:32px;height:32px;' src='resources/images/UI/noavatar.jpg' /> <img style='vertical-align:text-bottom;' src='resources/images/UI/bot.gif' /> ".$KDResult['steamID'];
+ 
   if($KDResult['KD'] > 0){
     $KD = $KDResult['KD'];
   } else {
