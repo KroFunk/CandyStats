@@ -16,11 +16,11 @@ if(isset($_GET['hide'])){
 }
 
 if($hide == 'bots'){
-  $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY kills DESC";
+  $QueryString = "SELECT `Misc_1` as weapon, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable LIKE 'STEAM_%' GROUP BY `Misc_1` ORDER BY kills DESC";
 } else if ($hide == 'humans'){
-  $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable NOT LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY kills DESC";
+  $QueryString = "SELECT `Misc_1` as weapon, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable NOT LIKE 'STEAM_%' GROUP BY `Misc_1` ORDER BY kills DESC";
 } else {
-  $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' GROUP BY `EventVariable` ORDER BY kills DESC";
+  $QueryString = "SELECT `Misc_1` as weapon, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND GROUP BY `Misc_1` ORDER BY kills DESC";
 }
 $killsQuery = mysqli_query($con,$QueryString);
 while($killsResult = mysqli_fetch_array($killsQuery)){
@@ -32,17 +32,17 @@ while($killsResult = mysqli_fetch_array($killsQuery)){
     $ishuman = 'No';
   }
   //build kill section of array
-  $KDArray[$identifier] = array('steamID'=>$killsResult['VictimSteamID'],'kills'=>$killsResult['kills'],'deaths'=>'0','KD'=>'0','ishuman'=>$ishuman);
+  $KDArray[$identifier] = array('weapon'=>$killsResult['weapon'],'kills'=>$killsResult['kills'],'deaths'=>'0','KD'=>'0','ishuman'=>$ishuman);
 }
 
 //$KD = number_format(@(intval($killsResult['kills']) / @intval($killsResult['deaths'])),2);
 
 if($hide == 'bots'){
-  $QueryString = "SELECT `SteamID` as KillerSteamID, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' AND `SteamID` LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY deaths DESC";
+  $QueryString = "SELECT `Misc_1` as weapon, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' AND `SteamID` LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY deaths DESC";
 } else if ($hide == 'humans'){
-  $QueryString = "SELECT `SteamID` as KillerSteamID, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' AND `SteamID` NOT LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY deaths DESC";
+  $QueryString = "SELECT `Misc_1` as weapon, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' AND `SteamID` NOT LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY deaths DESC";
 } else {
-  $QueryString = "SELECT `SteamID` as KillerSteamID, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' GROUP BY `SteamID` ORDER BY deaths DESC";
+  $QueryString = "SELECT `Misc_1` as weapon, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' GROUP BY `SteamID` ORDER BY deaths DESC";
 }
 $deathsQuery = mysqli_query($con,$QueryString);
 while($deathssResult = mysqli_fetch_array($deathsQuery)){
