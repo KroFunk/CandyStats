@@ -1,5 +1,4 @@
-![last commit](https://img.shields.io/github/last-commit/krofunk/candystats.svg?style=flat) ![commits this week](https://img.shields.io/github/commit-activity/w/krofunk/candystats.svg?style=flat)
-
+![](https://img.shields.io/github/last-commit/krofunk/candystats.svg?style=flat-square) ![](https://img.shields.io/github/commit-activity/w/krofunk/candystats.svg?style=flat-square)
 # About
 > PHP Script for storing and reporting on CSGO server logs in an awesome way.
 > -Naiboss.
