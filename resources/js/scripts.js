@@ -101,7 +101,7 @@ function openStats(name,steamID){
 
         // LOAD THE DATATABLE
         $(document).ready( function () {
-            leaderboard = $('#globalLeaderboardTEST').DataTable( {
+            playerleaderboard = $('#globalLeaderboardTEST').DataTable( {
               'columnDefs': [
                 {
                     "targets": 0,
