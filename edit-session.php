@@ -290,10 +290,10 @@
   </div>
   <div style='float:right;'>
   <input type='hidden' value='<?php echo $_GET['id']; ?>' name='SessionID' />
-  <p><input type="submit" class='glossyButton' value="Save Changes" /></p>
+  <p><input name='submitButton' type="submit" class='glossyButton' value="Save Changes" /></p>
   </div>
   <div style='float:left;'>
-  <p><input type="submit" class='glossyButtonRED' value="Delete Session" /></p>
+  <p><input name='submitButton' onclick="return confirm('Are you sure you want to delete this session?\r\n\r\n...You will need to re-upload the logs if you want the data back!');" type="submit" class='glossyButtonRED' value="Delete Session" /></p>
   </div>
 </form>
 <script src='resources/js/autocomplete.js'></script>
