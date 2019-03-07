@@ -17,7 +17,7 @@ margin:0;
 font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 body{
-background:#24292E;
+background:#24292E url("../images/UI/trianglify.png") fixed;
 }
 h1{
     font-weight:300;
@@ -64,6 +64,7 @@ a:visited{
     color:#B3B4AE;
     padding-top:40px;
     padding-bottom:10px;
+    box-shadow: 0px 0px 50px #000;
 }
 .glossyButton{
     display:inline-block;
