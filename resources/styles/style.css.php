@@ -279,7 +279,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     display: none;
 }
 #debugOutput {
-    width:960px;
+    width:1160px;
     height:520px;
     margin-top:20px;
     overflow-x:scroll;
