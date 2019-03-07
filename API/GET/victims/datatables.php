@@ -16,66 +16,30 @@ if(isset($_GET['hide'])){
 }
 
 if($hide == 'bots'){
-  $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY kills DESC";
+  //ORIGINAL - $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY kills DESC";
+  $QueryString = "SELECT n.steamID,COALESCE(t1.kill_cnt, 0) AS kills,COALESCE(t2.death_cnt, 0) AS deaths,CASE WHEN t2.death_cnt > 0 THEN CAST(t1.kill_cnt / t2.death_cnt AS CHAR(50)) WHEN t1.kill_cnt = 0 THEN '0' ELSE 'Infinite' END AS ratio FROM ( SELECT DISTINCT SteamID FROM logdata ) n LEFT JOIN (SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kill_cnt FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' GROUP BY `EventVariable`) t1 ON n.steamID=t1.VictimSteamID LEFT JOIN (SELECT `SteamID` as KillerSteamID, count(`EventType`) as death_cnt FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' GROUP BY `SteamID`) t2 ON n.steamID=t2.KillerSteamID WHERE (t1.kill_cnt > 0 or t2.death_cnt > 0) AND n.steamID LIKE 'STEAM%' ORDER BY `ratio` DESC;";
 } else if ($hide == 'humans'){
-  $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable NOT LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY kills DESC";
-} else {
-  $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' GROUP BY `EventVariable` ORDER BY kills DESC";
-}
+  //ORIGINAL - $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' AND EventVariable NOT LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY kills DESC";
+$QueryString = "SELECT n.steamID,COALESCE(t1.kill_cnt, 0) AS kills,COALESCE(t2.death_cnt, 0) AS deaths,CASE WHEN t2.death_cnt > 0 THEN CAST(t1.kill_cnt / t2.death_cnt AS CHAR(50)) WHEN t1.kill_cnt = 0 THEN '0' ELSE 'Infinite' END AS ratio FROM ( SELECT DISTINCT SteamID FROM logdata ) n LEFT JOIN (SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kill_cnt FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' GROUP BY `EventVariable`) t1 ON n.steamID=t1.VictimSteamID LEFT JOIN (SELECT `SteamID` as KillerSteamID, count(`EventType`) as death_cnt FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' GROUP BY `SteamID`) t2 ON n.steamID=t2.KillerSteamID WHERE (t1.kill_cnt > 0 or t2.death_cnt > 0) AND n.steamID NOT LIKE 'STEAM%' ORDER BY `ratio` DESC;";
+  } else {
+  //ORIGINAL - $QueryString = "SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kills FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' GROUP BY `EventVariable` ORDER BY kills DESC";
+$QueryString = "SELECT n.steamID,COALESCE(t1.kill_cnt, 0) AS kills,COALESCE(t2.death_cnt, 0) AS deaths,CASE WHEN t2.death_cnt > 0 THEN CAST(t1.kill_cnt / t2.death_cnt AS CHAR(50)) WHEN t1.kill_cnt = 0 THEN '0' ELSE 'Infinite' END AS ratio FROM ( SELECT DISTINCT SteamID FROM logdata ) n LEFT JOIN (SELECT `EventVariable` as VictimSteamID, count(`EventType`) as kill_cnt FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE '$SteamID' GROUP BY `EventVariable`) t1 ON n.steamID=t1.VictimSteamID LEFT JOIN (SELECT `SteamID` as KillerSteamID, count(`EventType`) as death_cnt FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' GROUP BY `SteamID`) t2 ON n.steamID=t2.KillerSteamID WHERE (t1.kill_cnt > 0 or t2.death_cnt > 0) ORDER BY `ratio` DESC;";
+  }
 $killsQuery = mysqli_query($con,$QueryString);
 while($killsResult = mysqli_fetch_array($killsQuery)){
   //echo '<pre>' . var_export($killsResult, true) . '</pre>'; //data finding mission.
-  $identifier = $killsResult['VictimSteamID'];
+  $identifier = $killsResult['steamID'];
   if(stripos($identifier,'STEAM') !== false) {
     $ishuman = 'Yes';
   } else {
     $ishuman = 'No';
   }
   //build kill section of array
-  $KDArray[$identifier] = array('steamID'=>$killsResult['VictimSteamID'],'kills'=>$killsResult['kills'],'deaths'=>'0','KD'=>'0','ishuman'=>$ishuman);
+  //ORIGINAL - $KDArray[$identifier] = array('steamID'=>$killsResult['VictimSteamID'],'kills'=>$killsResult['kills'],'deaths'=>'0','KD'=>'0','ishuman'=>$ishuman);
+  $KDArray[$identifier] = array('steamID'=>$killsResult['steamID'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>number_format($killsResult['ratio'],2),'ishuman'=>$ishuman);
 }
 
 //$KD = number_format(@(intval($killsResult['kills']) / @intval($killsResult['deaths'])),2);
-
-if($hide == 'bots'){
-  $QueryString = "SELECT `SteamID` as KillerSteamID, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' AND `SteamID` LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY deaths DESC";
-} else if ($hide == 'humans'){
-  $QueryString = "SELECT `SteamID` as KillerSteamID, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' AND `SteamID` NOT LIKE 'STEAM_%' GROUP BY `SteamID` ORDER BY deaths DESC";
-} else {
-  $QueryString = "SELECT `SteamID` as KillerSteamID, count(`EventType`) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `EventVariable` LIKE '$SteamID' GROUP BY `SteamID` ORDER BY deaths DESC";
-}
-$deathsQuery = mysqli_query($con,$QueryString);
-while($deathssResult = mysqli_fetch_array($deathsQuery)){
-  //echo '<pre>' . var_export($deathssResult, true) . '</pre>'; //data finding mission.
-  $identifier = $deathssResult['KillerSteamID'];
-  if(stripos($identifier,'STEAM') !== false) {
-    $ishuman = 'Yes';
-  } else {
-    $ishuman = 'No';
-  }
-  if(!empty($KDArray[$identifier]['kills'])){
-    $killsValue = $KDArray[$identifier]['kills'];
-  } else {
-    $killsValue = '0';
-  }
-
-  $KD = '∞';
-  if(intval($killsValue) > 0 && intval($deathssResult['deaths']) > 0){
-    //echo $deathssResult['KillerSteamID'] . ' kills: ' . $killsValue . ' deaths: ' . $deathssResult['deaths'] . PHP_EOL;
-    $KD = number_format((intval($killsValue) / intval($deathssResult['deaths'])),2);
-  } else {
-    $KD = '∞';   
-  }
-
-  if($KD == 0){
-    $KD = '∞'; 
-  }
-  
-  //build death section of array
-  $KDArray[$identifier] = array('steamID'=>$deathssResult['KillerSteamID'],'kills'=>$killsValue,'deaths'=>$deathssResult['deaths'],'KD'=>$KD,'ishuman'=>$ishuman);
-}
-
-//echo PHP_EOL . 'Dumping complete array' . PHP_EOL;
 
 //echo var_export($KDArray, true); //data finding mission.
 
