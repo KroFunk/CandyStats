@@ -41,9 +41,14 @@
             "targets": 3, 
             "width":"15%",
             "className": "text-right"
+        },
+        {
+            "targets": 4, 
+            "width":"15%",
+            "className": "text-right"
         }
       ],
-      "order": [[ 3, "desc" ]],
+      "order": [[ 4, "desc" ]],
       "lengthChange": false,
       "ajax": 'API/GET/leaderboard/datatables.php?hide=bots'
     });
@@ -239,7 +244,7 @@
         </div>
         <table id='globalLeaderboard' class='display'>
           <thead>
-          <tr><td>Name</td><td>K</td><td>D</td><td>KD</td></tr>
+          <tr><td>Name</td><td>K</td><td>D</td><td>KD</td><td>Score</td></tr>
           </thead>
         </table>
       </div>

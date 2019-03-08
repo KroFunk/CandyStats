@@ -419,6 +419,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     padding:10px;
     overflow: hidden;
 }
+.display {
+    font-size:14px;
+}
 .displayNone {
     display: none;
     height:0px;

@@ -81,8 +81,10 @@ document.getElementById('lightBoxwrapper').style.visibility='hidden';
 
 // Stop double scroll // https://stackoverflow.com/questions/32165246/prevent-parent-page-from-scrolling-when-mouse-is-over-embedded-iframe-in-firefox
 iframe = document.getElementById('lightBox');
+grey = document.getElementById('grey');
 (function(w) {
     var s = { insideIframe: false } 
+    var v = { insidegrey: false }
 
     iframe.addEventListener('mouseenter', function() {
         s.insideIframe = true;
@@ -90,12 +92,27 @@ iframe = document.getElementById('lightBox');
         s.scrollY = w.scrollY;
     });
 
+    grey.addEventListener('mouseenter', function() {
+        v.insidegrey = true;
+        v.scrollX = w.scrollX;
+        v.scrollY = w.scrollY;
+    });
+
     iframe.addEventListener('mouseleave', function() {
         s.insideIframe = false;
     });
 
+    grey.addEventListener('mouseleave', function() {
+        v.insidegrey = false;
+    });
+
     document.addEventListener('scroll', function() {
         if (s.insideIframe)
+            w.scrollTo(s.scrollX, s.scrollY);
+    });
+
+    document.addEventListener('scroll', function() {
+        if (v.insidegrey)
             w.scrollTo(s.scrollX, s.scrollY);
     });
 })(window);
