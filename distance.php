@@ -60,6 +60,10 @@
       echo 'X:' . ' ' . $VictimXYZ[0] . '<br>';
       echo 'Y:' . ' ' . $VictimXYZ[1] . '<br>'; 
       echo 'Z:' . ' ' . $VictimXYZ[2] . '<br>';
+	  
+	  echo '<br><br>';
+	  
+	  echo 'Distance:' . ' ' . NUMBER_FORMAT(ABS((((($VictimXYZ[0] - $KillerXYZ[0]) * 2 + ($VictimXYZ[1] - $KillerXYZ[1]) * 2 + ($VictimXYZ[2] - $KillerXYZ[2]) * 2) / 2)*0.01904)),2) . ' ' . 'm';
     }
   } else {
       echo 'No CSID? No Go!';
