@@ -63,6 +63,7 @@
     }
   } else {
       echo 'No CSID? No Go!';
+      echo '<form method="GET"><input type="text" name="CSID" /><input type="submit" value="submit" /></form>';
   }
   
   ?>
