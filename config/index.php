@@ -74,7 +74,7 @@ require('../resources/config.php');
     <tr>
       <td align='right'>Hostage damage</td><td><input name='Hostage_Damage' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Hostage_Damage']?>' /></td>
       <td align='right'>Suicide</td><td><input name='Suicide' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo $baseScores['Suicide']?>' /></td>
-      <td align='right'>Penetration</td><td><input name='Penetration' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo ($baseScores['Penetration'] - $baseScores['Kill_Base'])?>' /></td>
+      <td align='right'>Penetration</td><td><input name='Penetrated' class='configNumber' type='number' min='-9999' max='9999' value='<?php echo ($baseScores['Penetrated'] - $baseScores['Kill_Base'])?>' /></td>
       
     </tr>
 

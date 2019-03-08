@@ -8,6 +8,10 @@ if(isset($_GET['hide'])){
 } else {
   $hide = '';
 }
+
+//Example Query for calculating scores:
+//SELECT Name, count(*), Misc_3, SteamID, (sum(basescores.Value) * COALESCE(weaponweighting.Weighting,1)) as score FROM logdata LEFT JOIN basescores ON logdata.Misc_3 = basescores.BaseScore LEFT JOIN weaponweighting ON logdata.Misc_1 = weaponweighting.Weapon WHERE Name = 'KroFunk' GROUP BY Misc_3 ORDER BY `Misc_3` DESC
+
 if($hide == 'bots'){
   //SELECT `Name`,`SteamID` as PlayerID, count(`EventType`) as kills, (SELECT count(`EventType`) FROM `logdata` WHERE (`EventVariable` = PlayerID AND `EventType` = 'killed') GROUP BY `EventVariable` ORDER BY `count(``EventType``)` DESC) as deaths FROM `logdata` WHERE `EventType` = 'killed' AND `SteamID` LIKE 'STEAM%' GROUP BY `EventType`, `Name` ORDER BY kills DESC
   $QueryString = "SELECT n.SteamID, t3.score, COALESCE(t1.kill_cnt, 0) AS kills, COALESCE(t2.death_cnt, 0) AS deaths, CASE WHEN t2.death_cnt > 0 THEN CAST(t1.kill_cnt / t2.death_cnt AS CHAR(50)) WHEN t1.kill_cnt = 0 THEN '0' ELSE 'Infinite' END AS ratio FROM ( SELECT DISTINCT SteamID FROM logdata ) n LEFT JOIN ( SELECT SteamID, COUNT(*) AS kill_cnt FROM logdata WHERE EventType = 'killed' GROUP BY SteamID ) t1 ON n.SteamID = t1.SteamID LEFT JOIN ( SELECT EventVariable AS SteamID, COUNT(*) AS death_cnt FROM logdata WHERE EventType = 'killed' GROUP BY EventVariable ) t2 ON n.SteamID = t2.SteamID LEFT JOIN ( SELECT SteamID, (sum(basescores.Value) * COALESCE(weaponweighting.Weighting,1)) as score FROM logdata LEFT JOIN basescores ON logdata.Misc_3 = basescores.BaseScore LEFT JOIN weaponweighting ON logdata.Misc_1 = weaponweighting.Weapon WHERE Misc_3 NOT LIKE '' GROUP BY SteamID ) t3 ON n.SteamID = t3.SteamID WHERE (t1.kill_cnt > 0 or t2.death_cnt > 0) AND n.SteamID LIKE 'STEAM%' ORDER BY `t3`.`Score` DESC";

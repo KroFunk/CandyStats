@@ -46,17 +46,17 @@ require('../resources/config.php');
       
       //Scores
       $updateQueryString  = "UPDATE `basescores` SET `Value` = '" . intval($_POST['Rescued_A_Hostage']) .   "' WHERE `basescores`.`BaseScore` = 'Rescued_A_Hostage';"; 
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Hostage_Damage']) .    "' WHERE `basescores`.`BaseScore` = 'Hostage_Damage';"; 
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Planted_The_Bomb']) .      "' WHERE `basescores`.`BaseScore` = 'Planted_The_Bomb';"; 
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Successful']) .   "' WHERE `basescores`.`BaseScore` = 'Bomb_Successful';"; 
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Defusal']) .      "' WHERE `basescores`.`BaseScore` = 'Bomb_Defusal';"; 
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Team_Kill']) .         "' WHERE `basescores`.`BaseScore` = 'Team_Kill';";
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Suicide']) .           "' WHERE `basescores`.`BaseScore` = 'Suicide';";
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Kill_Assist']) .       "' WHERE `basescores`.`BaseScore` = 'Kill_Assist';";
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Hostage_Damage']) .      "' WHERE `basescores`.`BaseScore` = 'Hostage_Damage';"; 
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Planted_The_Bomb']) .    "' WHERE `basescores`.`BaseScore` = 'Planted_The_Bomb';"; 
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Successful']) .     "' WHERE `basescores`.`BaseScore` = 'Bomb_Successful';"; 
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Bomb_Defusal']) .        "' WHERE `basescores`.`BaseScore` = 'Bomb_Defusal';"; 
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Team_Kill']) .           "' WHERE `basescores`.`BaseScore` = 'Team_Kill';";
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Suicide']) .             "' WHERE `basescores`.`BaseScore` = 'Suicide';";
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Kill_Assist']) .         "' WHERE `basescores`.`BaseScore` = 'Kill_Assist';";
       $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . (intval($_POST['Kill_Base']) + intval($_POST['Headshot'])) .          "' WHERE `basescores`.`BaseScore` = 'Headshot';";
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . (intval($_POST['Kill_Base']) + intval($_POST['Penetration'])) .       "' WHERE `basescores`.`BaseScore` = 'Penetration';";
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . (intval($_POST['Kill_Base']) + (intval($_POST['Headshot']) + intval($_POST['Penetration']))) . "' WHERE `basescores`.`BaseScore` = 'Headshot Penetration';";
-      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Kill_Base']) .         "' WHERE `basescores`.`BaseScore` = 'Kill_Base';";
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . (intval($_POST['Kill_Base']) + intval($_POST['Penetrated'])) .        "' WHERE `basescores`.`BaseScore` = 'Penetrated';";
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . (intval($_POST['Kill_Base']) + (intval($_POST['Headshot']) + intval($_POST['Penetrated']))) . "' WHERE `basescores`.`BaseScore` = 'Headshot Penetrated';";
+      $updateQueryString .= "UPDATE `basescores` SET `Value` = '" . intval($_POST['Kill_Base']) .           "' WHERE `basescores`.`BaseScore` = 'Kill_Base';";
 
       //Weapon Weighting
       $updateQueryString  .= "UPDATE `weaponweighting` SET `Weighting` = '" . floatval($_POST['ak47']) .          "' WHERE `weaponweighting`.`Weapon` = 'ak47';"; 
