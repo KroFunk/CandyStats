@@ -69,7 +69,9 @@
   $BombSuccessful = mysqli_fetch_array(mysqli_query($con,$queryString))['BombSuccessful'];
 
   //Total bombs defused
-  $queryString = "SELECT count(*) as 'BombDefused' FROM `logdata` WHERE `Misc_3` = 'Bomb_Defusal' AND `SteamID` LIKE '" . $HTMLSteamID . "'";
+  //Proper query: $queryString = "SELECT count(*) as 'BombDefused' FROM `logdata` WHERE `Misc_3` = 'Bomb_Defusal' AND `SteamID` LIKE '" . $HTMLSteamID . "'";
+  //Temporary fix:
+  $queryString = "SELECT count(*) as 'BombDefused' FROM `logdata` WHERE `EventVariable` = 'Defused_The_Bomb' AND `SteamID` LIKE '" . $HTMLSteamID . "'";
   $BombDefused = mysqli_fetch_array(mysqli_query($con,$queryString))['BombDefused'];
   
   //Total bombs dropped

@@ -269,7 +269,9 @@ $datatableOutput .= '[ "<img style='."'vertical-align:middle;'".' src='."'".'res
 
 
 //Bomb Squad - Most defusals
- $queryString = "SELECT `name`, `SteamID`, count(*) as 'BombDefused' FROM `logdata` WHERE `Misc_3` = 'Bomb_Defusal' GROUP BY `SteamID` ORDER BY BombDefused DESC Limit 1 ";
+//Proper Query: $queryString = "SELECT `name`, `SteamID`, count(*) as 'BombDefused' FROM `logdata` WHERE `Misc_3` = 'Bomb_Defusal' GROUP BY `SteamID` ORDER BY BombDefused DESC Limit 1 ";
+//Temporary fix:
+$queryString = "SELECT `name`, `SteamID`, count(*) as 'BombDefused' FROM `logdata` WHERE `EventVariable` = 'Defused_The_Bomb' GROUP BY `SteamID` ORDER BY BombDefused DESC Limit 1 ";
 $result = mysqli_fetch_array(mysqli_query($con,$queryString));
 if(stripos($result['SteamID'], 'STEAM') !== false) {
   //its a human! ...probably
