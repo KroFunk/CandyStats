@@ -105,7 +105,7 @@ require('../resources/config.php');
     
     <?php
       $weaponWeighting = array();
-      $queryString = "SELECT * FROM `itemdetails`";
+      $queryString = "SELECT * FROM `weaponweighting`";
       $query = mysqli_query($con,$queryString) or die(mysqli_error($con).PHP_EOL.$queryString);
       while($result = mysqli_fetch_array($query)){
         $weaponWeighting[$result['Weapon']] = $result['Weighting'];

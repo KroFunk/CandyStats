@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 09, 2019 at 06:34 PM
--- Server version: 5.7.24
--- PHP Version: 7.2.14
+-- Generation Time: Jan 30, 2019 at 11:39 AM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -49,9 +49,9 @@ INSERT INTO `basescores` (`BS_ID`, `BaseScore`, `Value`) VALUES
 (6, 'Team_Kill', -200),
 (7, 'Suicide', -200),
 (8, 'Kill_Assist', 50),
-(9, 'Headshot', 125),
-(10, 'Penetrated', 110),
-(11, 'Headshot Penetrated', 135),
+(9, 'Headshot', 150),
+(10, 'Penetration', 150),
+(11, 'Headshot Penetration', 200),
 (12, 'Kill_Base', 100),
 (13, 'Begin_Bomb_Defuse_Without_Kit', 0);
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `itemdetails` (
 INSERT INTO `itemdetails` (`WW_ID`, `Weapon`, `Weighting`, `Price`, `FriendlyName`) VALUES
 (1, 'ak47', 1.1, 2700, 'AK-47'),
 (2, 'aug', 1.1, 3150, 'AUG'),
-(3, 'awp', 0.7, 4750, 'AWP'),
+(3, 'awp', 0.9, 4750, 'AWP'),
 (4, 'bizon', 1.3, 1400, 'PP-Bizon'),
 (5, 'cz75a', 1.6, 500, 'CZ75-Auto'),
 (6, 'deagle', 0.9, 700, 'Desert Eagle'),
