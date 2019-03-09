@@ -31,7 +31,7 @@
 
       // Create the data table
       var data = google.visualization.arrayToDataTable([
-        ['Weapon', 'Headshot Kills', 'Other Kills'],
+        ['Weapon', 'Other Kills', 'Headshot Kills'],
         <?php
           $queryString = "SELECT `Misc_1`, `Misc_3`, count(*) FROM `logdata` WHERE `SteamID` = '" . htmlentities($_GET['ID'], ENT_QUOTES) . "' AND `EventType` = 'killed' GROUP BY `Misc_3`, `Misc_1` ORDER BY `Misc_1`,`Misc_3` ASC";
           $query = mysqli_query($con, $queryString);
