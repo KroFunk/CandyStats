@@ -34,9 +34,15 @@ while($killsResult = mysqli_fetch_array($killsQuery)){
   } else {
     $ishuman = 'No';
   }
+  
+  if(is_numeric($killsResult['ratio'])){
+    $ratio = number_format($killsResult['ratio'],2);
+  } else {
+    $ratio = $killsResult['ratio'];
+  }
   //build kill section of array
   //ORIGINAL - $KDArray[$identifier] = array('steamID'=>$killsResult['VictimSteamID'],'kills'=>$killsResult['kills'],'deaths'=>'0','KD'=>'0','ishuman'=>$ishuman);
-  $KDArray[$identifier] = array('steamID'=>$killsResult['steamID'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>number_format($killsResult['ratio'],2),'ishuman'=>$ishuman);
+  $KDArray[$identifier] = array('steamID'=>$killsResult['steamID'],'kills'=>$killsResult['kills'],'deaths'=>$killsResult['deaths'],'KD'=>$ratio,'ishuman'=>$ishuman);
 }
 
 //$KD = number_format(@(intval($killsResult['kills']) / @intval($killsResult['deaths'])),2);
