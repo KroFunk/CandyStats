@@ -51,10 +51,18 @@
               $Headshot = 0;
             }
 
+            if(!empty($value['Headshot Penetrated'])){
+              $Headshot += $value['Headshot Penetrated'];
+            }
+
             if(!empty($value['Kill_Base'])){
               $Kill_Base = $value['Kill_Base'];
             } else {
               $Kill_Base = 0;
+            }
+
+            if(!empty($value['Penetrated'])){
+              $Kill_Base += $value['Penetrated'];
             }
 
           echo "['" . $key . "', " . $Kill_Base . ", " . $Headshot . "]";
