@@ -288,6 +288,7 @@
             $queryString = "SELECT SessionID, TIMESTAMP, TAGS, COUNT(*) as Rounds FROM `logdata` WHERE EventVariable = 'Round_Start' GROUP BY SessionID";
             $query = mysqli_query($con,$queryString);
             $TAGDivs = '';
+            $sessionDate = '';
             while($row = mysqli_fetch_array($query)){
               $TAGS = array();
               if(!empty($row['TAGS'])){
@@ -296,10 +297,19 @@
                   $TAGDivs .= '<div class="tagdiv">' . $TAG . '</div>';
                 }
               }
-              echo '<div class="SelectionDivItem" id="'.$row['SessionID'].'"><div style="float:right;"><img style="cursor:pointer;" onclick="openwrapper('."'".'edit-session.php?id='.$row['SessionID']."'".',500,450,5);" src="resources/images/UI/editicon.png" /></div>'. date($DateFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>' . $TAGDivs . '</div><p class="clearP"></p></div>';
-              $TAGDivs = '';            
+              if($sessionDate != date($DateFormat,strtotime($row['TIMESTAMP']))){
+                if($sessionDate != ''){
+                  echo '</div><!-- sessionDate' . $row['TIMESTAMP'] . ' -->';//close previous sessionDate div so long as it isn't the first row!
+                }
+                $sessionDate = date($DateFormat,strtotime($row['TIMESTAMP']));
+                echo "<div class='sessionDate' id='sessionDate" . date('Ymd',strtotime($row['TIMESTAMP'])) . "' style='overflow:hidden; max-height:30px;'> <div style='padding:5px; cursor:pointer;' onclick='expandSessionDate(`" . date('Ymd',strtotime($row['TIMESTAMP'])) . "`)'><img style='vertical-align:middle;' id='sessionDateButton" . date('Ymd',strtotime($row['TIMESTAMP'])) . "' src='resources/images/UI/plus-small.png' /> $sessionDate</div>";
+              }
+              echo '<div class="SelectionDivItem" id="'.$row['SessionID'].'"><div style="float:right;"><img style="cursor:pointer;" onclick="openwrapper('."'".'edit-session.php?id='.$row['SessionID']."'".',500,450,5);" src="resources/images/UI/editicon.png" /></div>'. date($TimeFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>' . $TAGDivs . '</div><p class="clearP"></p></div>';
+              $TAGDivs = '';
             }
+            echo '</div>';//close final sessionDate div. 
         ?>
+        
         </div> 
       </td>
       <td>

@@ -275,7 +275,7 @@
       <td>SessionID:</td><td><b><?php echo $_GET['id']; ?></b></td>
     </tr>
     <tr>
-      <td>TIMESTMAP:</td><td><b><?php echo date($DateFormat,strtotime($row['TIMESTAMP'])); ?></b></td>
+      <td>TIMESTMAP:</td><td><b><?php echo date($DateTimeFormat,strtotime($row['TIMESTAMP'])); ?></b></td>
     </tr>
   </table>
   <div style='padding-left:5px;'>TAGS:</div>

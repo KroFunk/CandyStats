@@ -142,3 +142,16 @@ function openStats(name,steamID){
     //make the box visible.
     document.getElementById(`playerStats`).className=`playerStats visible`;
 }
+
+function expandSessionDate(sessionDate) {
+    sessionDateDiv      = document.getElementById('sessionDate'+sessionDate);
+    sessionDateButton   = document.getElementById('sessionDateButton'+sessionDate);
+
+    if(sessionDateDiv.style.maxHeight == '9999px'){
+        sessionDateDiv.style.maxHeight = '30px';
+        sessionDateButton.src = 'resources/images/UI/plus-small.png';
+    } else {
+        sessionDateDiv.style.maxHeight = '9999px';
+        sessionDateButton.src = 'resources/images/UI/minus-small.png';
+    }
+}

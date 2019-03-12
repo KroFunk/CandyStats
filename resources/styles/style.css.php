@@ -318,6 +318,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     overflow-y: scroll;
     clear:both;
 }
+.sessionDate{
+    border-bottom:1px solid #24292E;
+    clear:both;
+}
 .SelectionDiv{
     border:1px solid #24292E;
     transition:0.2s ease-in-out;
@@ -332,6 +336,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     padding:5px;
     border-bottom:1px solid #24292E;
     clear:both;
+    padding-left:40px;
 }
 .clearP {
     margin:0;
