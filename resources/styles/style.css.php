@@ -338,6 +338,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     clear:both;
     padding-left:40px;
 }
+.Selected {
+    padding:5px;
+    border-bottom:1px solid #24292E;
+    clear:both;
+    padding-left:40px;
+    background: #691df7;
+}
 .clearP {
     margin:0;
     padding:0;
@@ -349,6 +356,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 .SelectionDivItem:hover {
     background:#24292E;
+}
+.Selected:hover {
+    background:#7b30d1;
 }
 .SelectionButton{
     text-align: center;

@@ -155,3 +155,12 @@ function expandSessionDate(sessionDate) {
         sessionDateButton.src = 'resources/images/UI/minus-small.png';
     }
 }
+
+function selectSesssion(selectedSessionID) {
+    selectedDiv = document.getElementById(selectedSessionID);
+    if(selectedDiv.className == 'Selected'){
+        selectedDiv.className = 'SelectionDivItem';
+    } else {
+        selectedDiv.className = 'Selected';
+    }
+}
