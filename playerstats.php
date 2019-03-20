@@ -158,8 +158,8 @@
 
 <div class='globalLeaderboard_wrapper_wrapper'>
   <div style="position: relative; z-index:1; width: 0; height: 0">
-    <input type="button" id='fullListButton' style='position:absolute; top:0px; left:10px; width:105px;' class="smallglossyButton" value="Victims" onclick="victims(this.value, '<?php echo $_POST['SteamID'] ?>')">
-    <input type="button" id='showHideBotsButton' style='position:absolute; top:0px; left:125px; width:105px;' class="smallglossyButton" value="Weapons" onclick="weapons(this.value, '<?php echo $_POST['SteamID'] ?>')">
+    <input type="button" id='fullListButton' style='cursor: pointer;position:absolute; top:0px; left:10px; width:105px;' class="smallglossyButton" value="Show all Stats!" onclick="fullPSList(this.value, '<?php echo $_POST['SteamID'] ?>')">
+    <input type="button" id='showHideBotsButton' style='cursor: pointer;position:absolute; top:0px; left:125px; width:105px;' class="smallglossyButton" value="Weapons" onclick="weapons(this.value, '<?php echo $_POST['SteamID'] ?>')">
   </div>
   <table id='globalLeaderboardTEST' class='display'>
     <thead>

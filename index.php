@@ -85,6 +85,30 @@
 
     }
   }
+  
+  function fullPSList(checkvalue) {
+    if(checkvalue=='Show all Stats!'){
+      playerleaderboard.page.len(-1).draw();
+      document.getElementById('fullListButton').value = 'Show Top 10!';
+    } else {
+      playerleaderboard.page.len(10).draw();
+      document.getElementById('fullListButton').value = 'Show all Stats!';
+
+    }
+  }
+
+  function weapons(checkvalue,steamID) {
+    if(checkvalue=='Weapons'){
+      playerleaderboard.clear();
+      playerleaderboard.ajax.url( 'API/GET/weapon-use/datatables.php?hide=bots&ID='+steamID ).load();
+      document.getElementById('showHideBotsButton').value = 'Victims';
+    } else {
+      playerleaderboard.clear();
+      playerleaderboard.ajax.url( 'API/GET/victims/datatables.php?hide=bots&ID='+steamID ).load();
+      document.getElementById('showHideBotsButton').value = 'Weapons';
+    }
+  }
+
   </script>
 </head>
 
@@ -241,8 +265,8 @@
       <!--Leaderboard Table-->
       <div class='globalLeaderboard_wrapper_wrapper'>
         <div style="position: relative; z-index:1; width: 0; height: 0">
-          <input type="button" id='fullListButton' style='position:absolute; top:0px; left:10px; width:115px;' class="smallglossyButton" value="Show all players!" onclick="fullList(this.value)">
-          <input type="button" id='showHideBotsButton' style='position:absolute; top:0px; left:135px; width:115px;' class="smallglossyButton" value="Show BOTS!" onclick="showHideBots(this.value)">
+          <input type="button" id='fullListButton' style='cursor: pointer; position:absolute; top:0px; left:10px; width:115px;' class="smallglossyButton" value="Show all players!" onclick="fullList(this.value)">
+          <input type="button" id='showHideBotsButton' style='cursor: pointer; position:absolute; top:0px; left:135px; width:115px;' class="smallglossyButton" value="Show BOTS!" onclick="showHideBots(this.value)">
         </div>
         <table id='globalLeaderboard' class='display'>
           <thead>
@@ -267,18 +291,18 @@
   </table>
 
   <center>
-    <h1>Sessions</h1>
+    <h1>Session Selection</h1>
     <p class='h1Subheading'>Below are are all the sessions uploaded to CandyStats.</p>
   </center>
   <table style='width:100%;'>
     <tr>
       <td style='width:48%;padding-left:10px;'>
-        <center><h2>Available</h2></center>
+        <center><h2>Uploaded Logs</h2></center>
       </td>
       <td>
       </td>
       <td style='width:48%;padding-right:10px;'>
-        <center><h2>Selected</h2></center>
+        <center><h2>Rounds</h2></center>
       </td>
     </tr>
     <tr>
