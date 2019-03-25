@@ -291,17 +291,22 @@
   </table>
 
   <center>
-    <h1>Session Selection</h1>
-    <p class='h1Subheading'>Below are are all the sessions uploaded to CandyStats.</p>
+    <h1>Data Selection</h1>
+    <p class='h1Subheading'>Below are are all the sessions uploaded to CandyStats. Use the filters to refine your data selection!</p>
   </center>
   <table style='width:100%;'>
     <tr>
-      <td style='width:48%;padding-left:10px;'>
+      <td style='width:31%;padding-left:10px;'>
         <center><h2>Uploaded Logs</h2></center>
       </td>
       <td>
       </td>
-      <td style='width:48%;padding-right:10px;'>
+      <td style='width:31%;padding-right:10px;'>
+        <center><h2>Maps</h2></center>
+      </td>
+      <td>
+      </td>
+      <td style='width:31%;padding-right:10px;'>
         <center><h2>Rounds</h2></center>
       </td>
     </tr>
@@ -337,10 +342,30 @@
         </div> 
       </td>
       <td>
-        <div class='SelectionButton'><img src='resources/images/add_all.png' /></div>
-        <div class='SelectionButton'><img src='resources/images/add.png' /></div>
-        <div class='SelectionButton'><img src='resources/images/remove.png' /></div>
-        <div class='SelectionButton'><img src='resources/images/remove_all.png' /></div>
+        <div><center><img src='resources/images/add.png' /></center></div>
+
+      </td>
+      <td>
+        <div class='SelectionDiv'>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br><br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        </div>
+      </td>
+      <td>
+        <div><center><img src='resources/images/add.png' /></center></div>
 
       </td>
       <td style='padding-right:10px;'>
