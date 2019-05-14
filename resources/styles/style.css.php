@@ -64,7 +64,7 @@ a:visited{
     color:#B3B4AE;
     padding-top:40px;
     padding-bottom:10px;
-    box-shadow: 0px 0px 50px #000;
+    /*box-shadow: 0px 0px 50px #000;*/
 }
 .glossyButton{
     display:inline-block;
@@ -160,8 +160,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 .menuBar{
     width:100%;
-    max-width:1200px;
-    margin:0 auto;
     position:fixed;
     top:0;
     height:50px;
@@ -177,8 +175,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 .smallMenuBar{
     width:100%;
-    max-width:1200px;
-    margin:0 auto;
     position:fixed;
     top:0;
     height:30px;
@@ -190,6 +186,45 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', endColorstr='#41127a',GradientType=0 ); /* IE6-9 */
     color:#FFF6EF;
     transition: all 0.5s ease-in-out;
+    z-index: 999999;
+}
+.card {
+    position: relative;
+    display:inline-block;
+    width:350px;
+    border-radius:4px;
+    box-shadow: 0px 0px 10px #000;
+    background:#24292E;
+    margin-left:10px;
+    margin-right:10px;
+}
+.card h3 {
+    position:absolute;
+    top: 130px;
+    left: 5px;
+    text-align: left;
+    font-family: 'Special Elite', cursive;
+    text-shadow: 0px 0px 10px #000;
+    font-size:36px;
+    color: #fff;
+}
+.cardImage img {
+    width:350px;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+    border-bottom:4px solid #691df7;
+}
+.fullWidthSection {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#171a1c+0,171a1c+100&1+50,1+50,0+98 */
+    background: -moz-linear-gradient(top,  rgba(23,26,28,1) 0%, rgba(23,26,28,1) 50%, rgba(23,26,28,0) 98%, rgba(23,26,28,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(23,26,28,1) 0%,rgba(23,26,28,1) 50%,rgba(23,26,28,0) 98%,rgba(23,26,28,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(23,26,28,1) 0%,rgba(23,26,28,1) 50%,rgba(23,26,28,0) 98%,rgba(23,26,28,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#171a1c', endColorstr='#00171a1c',GradientType=0 ); /* IE6-9 */
+
+    color:#B3B4AE;
+    padding:40px;
+    padding-bottom:560px;
+    margin-bottom:-600px;
     z-index: 999999;
 }
 .smallMenuBar .logo{

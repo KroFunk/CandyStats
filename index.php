@@ -12,6 +12,7 @@
   <meta name="description" content="PHP Script for storing and reporting on CSGO server logs">
   <meta name="author" content="KroFunk and Naiboss">
 
+  <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
   <link rel="stylesheet" href="resources/styles/style.css.php">
   <link rel="stylesheet" type="text/css" href="resources/styles/jquery.dataTables.dark.css">
   
@@ -114,15 +115,15 @@
 
 <body>
 
+<div class='menuBar' id='menuBar'>
+  <div class='logo'>CandyStats : Global Overview</div>
+  <div class='menuButton'><img src="resources/images/UI/login-nograd.png" /></div>
+  <div class='menuLink'><a href='team_calculator/'>Team Calculator</a><a href='config/'>Config Variables</a><a href='upload/'>Upload Log</a>|&nbsp;&nbsp;<a href='login/'>Login</a></div>  
+</div>
 
-<div class='bodyWrapper'>
-  <div class='menuBar' id='menuBar'>
-    <div class='logo'>CandyStats : Global Overview</div>
-    <div class='menuButton'><img src="resources/images/UI/login-nograd.png" /></div>
-    <div class='menuLink'><a href='team_calculator/'>Team Calculator</a><a href='config/'>Config Variables</a><a href='upload/'>Upload Log</a>|&nbsp;&nbsp;<a href='login/'>Login</a></div>  
-  </div>
+<div class='fullWidthSection'>
 
-  <center>
+<center>
     <h1>Global Overview</h1>
     <p class='h1Subheading'>Below are general stats from all sessions</p>
   </center>
@@ -209,42 +210,72 @@
   $HostagesRescued = mysqli_fetch_array(mysqli_query($con,$queryString))['HostagesRescued'];
   ?>
 
-  <div style='padding:20px;font-size:13px;'>
+  <div style='font-size:13px;'>
 
-    <table style='width:100%;' cellspacing='0'>
-      <tr>
-        <td align='right' width='140'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td>
-        <td align='right' width='140'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td>
-        <td align='right' width='140'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td>
-        <td align='right' width='140'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td>
-      </tr>
-	  <tr>
-        <td align='right' width='140'>Total CT kills:</td><td><strong><?php echo $totalCTKills; ?></strong></td>
-        <td align='right' width='140'>Total Terrorist kills:</td><td><strong><?php echo $totalTKills; ?></strong></td>
-        <td align='right' width='140'>Total Matches Played:</td><td><strong><?php echo $TotalMatches; ?></strong></td>
-        <td align='right' width='140'>Total Rounds Played:</td><td><strong><?php echo $TotalRounds; ?></strong></td>
-      </tr>
-      <tr>
-        <td align='right' width='140'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td>
-        <td align='right' width='140'>Bombs exploded:</td><td><strong><?php echo $BombSuccessful; ?></strong></td>
-        <td align='right' width='140'>Bombs defused:</td><td><strong><?php echo $BombDefused; ?></strong></td>
-        <td align='right' width='140'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td>
-      </tr>
-      <tr>
-        <td align='right' valign='top' width='140'>Total purchases:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td>
-        <td align='right' valign='top' width='140'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td>
-        <td align='right' valign='top' width='140'>Most purchased:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td>
-        <td align='right' valign='top' width='140'>Least purchased:</td><td valign='top'><strong><?php echo $LeastPurchasedItem . ' (' . $LeastPurchasedItemCount . ')'; ?></strong></td>
-      </tr>
-      <tr>
-        <td align='right' width='140'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td>
-        <td align='right' width='140'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td>
-        <td align='right' width='140'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td>
-        <td align='right' width='140'></td><td><strong></strong></td>
-      </tr>
+  <center>
+    <div id='CT-Card' class='card'>
+    <div class='cardImage'><img src='resources/images/UI/CT.jpg' /></div>
+    <h3>CTs</h3>
+    <table>
+
+      <tr><td align='right' width='140'>Total CT kills:</td><td><strong><?php echo $totalCTKills; ?></strong></td></tr>
+      <tr><td align='right' width='140'>Bombs defused:</td><td><strong><?php echo $BombDefused; ?></strong></td></tr>
+      <tr><td align='right' width='140'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td></tr>
+      <tr><td align='right' width='140'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td></tr>
+      
     </table>
+    </div>
+
+    <div id='T-Card' class='card'>
+    <div class='cardImage'><img src='resources/images/UI/T.jpg' /></div>
+    <h3>Ts</h3>
+    <table>
+
+      <tr><td align='right' width='140'>Total Terrorist kills:</td><td><strong><?php echo $totalTKills; ?></strong></td></tr>
+      <tr><td align='right' width='140'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td></tr>
+      <tr><td align='right' width='140'>Bombs exploded:</td><td><strong><?php echo $BombSuccessful; ?></strong></td></tr>
+      <tr><td align='right' width='140'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td></tr>
+      
+    </table>
+    </div>
+
+    <div id='Misc-Card' class='card'>
+    <div class='cardImage'><img src='resources/images/UI/buy.jpg' /></div>
+    <h3>Misc</h3>
+    <table>
+      
+    <tr><td align='right' width='140'>Total Matches Played:</td><td><strong><?php echo $TotalMatches; ?></strong></td></tr>
+    <tr><td align='right' width='140'>Total Rounds Played:</td><td><strong><?php echo $TotalRounds; ?></strong></td></tr>
+    <tr><td align='right' valign='top' width='140'>Total purchases:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td></tr>
+    <tr><td align='right' valign='top' width='140'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td></tr>
+    <tr><td align='right' valign='top' width='140'>Most purchased:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td></tr>
+    <tr><td align='right' valign='top' width='140'>Least purchased:</td><td valign='top'><strong><?php echo $LeastPurchasedItem . ' (' . $LeastPurchasedItemCount . ')'; ?></strong></td></tr>
+      
+    </table>
+    </div>
+
+    <div id='Kill-Card' class='card'>
+    <div class='cardImage'><img src='resources/images/UI/chckenCT.jpg' /></div>
+    <h3>Totals</h3>
+    <table>
+      
+    <tr><td align='right' width='140'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td></tr>
+    <tr><td align='right' width='140'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td></tr>
+    <tr><td align='right' width='140'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td></tr>
+    <tr><td align='right' width='140'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td></tr>
+    <tr><td align='right' width='140'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td></tr>
+      
+    </table>
+    </div>
+
+  </center>
 
   </div>
+
+</div>
+
+<div class='bodyWrapper'>
+
   <div class='playerStats invisible' id='playerStats'>
     
   </div>

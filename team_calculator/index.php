@@ -16,13 +16,13 @@
 
 <body>
 
-
-<div class='bodyWrapper'>
   <div class='menuBar' id='menuBar'>
     <div class='logo'>CandyStats : Upload Log</div>
     <div class='menuButton'><img src="../resources/images/UI/login-nograd.png" /></div>
     <div class='menuLink'><a href='../team_calculator/'>Team Calculator</a><a href='../config/'>Config Variables</a><a href='../upload/'>Upload Log</a>|&nbsp;&nbsp;<a href='../login/'>Login</a></div>  
   </div>
+<div class='bodyWrapper'>
+
 
   <div class='contentDiv'>
     <a href='../'>Click here to go back to Global Overview</a>
