@@ -422,6 +422,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 .tagdiv {
     background: #8845d3;
     border-radius: 5px;
+    border: 1px solid #171a1c;
     font-size: 10px;
     color: white;
     float:left;
