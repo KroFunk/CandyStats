@@ -192,6 +192,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     position: relative;
     display:inline-block;
     width:350px;
+    min-height: 340px;
     border-radius:4px;
     box-shadow: 0px 0px 10px #000;
     background:#24292E;

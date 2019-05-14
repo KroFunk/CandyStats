@@ -216,12 +216,12 @@
     <div id='CT-Card' class='card'>
     <div class='cardImage'><img src='resources/images/UI/CT.jpg' /></div>
     <h3>CTs</h3>
-    <table>
+    <table width='100%'>
 
-      <tr><td align='right' width='140'>Total CT kills:</td><td><strong><?php echo $totalCTKills; ?></strong></td></tr>
-      <tr><td align='right' width='140'>Bombs defused:</td><td><strong><?php echo $BombDefused; ?></strong></td></tr>
-      <tr><td align='right' width='140'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td></tr>
-      <tr><td align='right' width='140'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Total CT kills:</td><td><strong><?php echo $totalCTKills; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Bombs defused:</td><td><strong><?php echo $BombDefused; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Bombs dropped:</td><td><strong><?php echo $BombDrops; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Hostages rescued:</td><td><strong><?php echo $HostagesRescued; ?></strong></td></tr>
       
     </table>
     </div>
@@ -229,12 +229,12 @@
     <div id='T-Card' class='card'>
     <div class='cardImage'><img src='resources/images/UI/T.jpg' /></div>
     <h3>Ts</h3>
-    <table>
+    <table width='100%'>
 
-      <tr><td align='right' width='140'>Total Terrorist kills:</td><td><strong><?php echo $totalTKills; ?></strong></td></tr>
-      <tr><td align='right' width='140'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td></tr>
-      <tr><td align='right' width='140'>Bombs exploded:</td><td><strong><?php echo $BombSuccessful; ?></strong></td></tr>
-      <tr><td align='right' width='140'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Total Terrorist kills:</td><td><strong><?php echo $totalTKills; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Bombs planted:</td><td><strong><?php echo $BombsPlanted; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Bombs exploded:</td><td><strong><?php echo $BombSuccessful; ?></strong></td></tr>
+      <tr><td align='right' width='175'>Hostages harmed:</td><td><strong><?php echo $BombDefused; ?></strong></td></tr>
       
     </table>
     </div>
@@ -242,10 +242,10 @@
     <div id='Misc-Card' class='card'>
     <div class='cardImage'><img src='resources/images/UI/buy.jpg' /></div>
     <h3>Misc</h3>
-    <table>
+    <table width='100%'>
       
-    <tr><td align='right' width='140'>Total Matches Played:</td><td><strong><?php echo $TotalMatches; ?></strong></td></tr>
-    <tr><td align='right' width='140'>Total Rounds Played:</td><td><strong><?php echo $TotalRounds; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Total Matches Played:</td><td><strong><?php echo $TotalMatches; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Total Rounds Played:</td><td><strong><?php echo $TotalRounds; ?></strong></td></tr>
     <tr><td align='right' valign='top' width='140'>Total purchases:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td></tr>
     <tr><td align='right' valign='top' width='140'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td></tr>
     <tr><td align='right' valign='top' width='140'>Most purchased:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td></tr>
@@ -257,13 +257,13 @@
     <div id='Kill-Card' class='card'>
     <div class='cardImage'><img src='resources/images/UI/chckenCT.jpg' /></div>
     <h3>Totals</h3>
-    <table>
+    <table width='100%'>
       
-    <tr><td align='right' width='140'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td></tr>
-    <tr><td align='right' width='140'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td></tr>
-    <tr><td align='right' width='140'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td></tr>
-    <tr><td align='right' width='140'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td></tr>
-    <tr><td align='right' width='140'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td></tr>
       
     </table>
     </div>
