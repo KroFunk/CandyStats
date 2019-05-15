@@ -116,7 +116,7 @@
 <body>
 
 <div class='menuBar' id='menuBar'>
-  <div class='logo'>CandyStats : Global Overview</div>
+  <div class='logo'><!--img src='resources/images/UI/CandyLogo.png' /-->CandyStats : Global Overview</div>
   <div class='menuButton'><img src="resources/images/UI/login-nograd.png" /></div>
   <div class='menuLink'><a href='team_calculator/'>Team Calculator</a><a href='config/'>Config Variables</a><a href='upload/'>Upload Log</a>|&nbsp;&nbsp;<a href='login/'>Login</a></div>  
 </div>
@@ -215,7 +215,7 @@
   <center>
     <div id='CT-Card' class='card'>
     <div class='cardImage'><img src='resources/images/UI/CT.jpg' /></div>
-    <h3>CTs</h3>
+    <h3>CT Stats</h3>
     <table width='100%'>
 
       <tr><td align='right' width='175'>Total CT kills:</td><td><strong><?php echo $totalCTKills; ?></strong></td></tr>
@@ -228,7 +228,7 @@
 
     <div id='T-Card' class='card'>
     <div class='cardImage'><img src='resources/images/UI/T.jpg' /></div>
-    <h3>Ts</h3>
+    <h3>T Stats</h3>
     <table width='100%'>
 
       <tr><td align='right' width='175'>Total Terrorist kills:</td><td><strong><?php echo $totalTKills; ?></strong></td></tr>
@@ -241,12 +241,10 @@
 
     <div id='Misc-Card' class='card'>
     <div class='cardImage'><img src='resources/images/UI/buy.jpg' /></div>
-    <h3>Misc</h3>
+    <h3>Cash Stats</h3>
     <table width='100%'>
       
-    <tr><td align='right' width='175'>Total Matches Played:</td><td><strong><?php echo $TotalMatches; ?></strong></td></tr>
-    <tr><td align='right' width='175'>Total Rounds Played:</td><td><strong><?php echo $TotalRounds; ?></strong></td></tr>
-    <tr><td align='right' valign='top' width='140'>Total purchases:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td></tr>
+    <tr><td align='right' valign='top' width='140'>Items purchased:</td><td valign='top'><strong><?php echo $TotalPurchases; ?></strong></td></tr>
     <tr><td align='right' valign='top' width='140'>Cash spent:</td><td valign='top'><strong>&#36;<!--Because Murica--><?php echo number_format($TotalSpent,0,'.',','); ?></strong></td></tr>
     <tr><td align='right' valign='top' width='140'>Most purchased:</td><td valign='top'><strong><?php echo $MostPurchasedItem . ' (' . $MostPurchasedItemCount . ')'; ?></strong></td></tr>
     <tr><td align='right' valign='top' width='140'>Least purchased:</td><td valign='top'><strong><?php echo $LeastPurchasedItem . ' (' . $LeastPurchasedItemCount . ')'; ?></strong></td></tr>
@@ -259,8 +257,10 @@
     <h3>Totals</h3>
     <table width='100%'>
       
+    <tr><td align='right' width='175'>Total Matches Played:</td><td><strong><?php echo $TotalMatches; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Total Rounds Played:</td><td><strong><?php echo $TotalRounds; ?></strong></td></tr>
     <tr><td align='right' width='175'>Total kills:</td><td><strong><?php echo $totalKills; ?></strong></td></tr>
-    <tr><td align='right' width='175'>Headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Total headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td></tr>
     <tr><td align='right' width='175'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td></tr>
     <tr><td align='right' width='175'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td></tr>
     <tr><td align='right' width='175'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td></tr>
@@ -268,10 +268,16 @@
     </table>
     </div>
 
+    
+
   </center>
 
   </div>
 
+</div>
+
+<div class='fullWidthSectionGrad'>
+  &nbsp;
 </div>
 
 <div class='bodyWrapper'>
