@@ -18,6 +18,7 @@ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-se
 }
 body{
 background:#24292E url("../images/UI/trianglify.png") fixed;
+background-size: cover;
 }
 h1{
     font-weight:300;
