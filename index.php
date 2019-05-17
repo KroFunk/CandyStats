@@ -19,6 +19,174 @@
   <script src="resources/js/jquery-1.10.2.js"></script>
   <script type="text/javascript" charset="utf8" src="resources/js/jquery.dataTables.js"></script>
   <script src="resources/js/scripts.js"></script>
+  <!-- butchered this: https://codepen.io/neave/pen/JqwHt -->
+  <style>
+.chickenDiv {
+	position: absolute;
+	display: block;
+  position: fixed;
+  /*
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+  transform: translateZ(0);
+  */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+  user-select: none;
+  /*https://www.artstation.com/artwork/N61Rg*/
+  background-image: url('resources/images/UI/chicken.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  </style>
+  <script>
+    function wait(ms) {
+        var d = new Date();
+        var d2 = null;
+        do { d2 = new Date(); }
+        while(d2-d < ms);
+      }
+  var chickenClicks = 0; 
+    function bwark() {
+      var chickenSound = document.getElementById("chickenSound"); 
+          chickenClicks++;
+          if(chickenClicks < 3) {
+          chickenSound.currentTime = 0
+          chickenSound.play();
+          }
+          if(chickenClicks == 3) {
+            chickenSound.currentTime = 0
+            chickenSound.play();
+            wait(1200);
+            chickenSound.currentTime = 0
+            chickenSound.src = "resources/sounds/OOT_Cucco2.mp3";
+            chickenSound.loop = true;
+            chickenSound.play();
+            var revengeofthechickens = setTimeout(function() {
+              Chicken.init(document.getElementById('chickens'));
+            }, 500);
+          }
+      }
+
+
+     
+    
+
+  var Chicken = (function() {
+
+var chicks;
+var chicksTotal = 175;
+var wind = 0;
+var mouseX;
+var mouseY;
+
+function Chicken(size, x, y, vx, vy) {
+  this.size = size;
+  this.x = x;
+  this.y = y;
+  this.vx = vx;
+  this.vy = vy;
+  this.hit = false;
+  this.melt = false;
+  this.div = document.createElement('div');
+  this.div.classList.add('chickenDiv');
+  this.div.style.width = (this.size * 2.5) + 'px';
+  this.div.style.height = (this.size * 2.5) + 'px';
+}
+
+Chicken.prototype.move = function() {
+  if (this.hit) {
+    if (Math.random() > 0.995) this.melt = true;
+  } else {
+    this.x += this.vx + Math.min(Math.max(wind, -10), 10);
+    this.y += this.vy;
+  }
+
+  // Wrap the chickenDiv to within the bounds of the page
+  if (this.x > window.innerWidth + this.size) {
+    this.x -= window.innerWidth + this.size;
+  }
+
+  if (this.x < -this.size) {
+    this.x += window.innerWidth + this.size;
+  }
+
+  if (this.y > window.innerHeight + this.size) {
+    this.x = Math.random() * window.innerWidth;
+    this.y -= window.innerHeight + this.size * 2;
+    this.melt = false;
+  }
+
+  var dx = mouseX - this.x;
+  var dy = mouseY - this.y;
+  this.hit = !this.melt && this.y < mouseY && dx * dx + dy * dy < 2400;
+};
+
+Chicken.prototype.draw = function() {
+  this.div.style.transform =
+  this.div.style.MozTransform =
+  this.div.style.webkitTransform =
+    'translate3d(' + this.x + 'px' + ',' + this.y + 'px,0)';
+};
+
+function update() {
+  for (var i = chicks.length; i--; ) {
+    var chick = chicks[i];
+    chick.move();
+    chick.draw();
+  }
+  requestAnimationFrame(update);
+}
+
+Chicken.init = function(container) {
+  chicks = [];
+
+  for (var i = chicksTotal; i--; ) {
+    var size = (Math.random() + 0.2) * 12 + 1;
+    var chick = new Chicken(
+      size,
+      Math.random() * window.innerWidth,
+      Math.random() * window.innerHeight,
+      Math.random() - 0.5,
+      size * 0.3
+    );
+    container.appendChild(chick.div);
+    chicks.push(chick);
+  }
+  
+  container.onmousemove = function(event) {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    wind = (mouseX - window.innerWidth / 2) / window.innerWidth * 6;
+  };
+
+  container.ontouchstart = function(event) {
+    mouseX = event.targetTouches[0].clientX;
+    mouseY = event.targetTouches[0].clientY;
+    event.preventDefault();
+  };
+
+  window.ondeviceorientation = function(event) {
+    if (event) {
+      wind = event.gamma / 10;
+    }
+  };
+  
+  update();
+};
+
+return Chicken;
+
+}());
+
+/*window.onload = function() {
+setTimeout(function() {
+  Chicken.init(document.getElementById('chickens'));
+}, 500);
+}*/
+</script>
   
   <script>
   $(document).ready( function () {
@@ -114,6 +282,14 @@
 </head>
 
 <body>
+
+<div id="chickens">
+
+<audio id='chickenSound'>
+  <source src="resources/sounds/MC_Cucco6.mp3" type="audio/mpeg">
+</audio>
+
+</div>
 
 <div class='menuBar' id='menuBar'>
   <div class='logo'><!--img src='resources/images/UI/CandyLogo.png' /-->CandyStats : Global Overview</div>
@@ -263,7 +439,7 @@
     <tr><td align='right' width='175'>Total headshots:</td><td><strong><?php echo $Totalheadshots; ?></strong></td></tr>
     <tr><td align='right' width='175'>Total knife kills:</td><td><strong><?php echo $totalKnifeKills; ?></strong></td></tr>
     <tr><td align='right' width='175'>Grenades thrown:</td><td><strong><?php echo $TotalObjectsThrown; ?></strong></td></tr>
-    <tr><td align='right' width='175'>Chickens murdered:</td><td><strong><?php echo $MurderedChickens; ?></strong></td></tr>
+    <tr><td align='right' width='175'>Chickens murdered:</td><td onclick='bwark()'><strong><?php echo $MurderedChickens; ?></strong></td></tr>
       
     </table>
     </div>
