@@ -33,11 +33,11 @@
       var data = google.visualization.arrayToDataTable([
         ['Weapon', 'Other Kills', 'Headshot Kills'],
         <?php
-          $queryString = "SELECT `Misc_1`, `Misc_3`, count(*) FROM `logdata` WHERE `SteamID` = '" . htmlentities($_GET['ID'], ENT_QUOTES) . "' AND `EventType` = 'killed' GROUP BY `Misc_3`, `Misc_1` ORDER BY `Misc_1`,`Misc_3` ASC";
+          $queryString = "  SELECT `FriendlyName`, `Misc_3`, count(*) FROM `logdata` INNER JOIN `itemdetails` ON `logdata`.`Misc_1` = `itemdetails`.`Weapon` WHERE `SteamID` = '" . htmlentities($_GET['ID'], ENT_QUOTES) . "' AND `EventType` = 'killed' GROUP BY `Misc_3`, `Misc_1` ORDER BY `Misc_1`,`Misc_3` ASC";
           $query = mysqli_query($con, $queryString);
           $weaponChartArray = array();
           while($result = mysqli_fetch_array($query)){
-            $weaponChartArray[$result['Misc_1']][$result['Misc_3']] = $result['count(*)'];
+            $weaponChartArray[$result['FriendlyName']][$result['Misc_3']] = $result['count(*)'];
           }
           $i = 0;
           foreach($weaponChartArray as $key => $value) {

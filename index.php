@@ -348,15 +348,15 @@ setTimeout(function() {
   $TotalSpent = mysqli_fetch_array(mysqli_query($con,$queryString))['TotalSpent'];
   
   //Most purchased item
-  $queryString = "SELECT `EventVariable`, count(*) as `MostPurchased` FROM `logdata` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY `MostPurchased` DESC LIMIT 1";
+  $queryString = "SELECT `FriendlyName`, count(*) as `MostPurchased` FROM `logdata` INNER JOIN `itemdetails` ON `logdata`.`EventVariable` = `itemdetails`.`Weapon` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY `MostPurchased` DESC LIMIT 1  ";
   $MostPurchasedArray = mysqli_fetch_array(mysqli_query($con,$queryString));
-  $MostPurchasedItem = $MostPurchasedArray['EventVariable'];
+  $MostPurchasedItem = $MostPurchasedArray['FriendlyName'];
   $MostPurchasedItemCount = $MostPurchasedArray['MostPurchased'];
 
   //Least purchased item
-  $queryString = "SELECT `EventVariable`, count(*) as `LeastPurchased` FROM `logdata` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY `LeastPurchased` ASC LIMIT 1";
+  $queryString = "SELECT `FriendlyName`, count(*) as `LeastPurchased` FROM `logdata` INNER JOIN `itemdetails` ON `logdata`.`EventVariable` = `itemdetails`.`Weapon` WHERE `EventType` = 'purchased' AND `SteamID` LIKE 'STEAM_%' GROUP BY `EventVariable` ORDER BY `LeastPurchased` ASC LIMIT 1";
   $LeastPurchasedArray = mysqli_fetch_array(mysqli_query($con,$queryString));
-  $LeastPurchasedItem = $LeastPurchasedArray['EventVariable'];
+  $LeastPurchasedItem = $LeastPurchasedArray['FriendlyName'];
   $LeastPurchasedItemCount = $LeastPurchasedArray['LeastPurchased'];
   
   //Total bombs planted
