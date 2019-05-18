@@ -38,7 +38,7 @@
             <p>Drop log file here</p>
             <p>or</p>
             <p><input type="button" class="glossyButton" value="Select File" onclick="file_explorer();"></p>
-            <input type="file" id="selectfile">
+            <input type="file" id="selectfile" multiple size="50">
         </div>
       </div>
       <div id='debugOutput'></div>

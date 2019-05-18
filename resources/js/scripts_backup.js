@@ -26,8 +26,7 @@ function upload_file(e) {
 function file_explorer() {
     document.getElementById('selectfile').click();
     document.getElementById('selectfile').onchange = function() {
-        //fileobj = document.getElementById('selectfile').files[0];
-		fileobj = document.getElementById('selectfile');
+        fileobj = document.getElementById('selectfile').files[0];
         ajax_file_upload(fileobj);
     };
 }
