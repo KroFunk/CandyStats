@@ -7,15 +7,16 @@ Logs are parsed by the script and then stored in a database; it is then easy to 
 The user facing website should give good insights but the plan is to also provide an API. 
 
 # Finished features
-1. Drag and Drop log upload (multi files at once!)
+1. Drag and Drop log upload (multiple files at once!)
 2. Basic global stat extraction
-3. Global leader board (currently working from K:D)
+3. Basic player stats and graphs
+4. Basic Scoring System
+5. Global leader board
 
 # Currently working on
 1. Processing logs
 2. CandyStat configuration (for end user admins)
-3. Game session (log file) management
-4. Scoring System
+3. Game session (log file) management/filtering
 
 # Not currently working on
 1. Logins. (Probably one of the last things I will look at)
