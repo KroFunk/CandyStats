@@ -525,7 +525,7 @@ setTimeout(function() {
     </tr>
     <tr>
       <td style='padding-left:10px;'>
-        <div class='SelectionDiv'>
+        <div id='logsDiv' class='SelectionDiv'>
         <?php
             $queryString = "SELECT SessionID, TIMESTAMP, TAGS, COUNT(*) as Rounds FROM `logdata` WHERE EventVariable = 'Round_Start' GROUP BY SessionID";
             $query = mysqli_query($con,$queryString);
@@ -533,20 +533,23 @@ setTimeout(function() {
             $sessionDate = '';
             while($row = mysqli_fetch_array($query)){
               $TAGS = array();
+              
+              if($sessionDate != date('Ymd',strtotime($row['TIMESTAMP']))){
+                if($sessionDate != ''){
+                  echo '</div><!-- sessionDate' . $row['TIMESTAMP'] . ' -->';//close previous sessionDate div so long as it isn't the first row!
+                }
+                $sessionDate = date('Ymd',strtotime($row['TIMESTAMP']));
+                echo "<div class='sessionDate' id='sessionDate" . $sessionDate . "' style='overflow:hidden; max-height:30px;'> <div> <div style='padding:5px; cursor:pointer; float:left; width:300px;' onclick='expandSessionDate(`" . $sessionDate . "`)'><img style='vertical-align:middle;' id='sessionDateButton" . $sessionDate . "' src='resources/images/UI/plus-small.png' />" . date($DateFormat,strtotime($row['TIMESTAMP'])) . "</div> <img style='float:right; vertical-align:middle; padding:7px; cursor:pointer;' src='resources/images/UI/ui-check-box-uncheck.png' /></div>";
+              }
+              echo '<div class="SelectionDivItem ' . $sessionDate . '" id="'.$row['SessionID'].'"><div style="float:right;"><img style="cursor:pointer;" onclick="openwrapper('."'".'edit-session.php?id='.$row['SessionID']."'".',500,450,5);" src="resources/images/UI/editicon.png" /></div><div style="cursor:pointer;" onclick="selectSession(`'.$row['SessionID'].'`)">'. date($TimeFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>' . $TAGDivs . '</div></div><p class="clearP"></p></div>';
+              
               if(!empty($row['TAGS'])){
                 $TAGS = json_decode(html_entity_decode($row['TAGS']));
                 foreach($TAGS as $TAG){
                   $TAGDivs .= '<div class="tagdiv">' . $TAG . '</div>';
                 }
               }
-              if($sessionDate != date($DateFormat,strtotime($row['TIMESTAMP']))){
-                if($sessionDate != ''){
-                  echo '</div><!-- sessionDate' . $row['TIMESTAMP'] . ' -->';//close previous sessionDate div so long as it isn't the first row!
-                }
-                $sessionDate = date($DateFormat,strtotime($row['TIMESTAMP']));
-                echo "<div class='sessionDate' id='sessionDate" . date('Ymd',strtotime($row['TIMESTAMP'])) . "' style='overflow:hidden; max-height:30px;'> <div> <div style='padding:5px; cursor:pointer; float:left; width:300px;' onclick='expandSessionDate(`" . date('Ymd',strtotime($row['TIMESTAMP'])) . "`)'><img style='vertical-align:middle;' id='sessionDateButton" . date('Ymd',strtotime($row['TIMESTAMP'])) . "' src='resources/images/UI/plus-small.png' /> $sessionDate </div> <img style='float:right; vertical-align:middle; padding:7px; cursor:pointer;' src='resources/images/UI/ui-check-box-uncheck.png' /></div>";
-              }
-              echo '<div class="SelectionDivItem ' . $sessionDate . '" id="'.$row['SessionID'].'"><div style="float:right;"><img style="cursor:pointer;" onclick="openwrapper('."'".'edit-session.php?id='.$row['SessionID']."'".',500,450,5);" src="resources/images/UI/editicon.png" /></div><div style="cursor:pointer;" onclick="selectSesssion(`'.$row['SessionID'].'`)">'. date($TimeFormat,strtotime($row['TIMESTAMP'])) .', ' . $row['Rounds'] . ' Rounds.<div>' . $TAGDivs . '</div></div><p class="clearP"></p></div>';
+              
               $TAGDivs = '';
             }
             echo '</div>';//close final sessionDate div. 
@@ -555,11 +558,11 @@ setTimeout(function() {
         </div> 
       </td>
       <td>
-        <div><center><img src='resources/images/add.png' /></center></div>
+        <div><center><img style='cursor:pointer;' onclick='mapSelection();' id='mapSelectionArrow' class='' src='resources/images/add.png' /></center></div>
 
       </td>
       <td>
-        <div class='SelectionDiv'>
+        <div id='mapsDiv' class='SelectionDiv'>
         <br>
         <br>
         <br>

@@ -520,3 +520,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 /* Fix flashing tooltip */
 svg > g > g:last-child { pointer-events: none }
+
+.pulse {
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(136, 69, 211, 1);
+    animation: pulse 2s infinite;
+  }
+  .pulse:hover {
+    animation: none;
+  }
+  
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-box-shadow: 0 0 0 0 rgba(136, 69, 211, 1);
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(136, 69, 211, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(136, 69, 211, 0);
+    }
+  }
+  @keyframes pulse {
+    0% {
+      -moz-box-shadow: 0 0 0 0 rgba(136, 69, 211, 1);
+      box-shadow: 0 0 0 0 rgba(136, 69, 211, 1);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(136, 69, 211, 0);
+        box-shadow: 0 0 0 10px rgba(136, 69, 211, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(136, 69, 211, 0);
+        box-shadow: 0 0 0 0 rgba(136, 69, 211, 0);
+    }
+  }

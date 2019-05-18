@@ -156,11 +156,48 @@ function expandSessionDate(sessionDate) {
     }
 }
 
-function selectSesssion(selectedSessionID) {
+function selectSession(selectedSessionID) {
     selectedDiv = document.getElementById(selectedSessionID);
     if(selectedDiv.className == 'Selected'){
         selectedDiv.className = 'SelectionDivItem';
     } else {
         selectedDiv.className = 'Selected';
     }
+    var selectedSessions = document.getElementsByClassName('Selected');
+    if (selectedSessions.length > 0){
+        document.getElementById('mapSelectionArrow').className = 'pulse';
+    } else {
+        document.getElementById('mapSelectionArrow').className = '';
+    }
+}
+
+function mapSelection() {
+    document.getElementById('mapSelectionArrow').className = '';
+    var logArray = [];
+    console.log('');
+    console.log('%c[CandyStats] %cMap Selection Process started...','color:#8e7bd5','color:#000000;font-weight:800;');
+    var selectedSessions = document.getElementsByClassName('Selected');
+    var i = 0;
+    for(i = 0;i < selectedSessions.length;i++) {
+        console.log('%cSelected Log: %c'+selectedSessions[i].id+' ','color:#7accd3;','color:#7ad380')
+        logArray.push(selectedSessions[i].id);
+    }
+    var words = ' logs have ';
+    if(i == 1){
+        words = ' log has ';
+    } 
+    console.log('%c[CandyStats] %c'+i+words+'been selected.','color:#8e7bd5','color:#000000;font-weight:800;');
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log('%c[CandyStats] %cAJAX request completed.','color:#8e7bd5','color:#000000;font-weight:800;');
+        document.getElementById("mapsDiv").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("POST", "dataSelection.php", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(logArray));
+
+    console.log('%c[CandyStats] %cMap Selection Process finished.','color:#8e7bd5','color:#000000;font-weight:800;');
 }
