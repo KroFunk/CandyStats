@@ -197,9 +197,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     border-radius:4px;
     box-shadow: 0px 0px 10px #000;
     background:#24292E;
-    margin-left:10px;
-    margin-right:10px;
-    margin-bottom:20px;
+    margin:10px;
+    top:0px;
+    transition: all 0.2s ease-out;
+}
+.card:hover {
+    box-shadow: 0px 0px 15px 5px #7b30d1;
+    top:-5px;
 }
 .card h3 {
     position:absolute;

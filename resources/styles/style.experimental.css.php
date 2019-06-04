@@ -233,6 +233,9 @@ box-shadow: #9d0ffc 0px 0px 10px;
     margin-right:10px;
     margin-bottom:20px;
 }
+.card:hover {
+    box-shadow: 0px 0px 10px #7b30d1;
+}
 .card h3 {
     position:absolute;
     top: 130px;
