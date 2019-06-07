@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Mar 09, 2019 at 06:34 PM
--- Server version: 5.7.24
--- PHP Version: 7.2.14
+-- Host: localhost
+-- Generation Time: Jun 07, 2019 at 04:31 PM
+-- Server version: 5.7.24-log
+-- PHP Version: 5.6.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,13 +28,11 @@ SET time_zone = "+00:00";
 -- Table structure for table `basescores`
 --
 
-DROP TABLE IF EXISTS `basescores`;
-CREATE TABLE IF NOT EXISTS `basescores` (
-  `BS_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `basescores` (
+  `BS_ID` int(11) NOT NULL,
   `BaseScore` text NOT NULL,
-  `Value` int(11) NOT NULL,
-  PRIMARY KEY (`BS_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+  `Value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `basescores`
@@ -61,15 +59,13 @@ INSERT INTO `basescores` (`BS_ID`, `BaseScore`, `Value`) VALUES
 -- Table structure for table `itemdetails`
 --
 
-DROP TABLE IF EXISTS `itemdetails`;
-CREATE TABLE IF NOT EXISTS `itemdetails` (
-  `WW_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `itemdetails` (
+  `WW_ID` int(11) NOT NULL,
   `Weapon` text NOT NULL,
   `Weighting` float NOT NULL,
   `Price` float NOT NULL,
-  `FriendlyName` text NOT NULL,
-  PRIMARY KEY (`WW_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+  `FriendlyName` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `itemdetails`
@@ -131,13 +127,11 @@ INSERT INTO `itemdetails` (`WW_ID`, `Weapon`, `Weighting`, `Price`, `FriendlyNam
 -- Table structure for table `itempricing`
 --
 
-DROP TABLE IF EXISTS `itempricing`;
-CREATE TABLE IF NOT EXISTS `itempricing` (
-  `PRICE_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `itempricing` (
+  `PRICE_ID` int(11) NOT NULL,
   `Item` text NOT NULL,
-  `Price` float NOT NULL,
-  PRIMARY KEY (`PRICE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+  `Price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `itempricing`
@@ -194,9 +188,8 @@ INSERT INTO `itempricing` (`PRICE_ID`, `Item`, `Price`) VALUES
 -- Table structure for table `logdata`
 --
 
-DROP TABLE IF EXISTS `logdata`;
-CREATE TABLE IF NOT EXISTS `logdata` (
-  `CSID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `logdata` (
+  `CSID` int(11) NOT NULL,
   `SessionID` text NOT NULL COMMENT 'Effectively the Log Name',
   `TIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Time and date of the event',
   `TAGS` text NOT NULL COMMENT 'User defined tags',
@@ -211,7 +204,8 @@ CREATE TABLE IF NOT EXISTS `logdata` (
   `XYZ_1` text COMMENT 'coordinates of event',
   `XYZ_2` text COMMENT 'co-ordinates of a victim if applicable',
   `score` int(11) DEFAULT NULL,
-  UNIQUE KEY `CSID` (`CSID`)
+  `MapInfo` text,
+  `RoundInfo` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -220,12 +214,86 @@ CREATE TABLE IF NOT EXISTS `logdata` (
 -- Table structure for table `sessiontags`
 --
 
-DROP TABLE IF EXISTS `sessiontags`;
-CREATE TABLE IF NOT EXISTS `sessiontags` (
-  `TagID` int(11) NOT NULL AUTO_INCREMENT,
-  `Tag` text NOT NULL,
-  UNIQUE KEY `UNIQUE` (`TagID`)
+CREATE TABLE `sessiontags` (
+  `TagID` int(11) NOT NULL,
+  `Tag` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sessiontags`
+--
+
+INSERT INTO `sessiontags` (`TagID`, `Tag`) VALUES
+(1, 'ISLELAN'),
+(2, 'SOMETHING ELSE');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `basescores`
+--
+ALTER TABLE `basescores`
+  ADD PRIMARY KEY (`BS_ID`);
+
+--
+-- Indexes for table `itemdetails`
+--
+ALTER TABLE `itemdetails`
+  ADD PRIMARY KEY (`WW_ID`);
+
+--
+-- Indexes for table `itempricing`
+--
+ALTER TABLE `itempricing`
+  ADD PRIMARY KEY (`PRICE_ID`);
+
+--
+-- Indexes for table `logdata`
+--
+ALTER TABLE `logdata`
+  ADD UNIQUE KEY `CSID` (`CSID`);
+
+--
+-- Indexes for table `sessiontags`
+--
+ALTER TABLE `sessiontags`
+  ADD UNIQUE KEY `UNIQUE` (`TagID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `basescores`
+--
+ALTER TABLE `basescores`
+  MODIFY `BS_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `itemdetails`
+--
+ALTER TABLE `itemdetails`
+  MODIFY `WW_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT for table `itempricing`
+--
+ALTER TABLE `itempricing`
+  MODIFY `PRICE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `logdata`
+--
+ALTER TABLE `logdata`
+  MODIFY `CSID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sessiontags`
+--
+ALTER TABLE `sessiontags`
+  MODIFY `TagID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
