@@ -14,6 +14,9 @@ table.dataTable {
    * Body styles
    */
 }
+tr {
+  transition: all 0.2s ease;
+}
 table.dataTable thead th,
 table.dataTable tfoot th {
   font-weight: bold;
@@ -99,6 +102,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody {
   background-color: #171A1C;
 }
+/*
 table.dataTable.order-column tbody tr > .sorting_1,
 table.dataTable.order-column tbody tr > .sorting_2,
 table.dataTable.order-column tbody tr > .sorting_3, table.dataTable.display tbody tr > .sorting_1,
@@ -167,6 +171,7 @@ table.dataTable.display tbody tr:hover.selected > .sorting_2, table.dataTable.or
 table.dataTable.display tbody tr:hover.selected > .sorting_3, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_3 {
   background-color: #24292E;
 }
+*/
 table.dataTable.no-footer {
   border-bottom: 1px solid #24292E;
 }

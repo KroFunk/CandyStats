@@ -170,6 +170,9 @@ function selectSession(selectedSessionID) {
     } else {
         document.getElementById('mapSelectionArrow').className = '';
     }
+
+    mapSelection();
+    
 }
 
 function mapSelection() {
@@ -196,7 +199,7 @@ function mapSelection() {
         document.getElementById("mapsDiv").innerHTML = this.responseText;
       }
     };
-    xhttp.open("POST", "dataSelection.php", true);
+    xhttp.open("POST", "mapSelection.php", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send(JSON.stringify(logArray));
 

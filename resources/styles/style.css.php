@@ -131,12 +131,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 .smallglossyButton{
     display:inline-block;
-    border:1px solid #4e277b;
+    border:1px solid #41127a;
     border-radius:4px;
     color:#FFF6EF;
     padding:5px;
     font-size:12px;
-    background: #8241f9; /* Old browsers */
+    background: #41127a; /* Old browsers */
+    /*box-shadow: 20px 20px 100px 0px rgba(150, 90, 225,0.5) inset;
+    -webkit-box-shadow: 20px 10px 20px 0px rgba(150, 90, 225,0.5) inset;
+    -moz-box-shadow: 20px 10px 20px 0px rgba(150, 90, 225,0.5) inset; 
+    transition: all 0.3s ease;
+    */
     background: -moz-linear-gradient(top, #8241f9 0%, #8845d3 50%, #6733b8 50%, #4e277b 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, #8241f9 0%,#8845d3 50%,#6733b8 50%,#4e277b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -153,7 +158,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
 }
 .smallglossyButton:hover{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#691df7+0,7b30d1+50,5619b7+50,41127a+100 */
-    background: #691df7; /* Old browsers */
+    background: #41127a; /* Old browsers */
+    /*box-shadow: 20px 20px 100px 0px rgba(150, 90, 225,0.95) inset;
+    -webkit-box-shadow: 20px 10px 20px 0px rgba(150, 90, 225,0.95) inset;
+    -moz-box-shadow: 20px 10px 20px 0px rgba(150, 90, 225,0.95) inset; 
+    */
     background: -moz-linear-gradient(top, #691df7 0%, #7b30d1 50%, #5619b7 50%, #41127a 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -169,6 +178,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     background: url('../images/UI/bannerGlow.png'),-moz-linear-gradient(top, #691df7 0%, #7b30d1 50%, #5619b7 50%, #41127a 100%); /* FF3.6-15 */
     background: url('../images/UI/bannerGlow.png'),-webkit-linear-gradient(top, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* Chrome10-25,Safari5.1-6 */
     background: url('../images/UI/bannerGlow.png'),linear-gradient(to bottom, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background-position: center;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', endColorstr='#41127a',GradientType=0 ); /* IE6-9 */
     color:#FFF6EF;
     transition: all 0.2s ease-in-out;
@@ -184,6 +194,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc1616', end
     background: url('../images/UI/bannerGlow.png'),-moz-linear-gradient(top, #691df7 0%, #7b30d1 50%, #5619b7 50%, #41127a 100%); /* FF3.6-15 */
     background: url('../images/UI/bannerGlow.png'),-webkit-linear-gradient(top, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* Chrome10-25,Safari5.1-6 */
     background: url('../images/UI/bannerGlow.png'),linear-gradient(to bottom, #691df7 0%,#7b30d1 50%,#5619b7 50%,#41127a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background-position: center;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#691df7', endColorstr='#41127a',GradientType=0 ); /* IE6-9 */
     color:#FFF6EF;
     transition: all 0.5s ease-in-out;
