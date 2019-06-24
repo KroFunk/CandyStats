@@ -12,13 +12,13 @@ header("X-Content-Type-Options: nosniff");
     text-align: right;
 }
 body, HTML{
-padding:0;
-margin:0;
-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    padding:0;
+    margin:0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 body{
-background:#24292E url("../images/UI/trianglify.png") fixed;
-background-size: cover;
+    background:#24292E url("../images/UI/trianglify.png") fixed;
+    background-size: cover;
 }
 h1{
     font-weight:300;

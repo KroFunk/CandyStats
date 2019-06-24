@@ -26,7 +26,9 @@
         echo '</div><!-- sessionMap' . $row['MapInfo'] . ' -->';//close previous sessionMap div so long as it isn't the first row!
       }
       $sessionMap = $row['MapInfo'];
-      echo "<div class='SelectionDivItem sessionMap' id='sessionMap" . $sessionMap . "' style='overflow:hidden; max-height:30px;'> <div> <div style='padding:5px; cursor:pointer; float:left; width:300px;' onclick='selectSessionMap(`" . $sessionMap . "`)'>" . $sessionMap . "</div></div>";
+      echo "<div class='SelectionDivItem sessionMap' id='sessionMap" . $sessionMap . "' style='overflow:hidden; max-height:30px; padding:5px; cursor:pointer; float:left; width:340px;' onclick='selectSessionMap(`sessionMap" . $sessionMap . "`)'>" . $sessionMap . "</div>";
     }
+
+
   }
 ?>

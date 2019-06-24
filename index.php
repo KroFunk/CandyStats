@@ -581,11 +581,11 @@ setTimeout(function() {
         </div>
       </td>
       <td>
-        <div><center><img src='resources/images/add.png' /></center></div>
+        <div><center><img onclick='roundSelection();' id='roundSelectionArrow' class='' src='resources/images/add.png' /></center></div>
 
       </td>
       <td style='padding-right:10px;'>
-        <div class='SelectionDiv'>
+        <div id='roundsDiv' class='SelectionDiv'>
         <br>
         <br>
         <br>
