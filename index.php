@@ -70,10 +70,6 @@
           }
       }
 
-
-     
-    
-
   var Chicken = (function() {
 
 var chicks;
@@ -510,7 +506,7 @@ setTimeout(function() {
   <table style='width:100%;'>
     <tr>
       <td style='width:31%;padding-left:10px;'>
-        <center><h2>Uploaded Logs</h2></center>
+        <center><h2>Uploaded Sessions</h2></center>
       </td>
       <td>
       </td>
@@ -527,7 +523,7 @@ setTimeout(function() {
       <td style='padding-left:10px;'>
         <div id='logsDiv' class='SelectionDiv'>
         <?php
-            $queryString = "SELECT SessionID, TIMESTAMP, TAGS, COUNT(*) as Rounds FROM `logdata` WHERE EventVariable = 'Round_Start' GROUP BY SessionID";
+            $queryString = "SELECT SessionID, TIMESTAMP, TAGS, COUNT(*) as Rounds FROM `logdata` WHERE EventVariable = 'Round_Start' GROUP BY SessionID ORDER BY `logdata`.`TIMESTAMP` ASC";
             $query = mysqli_query($con,$queryString);
             $TAGDivs = '';
             $sessionDate = '';

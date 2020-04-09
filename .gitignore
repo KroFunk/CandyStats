@@ -6,3 +6,6 @@ resources/config.php
 .vscode\
 .vs
 .vscode
+ExampleLogs
+ExampleLogs/
+ExampleLogs\
