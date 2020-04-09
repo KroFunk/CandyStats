@@ -158,29 +158,37 @@ function expandSessionDate(sessionDate) {
 }
 
 function selectSession(selectedSessionID) {
+
+    //flip clicked div between selected and selectable (unselected)
     selectedDiv = document.getElementById(selectedSessionID);
-    if(selectedDiv.className == 'Selected'){
+    if(selectedDiv.className == 'Selected SelectedSession'){
         selectedDiv.className = 'SelectionDivItem';
     } else {
-        selectedDiv.className = 'Selected';
+        selectedDiv.className = 'Selected SelectedSession';
     }
-    var selectedSessions = document.getElementsByClassName('Selected');
-    if (selectedSessions.length > 0){
-        document.getElementById('mapSelectionArrow').className = 'pulse';
-    } else {
-        document.getElementById('mapSelectionArrow').className = '';
-    }
+
+    //Grab all sessions in one array - duplicate operation
+    //var selectedSessions = document.getElementsByClassName('SelectedSession');
+    
+    //cosmetic, may remove. 
+    //if (selectedSessions.length > 0){
+    //    document.getElementById('mapSelectionArrow').className = 'pulse';
+    //} else {
+    //    document.getElementById('mapSelectionArrow').className = '';
+    //}
+
     mapSelection();   
+
 }
 
 function selectSessionMap(selectedSessionID) {
     selectedDiv = document.getElementById(selectedSessionID);
-    if(selectedDiv.className == 'Selected'){
+    if(selectedDiv.className == 'SelectedMap'){
         selectedDiv.className = 'SelectionDivItem';
     } else {
-        selectedDiv.className = 'Selected';
+        selectedDiv.className = 'SelectedSession';
     }
-    var selectedSessions = document.getElementsByClassName('Selected');
+    var selectedSessions = document.getElementsByClassName('SelectedMap');
     if (selectedSessions.length > 0){
         document.getElementById('roundSelectionArrow').className = 'pulse';
     } else {
@@ -190,22 +198,34 @@ function selectSessionMap(selectedSessionID) {
 }
 
 function mapSelection() {
+    //cosmetic, may remove. 
     document.getElementById('mapSelectionArrow').className = '';
+    
+    //Grab all sessions in one array 
+    var selectedSessions = document.getElementsByClassName('SelectedSession');
+
+    //debug log
     var logArray = [];
-    console.log('');
+    console.log(''); //new blank line
     console.log('%c[CandyStats] %cMap Selection Process started...','color:#8e7bd5','color:#000000;font-weight:800;');
-    var selectedSessions = document.getElementsByClassName('Selected');
+
+    //List the selected logs in the console and build the array of sessionIDs
     var i = 0;
     for(i = 0;i < selectedSessions.length;i++) {
         console.log('%cSelected Log: %c'+selectedSessions[i].id+' ','color:#7accd3;','color:#7ad380')
         logArray.push(selectedSessions[i].id);
     }
+
+    //wording for catching plural/singular maps
     var words = ' logs have ';
     if(i == 1){
         words = ' log has ';
     } 
+
+    //Output log to console.
     console.log('%c[CandyStats] %c'+i+words+'been selected.','color:#8e7bd5','color:#000000;font-weight:800;');
 
+    //Ajax request to get the output for the Map selection
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -225,7 +245,7 @@ function roundSelection() {
     var logArray = [];
     console.log('');
     console.log('%c[CandyStats] %cRound Selection Process started...','color:#8e7bd5','color:#000000;font-weight:800;');
-    var selectedSessions = document.getElementsByClassName('Selected');
+    var selectedSessions = document.getElementsByClassName('SelectedSession');
     var i = 0;
     for(i = 0;i < selectedSessions.length;i++) {
         console.log('%cSelected Log: %c'+selectedSessions[i].id+' ','color:#7accd3;','color:#7ad380')
